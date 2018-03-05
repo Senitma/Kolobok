@@ -8,3 +8,5 @@
 #include "SideType.h"
 // Базовый класс для всех элементов
 #include "Element.h"
+// Класс управления элементом
+#include "AdvancedElement.h"

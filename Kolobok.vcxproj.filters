@@ -38,6 +38,9 @@
     <ClCompile Include="Classes\init\Main.cpp">
       <Filter>Init</Filter>
     </ClCompile>
+    <ClCompile Include="Classes\Element\AdvancedElement.cpp">
+      <Filter>Element</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Classes\init\AppDelegate.h">
@@ -75,6 +78,9 @@
     </ClInclude>
     <ClInclude Include="Classes\init\Main.h">
       <Filter>Init</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\Element\AdvancedElement.h">
+      <Filter>Element</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
