@@ -115,5 +115,8 @@
     <ClInclude Include="Classes\Field\Field.h">
       <Filter>Field</Filter>
     </ClInclude>
+    <ClInclude Include="Classes\Main\GameStatusType.h">
+      <Filter>Main</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

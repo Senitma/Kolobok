@@ -1,3 +1,4 @@
+#include "cocostudio/CocoStudio.h"
 #include "Field.h"
 #include "Cell.h"
 
@@ -7,6 +8,8 @@ USING_NS_CC;
 static Node * field;
 // Набор клеток
 static Vector<Cell*> items;
+// Текущий статус в игре
+static GameStatusType gameStatus;
 // Изображение информации
 static Sprite * infoMessage;
 
@@ -43,6 +46,7 @@ void Field::DrawElement(Node * item)
 }
 void Field::WinGame()
 {
+	gameStatus = GameStatusType::Win;
 	infoMessage = Sprite::create("Win.png", Rect(0, 0, 512, 256));
 	infoMessage->setAnchorPoint(Vec2(0.0f, 1.0f));
 	infoMessage->setPosition(Settings::WIDTHSIZE / 2 - 256, Settings::HEIGHTSIZE / 2 + 128);
@@ -51,6 +55,7 @@ void Field::WinGame()
 }
 void Field::LoseGame()
 {
+	gameStatus = GameStatusType::Lose;
 	infoMessage = Sprite::create("Lose.png", Rect(0, 0, 512, 256));
 	infoMessage->setAnchorPoint(Vec2(0.0f, 1.0f));
 	infoMessage->setPosition(Settings::WIDTHSIZE / 2 - 256, Settings::HEIGHTSIZE / 2 + 128);
@@ -59,6 +64,17 @@ void Field::LoseGame()
 }
 void Field::Reload()
 {
+	for (int index = 0; index < items.size(); index++)
+	{
+		items.at(index)->DestroyAll();
+	}
+
+	field->removeChild(infoMessage);
+	gameStatus = GameStatusType::Gaming;
+}
+GameStatusType Field::GetGameStatus()
+{
+	return gameStatus;
 }
 
 bool Field::CanAddElement(Element * item)

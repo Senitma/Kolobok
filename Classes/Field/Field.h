@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Headers.h"
+#include "..\Main\GameStatusType.h"
 
 class Field : private cocos2d::Ref
 {
@@ -16,6 +17,8 @@ public:
 	static void LoseGame();
 	// Перезагрузить поле
 	static void Reload();
+	// Получить текущий статус игры
+	static GameStatusType GetGameStatus();
 
 	// Проверка возможности добавления элемента
 	static bool CanAddElement(Element * item);

@@ -7,6 +7,7 @@
 // Основные файлы приложения
 #include "../Main/MainScene.h"
 #include "../Main/Settings.h"
+#include "../Main/GameStatusType.h"
 // Файлы поля
 #include "../Field/FieldHeaders.h"
 // Файлы элементов
