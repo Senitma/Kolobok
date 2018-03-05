@@ -12,3 +12,5 @@
 #include "AdvancedElement.h"
 // Класс создания элементов
 #include "ElementCreator.h"
+// Класс динамической конвертации узлов в элементы при их создании
+#include "ElementReader.h"
