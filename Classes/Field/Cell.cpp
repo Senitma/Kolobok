@@ -1,8 +1,9 @@
 #include "Cell.h"
+#include "..\Field\Field.h"
 
 bool Cell::CanAddElement(Element * item)
 {
-	return this -> CanAddElement(item->GetType());
+	return this->CanAddElement(item->GetType());
 }
 bool Cell::CanAddElement(ClassType type)
 {
@@ -117,17 +118,19 @@ void Cell::CheckRelations()
 	}
 	switch (ElementRelations::Calc(this->GetAllTypes()))
 	{
-		case ResultType::Win:
-			// Win
-			this->Destroy();
-			break;
-		case ResultType::Lose:
-			// Lose
-			this->Destroy();
-			break;
-		case ResultType::Destroy:
-			this->Destroy();
-			break;
+	case ResultType::Win:
+		// Win
+		Field::WinGame();
+		this->Destroy();
+		break;
+	case ResultType::Lose:
+		// Lose
+		Field::LoseGame();
+		this->Destroy();
+		break;
+	case ResultType::Destroy:
+		this->Destroy();
+		break;
 	}
 }
 void Cell::Destroy()

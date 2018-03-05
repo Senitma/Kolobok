@@ -2,6 +2,9 @@
 #include "Field.h"
 #include "Cell.h"
 
+#include "..\Option\BaseClass\ISMouse.h"
+#include "..\Main\MapHandle.h"
+
 USING_NS_CC;
 
 // Ôîí
@@ -68,6 +71,9 @@ void Field::Reload()
 	{
 		items.at(index)->DestroyAll();
 	}
+	ISMouse::Clear();
+	ISInterval::Clear();
+	MapHandle::ReloadMap();
 
 	field->removeChild(infoMessage);
 	gameStatus = GameStatusType::Gaming;
