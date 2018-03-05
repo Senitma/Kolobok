@@ -2,6 +2,9 @@
 #include "..\Field\Field.h"
 #include "MapHandle.h"
 
+#include "..\Option\BaseClass\ISMouse.h"
+#include "..\Option\BaseClass\ISInterval.h"
+
 USING_NS_CC;
 
 Scene* MainScene::createScene()
@@ -37,8 +40,22 @@ bool MainScene::init()
 void MainScene::onEnter()
 {
 	Layer::onEnter();
+
+	auto touchListener = EventListenerMouse::create();
+
+	touchListener->onMouseDown = [](cocos2d::Event* event)
+	{
+		EventMouse* mouseEvent = dynamic_cast<EventMouse*>(event);
+
+		Vec2 currentLocation = mouseEvent->getLocation();
+		ISMouse::MouseClickAll((MouseType)mouseEvent->getMouseButton(), currentLocation.x, currentLocation.y);
+
+		return true;
+	};
 }
 void MainScene::update(float delta)
 {
 	Layer::update(delta);
+
+	ISInterval::UpdateAll();
 }
