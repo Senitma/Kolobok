@@ -163,6 +163,7 @@ xcopy /Y /Q "$(COCOS_X_ROOT)\cocos2d-x-3.10\prebuilt\win32\*.*" "$(OutDir)"
     <ClCompile Include="Classes\init\AppDelegate.cpp" />
     <ClCompile Include="Classes\init\Main.cpp" />
     <ClCompile Include="Classes\main\MainScene.cpp" />
+    <ClCompile Include="Classes\Main\MapHandle.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Classes\Element\AdvancedElement.h" />
@@ -184,6 +185,7 @@ xcopy /Y /Q "$(COCOS_X_ROOT)\cocos2d-x-3.10\prebuilt\win32\*.*" "$(OutDir)"
     <ClInclude Include="Classes\init\Main.h" />
     <ClInclude Include="Classes\Main\GameStatusType.h" />
     <ClInclude Include="Classes\main\MainScene.h" />
+    <ClInclude Include="Classes\Main\MapHandle.h" />
     <ClInclude Include="Classes\main\Settings.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
