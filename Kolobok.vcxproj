@@ -156,6 +156,7 @@ xcopy /Y /Q "$(COCOS_X_ROOT)\cocos2d-x-3.10\prebuilt\win32\*.*" "$(OutDir)"
     <ClCompile Include="Classes\element\Element.cpp" />
     <ClCompile Include="Classes\Element\ElementCreator.cpp" />
     <ClCompile Include="Classes\Element\ElementReader.cpp" />
+    <ClCompile Include="Classes\Element\ElementRelations.cpp" />
     <ClCompile Include="Classes\field\FieldPoint.cpp" />
     <ClCompile Include="Classes\init\AppDelegate.cpp" />
     <ClCompile Include="Classes\init\Main.cpp" />
@@ -169,6 +170,8 @@ xcopy /Y /Q "$(COCOS_X_ROOT)\cocos2d-x-3.10\prebuilt\win32\*.*" "$(OutDir)"
     <ClInclude Include="Classes\element\ElementNameType.h" />
     <ClInclude Include="Classes\element\ElementHeaders.h" />
     <ClInclude Include="Classes\Element\ElementReader.h" />
+    <ClInclude Include="Classes\Element\ElementRelations.h" />
+    <ClInclude Include="Classes\Element\ResultType.h" />
     <ClInclude Include="Classes\element\SideType.h" />
     <ClInclude Include="Classes\field\FieldHeaders.h" />
     <ClInclude Include="Classes\field\FieldPoint.h" />

@@ -14,3 +14,7 @@
 #include "ElementCreator.h"
 // Класс динамической конвертации узлов в элементы при их создании
 #include "ElementReader.h"
+// Перечесление результатов взаимодействия элементов
+#include "ResultType.h"
+// Класс для расчета результатов взаимодействия элементов
+#include "ElementRelations.h"
