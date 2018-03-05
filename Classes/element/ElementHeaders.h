@@ -10,3 +10,5 @@
 #include "Element.h"
 // Класс управления элементом
 #include "AdvancedElement.h"
+// Класс создания элементов
+#include "ElementCreator.h"

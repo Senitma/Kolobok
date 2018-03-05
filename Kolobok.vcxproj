@@ -154,6 +154,7 @@ xcopy /Y /Q "$(COCOS_X_ROOT)\cocos2d-x-3.10\prebuilt\win32\*.*" "$(OutDir)"
   <ItemGroup>
     <ClCompile Include="Classes\Element\AdvancedElement.cpp" />
     <ClCompile Include="Classes\element\Element.cpp" />
+    <ClCompile Include="Classes\Element\ElementCreator.cpp" />
     <ClCompile Include="Classes\field\FieldPoint.cpp" />
     <ClCompile Include="Classes\init\AppDelegate.cpp" />
     <ClCompile Include="Classes\init\Main.cpp" />
@@ -163,6 +164,7 @@ xcopy /Y /Q "$(COCOS_X_ROOT)\cocos2d-x-3.10\prebuilt\win32\*.*" "$(OutDir)"
     <ClInclude Include="Classes\Element\AdvancedElement.h" />
     <ClInclude Include="Classes\element\ClassType.h" />
     <ClInclude Include="Classes\element\Element.h" />
+    <ClInclude Include="Classes\Element\ElementCreator.h" />
     <ClInclude Include="Classes\element\ElementNameType.h" />
     <ClInclude Include="Classes\element\ElementHeaders.h" />
     <ClInclude Include="Classes\element\SideType.h" />

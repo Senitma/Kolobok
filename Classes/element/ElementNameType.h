@@ -12,5 +12,9 @@ enum ElementNameType
 	// Стена
 	Wall,
 	// Патруль
-	Patrol
+	Patrol,
+	// Оружие
+	Gun,
+	// Снаряд
+	Fireball
 };
