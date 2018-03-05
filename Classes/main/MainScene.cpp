@@ -52,6 +52,8 @@ void MainScene::onEnter()
 
 		return true;
 	};
+
+	this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(touchListener, this);
 }
 void MainScene::update(float delta)
 {
