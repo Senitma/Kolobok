@@ -17,6 +17,10 @@ Element * ElementCreator::Create(ElementNameType name, SideType side, int x, int
 		return ElementCreator::CreateWall(side, x, y);
 	case ElementNameType::Patrol:
 		return ElementCreator::CreatePatrol(side, x, y);
+	case ElementNameType::Gun:
+		return ElementCreator::CreateGun(side, x, y);
+	case ElementNameType::Fireball:
+		return ElementCreator::CreateFireball(side, x, y);
 	default:
 		return nullptr;
 	}

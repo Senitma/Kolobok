@@ -1,4 +1,6 @@
 #include "MainScene.h"
+#include "..\Field\Field.h"
+#include "MapHandle.h"
 
 USING_NS_CC;
 
@@ -17,6 +19,15 @@ bool MainScene::init()
 	{
 		return false;
 	}
+
+	auto rootNode = CSLoader::createNode("MainScene.csb");
+	Size size = Director::getInstance()->getVisibleSize();
+	rootNode->setContentSize(size);
+	ui::Helper::doLayout(rootNode);
+	this->addChild(rootNode);
+
+	this->addChild(Field::CreateBackground());
+	MapHandle::LoadForIndex(Settings::MAPINDEX);
 
 	this->scheduleUpdate();
 
