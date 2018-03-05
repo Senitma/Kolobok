@@ -1,6 +1,7 @@
 #pragma once
 
-#include "Headers.h"
+#include "cocos2d.h"
+#include "Element\AdvancedElement.h"
 
 // Интерфейс опции
 class ISOption : public cocos2d::Ref

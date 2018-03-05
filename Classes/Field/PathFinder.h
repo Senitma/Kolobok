@@ -1,6 +1,7 @@
 #pragma once
 
-#include "Headers.h"
+#include "cocos2d.h"
+#include "Field\FieldPoint.h"
 
 // Класс поиска оптимального пути
 class PathFinder : private cocos2d::Ref

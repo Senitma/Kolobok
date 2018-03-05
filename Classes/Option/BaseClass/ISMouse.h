@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Headers.h"
+#include "cocos2d.h"
 #include "MouseType.h"
 
 // Интерфейс опции с мышкой

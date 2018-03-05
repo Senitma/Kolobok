@@ -1,6 +1,9 @@
 #include "MainScene.h"
 #include "Field\Field.h"
 #include "MapHandle.h"
+#include "Settings.h"
+#include "cocostudio/CocoStudio.h"
+#include "ui/CocosGUI.h"
 
 #include "Option\BaseClass\ISMouse.h"
 #include "Option\BaseClass\ISInterval.h"

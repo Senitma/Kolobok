@@ -1,6 +1,7 @@
 #pragma once
 
-#include "Headers.h"
+#include "cocos2d.h"
+#include "Element\Element.h"
 #include "Main\GameStatusType.h"
 
 class Field : private cocos2d::Ref

@@ -88,7 +88,7 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies>%(AdditionalDependencies);$(_COCOS_LIB_WIN32_BEGIN);$(_COCOS_LIB_WIN32_END)</AdditionalDependencies>
-      <OutputFile>\Classes\Init\;$(OutDir)$(ProjectName).exe</OutputFile>
+      <OutputFile>$(OutDir)$(ProjectName).exe</OutputFile>
       <AdditionalLibraryDirectories>$(OutDir);%(AdditionalLibraryDirectories);$(_COCOS_LIB_PATH_WIN32_BEGIN);$(_COCOS_LIB_PATH_WIN32_END)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
@@ -181,7 +181,6 @@ xcopy /Y /Q "$(COCOS_X_ROOT)\cocos2d-x-3.10\prebuilt\win32\*.*" "$(OutDir)"
     <ClInclude Include="Classes\Element\ClassType.h" />
     <ClInclude Include="Classes\Element\Element.h" />
     <ClInclude Include="Classes\Element\ElementCreator.h" />
-    <ClInclude Include="Classes\Element\ElementHeaders.h" />
     <ClInclude Include="Classes\Element\ElementNameType.h" />
     <ClInclude Include="Classes\Element\ElementReader.h" />
     <ClInclude Include="Classes\Element\ElementRelations.h" />
@@ -189,10 +188,8 @@ xcopy /Y /Q "$(COCOS_X_ROOT)\cocos2d-x-3.10\prebuilt\win32\*.*" "$(OutDir)"
     <ClInclude Include="Classes\Element\SideType.h" />
     <ClInclude Include="Classes\Field\Cell.h" />
     <ClInclude Include="Classes\Field\Field.h" />
-    <ClInclude Include="Classes\Field\FieldHeaders.h" />
     <ClInclude Include="Classes\Field\FieldPoint.h" />
     <ClInclude Include="Classes\Field\PathFinder.h" />
-    <ClInclude Include="Classes\Headers.h" />
     <ClInclude Include="Classes\Main.h" />
     <ClInclude Include="Classes\Main\GameStatusType.h" />
     <ClInclude Include="Classes\Main\MainScene.h" />

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Headers.h"
+#include "cocos2d.h"
 
 // Класс управления картой
 class MapHandle : public cocos2d::Ref

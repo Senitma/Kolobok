@@ -1,5 +1,6 @@
 #include "Cell.h"
-#include "Field\Field.h"
+#include "Field.h"
+#include "Element\ElementRelations.h"
 
 bool Cell::CanAddElement(Element * item)
 {

@@ -1,4 +1,5 @@
 #include "FieldPoint.h"
+#include "Main\Settings.h"
 
 int FieldPoint::GetX()
 {

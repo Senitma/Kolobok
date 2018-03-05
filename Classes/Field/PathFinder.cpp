@@ -1,4 +1,5 @@
 #include "PathFinder.h"
+#include "Main\Settings.h"
 
 bool PathFinder::CanMoveTo(int startX, int startY, int finishX, int finishY, cocos2d::Vector<FieldPoint *> blockMap)
 {

@@ -1,5 +1,6 @@
 #include "ISMouse.h"
 #include "Field\Field.h"
+#include "Main\Settings.h"
 
 static cocos2d::Vector<ISMouse *> items;
 

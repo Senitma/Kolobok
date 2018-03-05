@@ -1,6 +1,9 @@
 #include "MapHandle.h"
-#include "Field/Field.h"
+#include "Field\Field.h"
 #include "Field\PathFinder.h"
+#include "Element\Element.h"
+#include "Element\ElementCreator.h"
+#include "Main\Settings.h"
 
 // Главный персонаж
 static Element * ninja;

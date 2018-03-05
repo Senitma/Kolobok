@@ -1,6 +1,8 @@
 #pragma once
 
-#include "Headers.h"
+#include "cocos2d.h"
+#include "ClassType.h"
+#include "ResultType.h"
 
 // Расчет результата взаимодействия элементов
 class ElementRelations : cocos2d::Ref

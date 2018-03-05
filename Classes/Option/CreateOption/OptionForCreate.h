@@ -1,6 +1,5 @@
 #pragma once
 
-#include "Headers.h"
 #include "Option\BaseClass\ISOption.h"
 
 // Опция создания элемента

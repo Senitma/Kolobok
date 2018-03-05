@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Headers.h"
+#include "cocos2d.h"
 #include "cocostudio/WidgetReader/NodeReader/NodeReader.h"
 
 USING_NS_CC;

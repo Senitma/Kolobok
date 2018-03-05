@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Headers.h"
+#include "cocos2d.h"
 
 // Интерфейс опции с обновлением
 class ISInterval : public cocos2d::Ref

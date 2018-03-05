@@ -1,6 +1,10 @@
 #pragma once
 
-#include "Headers.h"
+#include "cocos2d.h"
+#include "Field\FieldPoint.h"
+#include "ElementNameType.h"
+#include "SideType.h"
+#include "ClassType.h"
 
 // Базовый класс всех элементов
 class Element : public cocos2d::Ref

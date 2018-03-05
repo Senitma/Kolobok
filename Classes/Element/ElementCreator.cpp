@@ -1,5 +1,7 @@
 #include "ElementCreator.h"
 #include "Field\Field.h"
+#include "Main\Settings.h"
+#include "ElementReader.h"
 
 #include "Option\CreateOption\OptionForCreate.h"
 #include "Option\CreateOption\OptionForIntervalCreate.h"

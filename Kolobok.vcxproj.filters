@@ -1,9 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="other">
-      <UniqueIdentifier>{715254bc-d70b-4ec5-bf29-467dd3ace079}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Init">
       <UniqueIdentifier>{99cf6590-3383-4520-b1fa-fea7f76e668e}</UniqueIdentifier>
     </Filter>
@@ -28,10 +25,13 @@
     <Filter Include="Option\MoveOption">
       <UniqueIdentifier>{1c8fd85d-380d-4ac3-89db-4a2edf7b8110}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Other">
+      <UniqueIdentifier>{715254bc-d70b-4ec5-bf29-467dd3ace079}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc">
-      <Filter>other</Filter>
+      <Filter>Other</Filter>
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
@@ -106,9 +106,6 @@
     <ClInclude Include="Classes\Element\ElementCreator.h">
       <Filter>Element</Filter>
     </ClInclude>
-    <ClInclude Include="Classes\Element\ElementHeaders.h">
-      <Filter>Element</Filter>
-    </ClInclude>
     <ClInclude Include="Classes\Element\ElementNameType.h">
       <Filter>Element</Filter>
     </ClInclude>
@@ -134,9 +131,6 @@
       <Filter>Element</Filter>
     </ClInclude>
     <ClInclude Include="Classes\Field\Field.h">
-      <Filter>Field</Filter>
-    </ClInclude>
-    <ClInclude Include="Classes\Field\FieldHeaders.h">
       <Filter>Field</Filter>
     </ClInclude>
     <ClInclude Include="Classes\Field\FieldPoint.h">
@@ -197,9 +191,6 @@
       <Filter>Option\MoveOption</Filter>
     </ClInclude>
     <ClInclude Include="Classes\AppDelegate.h">
-      <Filter>Init</Filter>
-    </ClInclude>
-    <ClInclude Include="Classes\Headers.h">
       <Filter>Init</Filter>
     </ClInclude>
     <ClInclude Include="Classes\Main.h">

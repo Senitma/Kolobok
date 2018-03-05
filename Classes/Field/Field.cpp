@@ -1,8 +1,10 @@
 #include "cocostudio/CocoStudio.h"
 #include "Field.h"
 #include "Cell.h"
+#include "Main\Settings.h"
 
 #include "Option\BaseClass\ISMouse.h"
+#include "Option\BaseClass\ISInterval.h"
 #include "Main\MapHandle.h"
 
 USING_NS_CC;

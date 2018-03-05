@@ -1,5 +1,5 @@
 #include "OptionForMouseMove.h"
-#include "Headers.h"
+#include "Field\FieldPoint.h"
 
 void OptionForMouseMove::MouseClick(MouseType type, int x, int y)
 {

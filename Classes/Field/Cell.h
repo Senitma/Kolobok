@@ -1,6 +1,7 @@
 #pragma once
 
-#include "Headers.h"
+#include "cocos2d.h"
+#include "Element\Element.h"
 
 class Element;
 // Класс хранения элементов

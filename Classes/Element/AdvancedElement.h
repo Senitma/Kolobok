@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Headers.h"
+#include "Element\Element.h"
 #include "Option\BaseClass\ISInterval.h"
 
 // Класс управления элементом

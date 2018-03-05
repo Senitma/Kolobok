@@ -1,9 +1,8 @@
 #pragma once
 
-#include "Headers.h"
+#include "cocos2d.h"
+#include "AdvancedElement.h"
 
-// Класс управления элементом
-class AdvancedElement;
 // Класс создания элементов
 class ElementCreator : private cocos2d::Ref
 {
