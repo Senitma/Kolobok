@@ -16,6 +16,12 @@
     <Filter Include="Main">
       <UniqueIdentifier>{acb34aba-31fd-40b4-920d-64d0c9e97e58}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Option">
+      <UniqueIdentifier>{60550e84-889b-4b05-b1a5-147e039d159f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Option\BaseClass">
+      <UniqueIdentifier>{bdf64ac8-eb57-430a-aa83-599b8ad61286}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc">
@@ -58,6 +64,12 @@
     </ClCompile>
     <ClCompile Include="Classes\Main\MapHandle.cpp">
       <Filter>Main</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\Option\BaseClass\ISInterval.cpp">
+      <Filter>Option\BaseClass</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\Option\BaseClass\ISMouse.cpp">
+      <Filter>Option\BaseClass</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -123,6 +135,18 @@
     </ClInclude>
     <ClInclude Include="Classes\Main\MapHandle.h">
       <Filter>Main</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\Option\BaseClass\ISMouse.h">
+      <Filter>Option\BaseClass</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\Option\BaseClass\ISOption.h">
+      <Filter>Option\BaseClass</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\Option\BaseClass\ISInterval.h">
+      <Filter>Option\BaseClass</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\Option\BaseClass\MouseType.h">
+      <Filter>Option\BaseClass</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

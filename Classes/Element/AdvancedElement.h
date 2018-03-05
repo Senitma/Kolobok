@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Headers.h"
+#include "..\Option\BaseClass\ISInterval.h"
 
 // Класс управления элементом
 class AdvancedElement : public Element
@@ -30,9 +31,13 @@ public:
 	// Измениь угол вращения
 	void SetRotation(int value);
 
+	// Добавить опцию
+	void AddOption(ISInterval * option) { items.pushBack(option); };
 	// Уничтожить элемент
 	void Destroy() override;
 private:
 	// Защита от повторной очистки
 	bool isDestroy;
+	// Набор опций
+	cocos2d::Vector<ISInterval *> items;
 };

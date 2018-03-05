@@ -1,7 +1,14 @@
 #include "AdvancedElement.h"
+#include "..\Field\Field.h"
 
 void AdvancedElement::SetXY(FieldPoint value)
 {
+	if (Field::ContainElement(this) == true)
+	{
+		Field::RemoveElement(this);
+		currentPoint = new FieldPoint(value);
+		Field::AddElement(this);
+	}
 }
 void AdvancedElement::SetSide(SideType value)
 {
@@ -9,18 +16,18 @@ void AdvancedElement::SetSide(SideType value)
 
 	switch (side)
 	{
-		case SideType::Left:
-			node->setRotation(90);
-			break;
-		case SideType::Right:
-			node->setRotation(270);
-			break;
-		case SideType::Up:
-			node->setRotation(180);
-			break;
-		case SideType::Down:
-			node->setRotation(0);
-			break;
+	case SideType::Left:
+		node->setRotation(90);
+		break;
+	case SideType::Right:
+		node->setRotation(270);
+		break;
+	case SideType::Up:
+		node->setRotation(180);
+		break;
+	case SideType::Down:
+		node->setRotation(0);
+		break;
 	}
 }
 
@@ -68,4 +75,19 @@ void AdvancedElement::SetRotation(int value)
 
 void AdvancedElement::Destroy()
 {
+	if (isDestroy == false)
+	{
+		isDestroy = true;
+		for (int index = 0; index < items.size(); index++)
+		{
+			items.at(index)->Destroy();
+			delete items.at(index);
+		}
+
+		Field::RemoveElement(this);
+		node->getParent()->removeChild(node);
+
+		isDestroy = true;
+		//delete this;
+	}
 }
