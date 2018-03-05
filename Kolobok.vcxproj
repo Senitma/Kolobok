@@ -169,6 +169,7 @@ xcopy /Y /Q "$(COCOS_X_ROOT)\cocos2d-x-3.10\prebuilt\win32\*.*" "$(OutDir)"
     <ClCompile Include="Classes\Option\CreateOption\OptionForCreate.cpp" />
     <ClCompile Include="Classes\Option\CreateOption\OptionForIntervalCreate.cpp" />
     <ClCompile Include="Classes\Option\CreateOption\OptionForMouseCreateDestroy.cpp" />
+    <ClCompile Include="Classes\Option\MoveOption\OptionForMove.cpp" />
     <ClCompile Include="Classes\Option\MoveOption\OptionForOneStep.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -200,6 +201,8 @@ xcopy /Y /Q "$(COCOS_X_ROOT)\cocos2d-x-3.10\prebuilt\win32\*.*" "$(OutDir)"
     <ClInclude Include="Classes\Option\CreateOption\OptionForCreate.h" />
     <ClInclude Include="Classes\Option\CreateOption\OptionForIntervalCreate.h" />
     <ClInclude Include="Classes\Option\CreateOption\OptionForMouseCreateDestroy.h" />
+    <ClInclude Include="Classes\Option\MoveOption\MoveType.h" />
+    <ClInclude Include="Classes\Option\MoveOption\OptionForMove.h" />
     <ClInclude Include="Classes\Option\MoveOption\OptionForOneStep.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
