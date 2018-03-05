@@ -53,6 +53,9 @@
     <ClCompile Include="Classes\Field\Cell.cpp">
       <Filter>Field</Filter>
     </ClCompile>
+    <ClCompile Include="Classes\Field\Field.cpp">
+      <Filter>Field</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Classes\init\AppDelegate.h">
@@ -107,6 +110,9 @@
       <Filter>Element</Filter>
     </ClInclude>
     <ClInclude Include="Classes\Field\Cell.h">
+      <Filter>Field</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\Field\Field.h">
       <Filter>Field</Filter>
     </ClInclude>
   </ItemGroup>
