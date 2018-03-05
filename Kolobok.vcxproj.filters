@@ -13,6 +13,9 @@
     <Filter Include="field">
       <UniqueIdentifier>{f08af0ef-849f-4ed3-a696-e7153efe4c4e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="element">
+      <UniqueIdentifier>{ac557908-3e46-45e5-ad52-c197888c4331}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc">
@@ -51,6 +54,15 @@
     </ClInclude>
     <ClInclude Include="Classes\field\FieldPoint.h">
       <Filter>field</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\element\ElementNameType.h">
+      <Filter>element</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\element\SideType.h">
+      <Filter>element</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\element\ClassType.h">
+      <Filter>element</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

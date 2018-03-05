@@ -11,3 +11,8 @@
 
 // Файлы поля
 #include "../field/FieldPoint.h"
+
+// Файлы элементов
+#include "../element/ElementNameType.h"
+#include "../element/ClassType.h"
+#include "../element/SideType.h"
