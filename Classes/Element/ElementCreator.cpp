@@ -1,15 +1,15 @@
 #include "ElementCreator.h"
-#include "..\Field\Field.h"
+#include "Field\Field.h"
 
-#include "..\Option\CreateOption\OptionForCreate.h"
-#include "..\Option\CreateOption\OptionForIntervalCreate.h"
-#include "..\Option\CreateOption\OptionForMouseCreateDestroy.h"
+#include "Option\CreateOption\OptionForCreate.h"
+#include "Option\CreateOption\OptionForIntervalCreate.h"
+#include "Option\CreateOption\OptionForMouseCreateDestroy.h"
 
-#include "..\Option\MoveOption\MoveType.h"
-#include "..\Option\MoveOption\OptionForMouseMove.h"
-#include "..\Option\MoveOption\OptionForMove.h"
-#include "..\Option\MoveOption\OptionForOneStep.h"
-#include "..\Option\MoveOption\OptionForPatrol.h"
+#include "Option\MoveOption\MoveType.h"
+#include "Option\MoveOption\OptionForMouseMove.h"
+#include "Option\MoveOption\OptionForMove.h"
+#include "Option\MoveOption\OptionForOneStep.h"
+#include "Option\MoveOption\OptionForPatrol.h"
 
 Element * ElementCreator::Create(ElementNameType name, int x, int y)
 {

@@ -8,6 +8,3 @@
 
 // C RunTime Header Files
 #include "CCStdC.h"
-
-// Other headers
-#include "headers.h"

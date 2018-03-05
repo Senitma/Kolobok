@@ -62,12 +62,6 @@
     <ClCompile Include="Classes\Field\Field.cpp">
       <Filter>Field</Filter>
     </ClCompile>
-    <ClCompile Include="Classes\Init\Main.cpp">
-      <Filter>Init</Filter>
-    </ClCompile>
-    <ClCompile Include="Classes\Init\AppDelegate.cpp">
-      <Filter>Init</Filter>
-    </ClCompile>
     <ClCompile Include="Classes\Main\MapHandle.cpp">
       <Filter>Main</Filter>
     </ClCompile>
@@ -100,6 +94,12 @@
     </ClCompile>
     <ClCompile Include="Classes\Option\MoveOption\OptionForMove.cpp">
       <Filter>Option\MoveOption</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\Main.cpp">
+      <Filter>Init</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\AppDelegate.cpp">
+      <Filter>Init</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -148,15 +148,6 @@
     <ClInclude Include="Classes\Field\Cell.h">
       <Filter>Field</Filter>
     </ClInclude>
-    <ClInclude Include="Classes\Init\Headers.h">
-      <Filter>Init</Filter>
-    </ClInclude>
-    <ClInclude Include="Classes\Init\Main.h">
-      <Filter>Init</Filter>
-    </ClInclude>
-    <ClInclude Include="Classes\Init\AppDelegate.h">
-      <Filter>Init</Filter>
-    </ClInclude>
     <ClInclude Include="Classes\Main\MapHandle.h">
       <Filter>Main</Filter>
     </ClInclude>
@@ -204,6 +195,15 @@
     </ClInclude>
     <ClInclude Include="Classes\Option\MoveOption\OptionForMouseMove.h">
       <Filter>Option\MoveOption</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\AppDelegate.h">
+      <Filter>Init</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\Headers.h">
+      <Filter>Init</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\Main.h">
+      <Filter>Init</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -2,8 +2,8 @@
 #include "Field.h"
 #include "Cell.h"
 
-#include "..\Option\BaseClass\ISMouse.h"
-#include "..\Main\MapHandle.h"
+#include "Option\BaseClass\ISMouse.h"
+#include "Main\MapHandle.h"
 
 USING_NS_CC;
 

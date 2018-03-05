@@ -1,5 +1,5 @@
 #include "Cell.h"
-#include "..\Field\Field.h"
+#include "Field\Field.h"
 
 bool Cell::CanAddElement(Element * item)
 {

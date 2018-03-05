@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Headers.h"
-#include "..\Option\BaseClass\ISOption.h"
+#include "Option\BaseClass\ISOption.h"
 
 // Опция создания элемента
 class OptionForCreate : public ISOption

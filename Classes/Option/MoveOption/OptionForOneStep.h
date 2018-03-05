@@ -1,7 +1,7 @@
 #pragma once
 
-#include "..\Option\BaseClass\ISOption.h"
-#include "..\Option\BaseClass\ISInterval.h"
+#include "Option\BaseClass\ISOption.h"
+#include "Option\BaseClass\ISInterval.h"
 
 // Опция для перемещения на одну клетку
 class OptionForOneStep : public ISOption, ISInterval

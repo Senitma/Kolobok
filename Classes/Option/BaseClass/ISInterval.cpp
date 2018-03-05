@@ -1,5 +1,5 @@
 #include "ISInterval.h"
-#include "..\Field\Field.h"
+#include "Field\Field.h"
 
 // Набор опций с обновлением
 static cocos2d::Vector<ISInterval *> items;

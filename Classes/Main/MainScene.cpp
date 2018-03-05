@@ -1,9 +1,9 @@
 #include "MainScene.h"
-#include "..\Field\Field.h"
+#include "Field\Field.h"
 #include "MapHandle.h"
 
-#include "..\Option\BaseClass\ISMouse.h"
-#include "..\Option\BaseClass\ISInterval.h"
+#include "Option\BaseClass\ISMouse.h"
+#include "Option\BaseClass\ISInterval.h"
 
 USING_NS_CC;
 

@@ -1,7 +1,7 @@
 #include "OptionForMouseCreateDestroy.h"
-#include "..\Field\Field.h"
-#include "..\Main\MapHandle.h"
-#include "..\Option\BaseClass\MouseType.h"
+#include "Field\Field.h"
+#include "Main\MapHandle.h"
+#include "Option\BaseClass\MouseType.h"
 
 void OptionForMouseCreateDestroy::MouseClick(MouseType type, int x, int y)
 {

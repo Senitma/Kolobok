@@ -1,7 +1,7 @@
 #pragma once
 
 #include "OptionForCreate.h"
-#include "..\Option\BaseClass\ISInterval.h"
+#include "Option\BaseClass\ISInterval.h"
 
 // Опция создания элемента через временной интервал
 class OptionForIntervalCreate : public OptionForCreate, public ISInterval

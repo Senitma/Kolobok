@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Headers.h"
-#include "..\Option\BaseClass\ISInterval.h"
+#include "Option\BaseClass\ISInterval.h"
 
 // Класс управления элементом
 class AdvancedElement : public Element

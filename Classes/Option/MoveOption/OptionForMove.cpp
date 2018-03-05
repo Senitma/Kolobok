@@ -1,6 +1,6 @@
 #include "OptionForMove.h"
-#include "..\Field\Field.h"
-#include "..\Field\PathFinder.h"
+#include "Field\Field.h"
+#include "Field\PathFinder.h"
 
 void OptionForMove::SetParent(AdvancedElement * parent)
 {
