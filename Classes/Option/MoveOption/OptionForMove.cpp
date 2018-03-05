@@ -1,5 +1,6 @@
 #include "OptionForMove.h"
 #include "..\Field\Field.h"
+#include "..\Field\PathFinder.h"
 
 void OptionForMove::SetParent(AdvancedElement * parent)
 {
@@ -95,5 +96,7 @@ cocos2d::Vector<FieldPoint *> OptionForMove::GenerateLinePath(int x, int y)
 }
 cocos2d::Vector<FieldPoint *> OptionForMove::GenerateByPassPath(int x, int y)
 {
-	return cocos2d::Vector<FieldPoint *>();
+	auto map = Field::CreateBlockMap();
+
+	return PathFinder::MoveTo(parent->GetX(), parent->GetY(), x, y, map);
 }
