@@ -10,6 +10,9 @@
     <Filter Include="init">
       <UniqueIdentifier>{99cf6590-3383-4520-b1fa-fea7f76e668e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="field">
+      <UniqueIdentifier>{f08af0ef-849f-4ed3-a696-e7153efe4c4e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc">
@@ -25,6 +28,9 @@
     </ClCompile>
     <ClCompile Include="Classes\main\MainScene.cpp">
       <Filter>main</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\field\FieldPoint.cpp">
+      <Filter>field</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -42,6 +48,9 @@
     </ClInclude>
     <ClInclude Include="Classes\main\Settings.h">
       <Filter>main</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\field\FieldPoint.h">
+      <Filter>field</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
