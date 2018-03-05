@@ -1,6 +1,16 @@
 #include "ElementCreator.h"
 #include "..\Field\Field.h"
 
+#include "..\Option\CreateOption\OptionForCreate.h"
+#include "..\Option\CreateOption\OptionForIntervalCreate.h"
+#include "..\Option\CreateOption\OptionForMouseCreateDestroy.h"
+
+#include "..\Option\MoveOption\MoveType.h"
+#include "..\Option\MoveOption\OptionForMouseMove.h"
+#include "..\Option\MoveOption\OptionForMove.h"
+#include "..\Option\MoveOption\OptionForOneStep.h"
+#include "..\Option\MoveOption\OptionForPatrol.h"
+
 Element * ElementCreator::Create(ElementNameType name, int x, int y)
 {
 	return ElementCreator::Create(name, SideType::Down, x, y);
@@ -28,7 +38,20 @@ Element * ElementCreator::Create(ElementNameType name, SideType side, int x, int
 
 AdvancedElement * ElementCreator::CreateNinja(SideType side, int x, int y)
 {
-	return Create("Ninja.csb", ElementNameType::Ninja, ClassType::Character, side, x, y);
+	AdvancedElement * newElement = Create("Ninja.csb", ElementNameType::Ninja, ClassType::Character, side, x, y);
+
+	OptionForMouseMove * moveOption = new OptionForMouseMove();
+	moveOption->SetParent(newElement);
+	moveOption->SetMoveSpeed(Settings::MOVESPEED);
+	moveOption->SetRotateSpeed(Settings::ROTATESPEED);
+	moveOption->SetMoveType(MoveType::ToByPass);
+	moveOption->SetRotate(true);
+
+	OptionForMouseCreateDestroy * createOption = new OptionForMouseCreateDestroy();
+	createOption->SetParent(newElement);
+	createOption->SetName(ElementNameType::Wall);
+
+	return newElement;
 }
 AdvancedElement * ElementCreator::CreateFinish(SideType side, int x, int y)
 {
@@ -40,16 +63,64 @@ AdvancedElement * ElementCreator::CreateWall(SideType side, int x, int y)
 }
 AdvancedElement * ElementCreator::CreatePatrol(SideType side, int x, int y)
 {
-	return Create("Patrol.csb", ElementNameType::Patrol, ClassType::Enemy, side, x, y);
+	AdvancedElement * newElement = Create("Patrol.csb", ElementNameType::Patrol, ClassType::Enemy, side, x, y);
+
+	OptionForPatrol * patrolOption = new OptionForPatrol();
+	patrolOption->SetParent(newElement);
+	patrolOption->SetRotateSpeed(Settings::ROTATESPEED);
+	patrolOption->SetMoveSpeed(Settings::MOVESPEED);
+	patrolOption->SetMoveType(MoveType::ToByPass);
+	patrolOption->SetRotate(true);
+	patrolOption->SetPatrol(true);
+	//patrolOption->SetCircle(true);
+
+	return newElement;
 }
 AdvancedElement * ElementCreator::CreateGun(SideType side, int x, int y)
 {
-	return Create("Gun.csb", ElementNameType::Gun, ClassType::Block, side, x, y);
+	AdvancedElement * newElement = Create("Gun.csb", ElementNameType::Gun, ClassType::Block, side, x, y);
+
+	OptionForIntervalCreate * createOption = new OptionForIntervalCreate();
+	createOption->SetParent(newElement);
+	createOption->SetName(ElementNameType::Fireball);
+	createOption->SetActive(true);
+	createOption->SetRotate(true);
+	createOption->SetOffsetY(1);
+	createOption->SetInterval(Settings::CREATEFIREBALLINTERVAL);
+
+	return newElement;
 }
 AdvancedElement * ElementCreator::CreateFireball(SideType side, int x, int y)
 {
-	return Create("FireBall.csb", ElementNameType::Fireball, ClassType::Bullet, side, x, y);
+	AdvancedElement * newElement = Create("FireBall.csb", ElementNameType::Fireball, ClassType::Bullet, side, x, y);
+
+	newElement->AddPoint(new FieldPoint(x, y));
+	switch (side)
+	{
+	case SideType::Up:
+		newElement->AddPoint(new FieldPoint(x, 0));
+		break;
+	case SideType::Down:
+		newElement->AddPoint(new FieldPoint(x, Settings::VERTICALCELLCOUNT - 1));
+		break;
+	case SideType::Left:
+		newElement->AddPoint(new FieldPoint(0, y));
+		break;
+	case SideType::Right:
+		newElement->AddPoint(new FieldPoint(Settings::HORIZONTALCELLCOUNT - 1, y));
+		break;
+	}
+
+	OptionForPatrol * patrolOption = new OptionForPatrol();
+	patrolOption->SetParent(newElement);
+	patrolOption->SetMoveSpeed(Settings::FIREBALLSPEED);
+	patrolOption->SetMoveType(MoveType::ToLine);
+	patrolOption->SetPatrol(true);
+	patrolOption->SetDestroyInEnd(true);
+
+	return newElement;
 }
+
 AdvancedElement * ElementCreator::Create(char * nodeName, ElementNameType name, ClassType type, SideType side, int x, int y)
 {
 	// Создание прорисовка для отображения и прорисовки элемента

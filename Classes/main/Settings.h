@@ -19,6 +19,14 @@ namespace Settings
 	const int VERTICALCELLCOUNT = 15;
 	// Индекс карты для загрузки
 	const int MAPINDEX = 0;
+	// Скорость перемещения персонажа
+	const float MOVESPEED = 4;
+	// Скорость вращения персонажа
+	const float ROTATESPEED = 4;
+	// Период создания снаряда
+	const float CREATEFIREBALLINTERVAL = 120;
+	// Скорость снаряда
+	const float FIREBALLSPEED = 8;
 
 #pragma endregion
 }
