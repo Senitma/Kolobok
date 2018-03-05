@@ -1,4 +1,5 @@
 #include "ElementCreator.h"
+#include "..\Field\Field.h"
 
 Element * ElementCreator::Create(ElementNameType name, int x, int y)
 {
@@ -48,7 +49,7 @@ AdvancedElement * ElementCreator::CreateFireball(SideType side, int x, int y)
 AdvancedElement * ElementCreator::Create(char * nodeName, ElementNameType name, ClassType type, SideType side, int x, int y)
 {
 	// Создание прорисовка для отображения и прорисовки элемента
-	auto nodeDraw = new cocos2d::Node();
+	auto nodeDraw = ElementReader::CreateNewElement(nodeName);
 	// Масштабирование элемента под размеры клетки
 	cocos2d::Size size = nodeDraw->getChildren().at(0)->getContentSize();
 	float width = size.width;
@@ -61,29 +62,31 @@ AdvancedElement * ElementCreator::Create(char * nodeName, ElementNameType name, 
 	AdvancedElement * newElement = new AdvancedElement(nodeDraw, name, type);
 
 	newElement->SetPosition(cocos2d::Vec2(FieldPoint::ConvertToLeft(x), FieldPoint::ConvertToTop(y)));
+	Field::DrawElement(nodeDraw);
 
 	newElement->SetX(x);
 	newElement->SetY(y);
-	
+	Field::AddElement(newElement);
+
 	newElement->SetSide(side);
-	
+
 	switch (type)
 	{
-		case ClassType::Character:
-			nodeDraw->setLocalZOrder(2);
-			break;
-		case ClassType::Finish:
-			nodeDraw->setLocalZOrder(1);
-			break;
-		case ClassType::Block:
-			nodeDraw->setLocalZOrder(4);
-			break;
-		case ClassType::Enemy:
-			nodeDraw->setLocalZOrder(2);
-			break;
-		case ClassType::Bullet:
-			nodeDraw->setLocalZOrder(3);
-			break;
+	case ClassType::Character:
+		nodeDraw->setLocalZOrder(2);
+		break;
+	case ClassType::Finish:
+		nodeDraw->setLocalZOrder(1);
+		break;
+	case ClassType::Block:
+		nodeDraw->setLocalZOrder(4);
+		break;
+	case ClassType::Enemy:
+		nodeDraw->setLocalZOrder(2);
+		break;
+	case ClassType::Bullet:
+		nodeDraw->setLocalZOrder(3);
+		break;
 	}
 
 	return newElement;
