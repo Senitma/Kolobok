@@ -40,5 +40,8 @@
     <ClInclude Include="Classes\main\MainScene.h">
       <Filter>main</Filter>
     </ClInclude>
+    <ClInclude Include="Classes\main\Settings.h">
+      <Filter>main</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -7,3 +7,4 @@
 
 // Основные библиотеки приложения
 #include "../main/MainScene.h"
+#include "../main/Settings.h"
