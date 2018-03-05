@@ -5,9 +5,9 @@
 #include "cocostudio/CocoStudio.h"
 #include "ui/CocosGUI.h"
 // Основные файлы приложения
-#include "../main/MainScene.h"
-#include "../main/Settings.h"
+#include "../Main/MainScene.h"
+#include "../Main/Settings.h"
 // Файлы поля
-#include "../field/FieldHeaders.h"
+#include "../Field/FieldHeaders.h"
 // Файлы элементов
-#include "../element/ElementHeaders.h"
+#include "../Element/ElementHeaders.h"
