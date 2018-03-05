@@ -152,6 +152,7 @@ xcopy /Y /Q "$(COCOS_X_ROOT)\cocos2d-x-3.10\prebuilt\win32\*.*" "$(OutDir)"
     <ResourceCompile Include="game.rc" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Classes\element\Element.cpp" />
     <ClCompile Include="Classes\field\FieldPoint.cpp" />
     <ClCompile Include="Classes\init\AppDelegate.cpp" />
     <ClCompile Include="Classes\init\main.cpp" />
@@ -159,6 +160,7 @@ xcopy /Y /Q "$(COCOS_X_ROOT)\cocos2d-x-3.10\prebuilt\win32\*.*" "$(OutDir)"
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Classes\element\ClassType.h" />
+    <ClInclude Include="Classes\element\Element.h" />
     <ClInclude Include="Classes\element\ElementNameType.h" />
     <ClInclude Include="Classes\element\SideType.h" />
     <ClInclude Include="Classes\field\FieldPoint.h" />
