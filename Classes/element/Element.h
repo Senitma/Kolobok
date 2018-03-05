@@ -1,6 +1,6 @@
 #pragma once
 
-#include "headers.h"
+#include "Headers.h"
 
 // Базовый класс всех элементов
 class Element : public cocos2d::Ref

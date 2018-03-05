@@ -4,17 +4,17 @@
     <Filter Include="other">
       <UniqueIdentifier>{715254bc-d70b-4ec5-bf29-467dd3ace079}</UniqueIdentifier>
     </Filter>
-    <Filter Include="main">
-      <UniqueIdentifier>{acb34aba-31fd-40b4-920d-64d0c9e97e58}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="init">
+    <Filter Include="Init">
       <UniqueIdentifier>{99cf6590-3383-4520-b1fa-fea7f76e668e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="field">
+    <Filter Include="Field">
       <UniqueIdentifier>{f08af0ef-849f-4ed3-a696-e7153efe4c4e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="element">
+    <Filter Include="Element">
       <UniqueIdentifier>{ac557908-3e46-45e5-ad52-c197888c4331}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Main">
+      <UniqueIdentifier>{acb34aba-31fd-40b4-920d-64d0c9e97e58}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -24,51 +24,57 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Classes\init\AppDelegate.cpp">
-      <Filter>init</Filter>
-    </ClCompile>
-    <ClCompile Include="Classes\init\main.cpp">
-      <Filter>init</Filter>
+      <Filter>Init</Filter>
     </ClCompile>
     <ClCompile Include="Classes\main\MainScene.cpp">
-      <Filter>main</Filter>
+      <Filter>Main</Filter>
     </ClCompile>
     <ClCompile Include="Classes\field\FieldPoint.cpp">
-      <Filter>field</Filter>
+      <Filter>Field</Filter>
     </ClCompile>
     <ClCompile Include="Classes\element\Element.cpp">
-      <Filter>element</Filter>
+      <Filter>Element</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\init\Main.cpp">
+      <Filter>Init</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Classes\init\AppDelegate.h">
-      <Filter>init</Filter>
-    </ClInclude>
-    <ClInclude Include="Classes\init\headers.h">
-      <Filter>init</Filter>
-    </ClInclude>
-    <ClInclude Include="Classes\init\main.h">
-      <Filter>init</Filter>
+      <Filter>Init</Filter>
     </ClInclude>
     <ClInclude Include="Classes\main\MainScene.h">
-      <Filter>main</Filter>
+      <Filter>Main</Filter>
     </ClInclude>
     <ClInclude Include="Classes\main\Settings.h">
-      <Filter>main</Filter>
+      <Filter>Main</Filter>
     </ClInclude>
     <ClInclude Include="Classes\field\FieldPoint.h">
-      <Filter>field</Filter>
+      <Filter>Field</Filter>
     </ClInclude>
     <ClInclude Include="Classes\element\ElementNameType.h">
-      <Filter>element</Filter>
+      <Filter>Element</Filter>
     </ClInclude>
     <ClInclude Include="Classes\element\SideType.h">
-      <Filter>element</Filter>
+      <Filter>Element</Filter>
     </ClInclude>
     <ClInclude Include="Classes\element\ClassType.h">
-      <Filter>element</Filter>
+      <Filter>Element</Filter>
     </ClInclude>
     <ClInclude Include="Classes\element\Element.h">
-      <Filter>element</Filter>
+      <Filter>Element</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\init\Headers.h">
+      <Filter>Init</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\element\ElementHeaders.h">
+      <Filter>Init</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\field\FieldHeaders.h">
+      <Filter>Init</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\init\Main.h">
+      <Filter>Init</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

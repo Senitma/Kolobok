@@ -1,6 +1,6 @@
 #pragma once
 
-#include "headers.h"
+#include "Headers.h"
 
 // Класс точки
 class FieldPoint : public cocos2d::Ref

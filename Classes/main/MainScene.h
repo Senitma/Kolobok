@@ -1,6 +1,6 @@
 #pragma once
 
-#include "headers.h"
+#include "Headers.h"
 
 class MainScene : public cocos2d::Layer
 {

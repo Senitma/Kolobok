@@ -1,4 +1,4 @@
-#include "main.h"
+#include "Main.h"
 #include "AppDelegate.h"
 
 USING_NS_CC;
