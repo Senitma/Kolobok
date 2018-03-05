@@ -25,6 +25,9 @@
     <Filter Include="Option\CreateOption">
       <UniqueIdentifier>{1e8a8997-d233-40a6-a93f-c91410922a38}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Option\MoveOption">
+      <UniqueIdentifier>{1c8fd85d-380d-4ac3-89db-4a2edf7b8110}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc">
@@ -82,6 +85,9 @@
     </ClCompile>
     <ClCompile Include="Classes\Option\CreateOption\OptionForCreate.cpp">
       <Filter>Option\CreateOption</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\Option\MoveOption\OptionForOneStep.cpp">
+      <Filter>Option\MoveOption</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -168,6 +174,9 @@
     </ClInclude>
     <ClInclude Include="Classes\Option\CreateOption\OptionForMouseCreateDestroy.h">
       <Filter>Option\CreateOption</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\Option\MoveOption\OptionForOneStep.h">
+      <Filter>Option\MoveOption</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
