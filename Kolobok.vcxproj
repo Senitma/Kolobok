@@ -166,6 +166,9 @@ xcopy /Y /Q "$(COCOS_X_ROOT)\cocos2d-x-3.10\prebuilt\win32\*.*" "$(OutDir)"
     <ClCompile Include="Classes\Main\MapHandle.cpp" />
     <ClCompile Include="Classes\Option\BaseClass\ISInterval.cpp" />
     <ClCompile Include="Classes\Option\BaseClass\ISMouse.cpp" />
+    <ClCompile Include="Classes\Option\CreateOption\OptionForCreate.cpp" />
+    <ClCompile Include="Classes\Option\CreateOption\OptionForIntervalCreate.cpp" />
+    <ClCompile Include="Classes\Option\CreateOption\OptionForMouseCreateDestroy.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Classes\Element\AdvancedElement.h" />
@@ -193,6 +196,9 @@ xcopy /Y /Q "$(COCOS_X_ROOT)\cocos2d-x-3.10\prebuilt\win32\*.*" "$(OutDir)"
     <ClInclude Include="Classes\Option\BaseClass\ISMouse.h" />
     <ClInclude Include="Classes\Option\BaseClass\ISOption.h" />
     <ClInclude Include="Classes\Option\BaseClass\MouseType.h" />
+    <ClInclude Include="Classes\Option\CreateOption\OptionForCreate.h" />
+    <ClInclude Include="Classes\Option\CreateOption\OptionForIntervalCreate.h" />
+    <ClInclude Include="Classes\Option\CreateOption\OptionForMouseCreateDestroy.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -22,6 +22,9 @@
     <Filter Include="Option\BaseClass">
       <UniqueIdentifier>{bdf64ac8-eb57-430a-aa83-599b8ad61286}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Option\CreateOption">
+      <UniqueIdentifier>{1e8a8997-d233-40a6-a93f-c91410922a38}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc">
@@ -70,6 +73,15 @@
     </ClCompile>
     <ClCompile Include="Classes\Option\BaseClass\ISMouse.cpp">
       <Filter>Option\BaseClass</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\Option\CreateOption\OptionForIntervalCreate.cpp">
+      <Filter>Option\CreateOption</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\Option\CreateOption\OptionForMouseCreateDestroy.cpp">
+      <Filter>Option\CreateOption</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\Option\CreateOption\OptionForCreate.cpp">
+      <Filter>Option\CreateOption</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -147,6 +159,15 @@
     </ClInclude>
     <ClInclude Include="Classes\Option\BaseClass\MouseType.h">
       <Filter>Option\BaseClass</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\Option\CreateOption\OptionForCreate.h">
+      <Filter>Option\CreateOption</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\Option\CreateOption\OptionForIntervalCreate.h">
+      <Filter>Option\CreateOption</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\Option\CreateOption\OptionForMouseCreateDestroy.h">
+      <Filter>Option\CreateOption</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
