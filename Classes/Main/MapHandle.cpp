@@ -1,5 +1,6 @@
 #include "MapHandle.h"
 #include "../Field/Field.h"
+#include "../Field\PathFinder.h"
 
 // Главный персонаж
 static Element * ninja;
@@ -19,7 +20,7 @@ void MapHandle::ReloadMap()
 
 bool MapHandle::CheckPath()
 {
-	return true;
+	return PathFinder::CanMoveTo(ninja->GetX(), ninja->GetY(), finish->GetX(), finish->GetY(), Field::CreateBlockMap());
 }
 
 void MapHandle::LoadForIndex(int index)
