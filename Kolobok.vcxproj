@@ -151,66 +151,6 @@ xcopy /Y /Q "$(COCOS_X_ROOT)\cocos2d-x-3.10\prebuilt\win32\*.*" "$(OutDir)"
   <ItemGroup>
     <ResourceCompile Include="game.rc" />
   </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="Classes\Element\AdvancedElement.cpp" />
-    <ClCompile Include="Classes\element\Element.cpp" />
-    <ClCompile Include="Classes\Element\ElementCreator.cpp" />
-    <ClCompile Include="Classes\Element\ElementReader.cpp" />
-    <ClCompile Include="Classes\Element\ElementRelations.cpp" />
-    <ClCompile Include="Classes\Field\Cell.cpp" />
-    <ClCompile Include="Classes\Field\Field.cpp" />
-    <ClCompile Include="Classes\field\FieldPoint.cpp" />
-    <ClCompile Include="Classes\Field\PathFinder.cpp" />
-    <ClCompile Include="Classes\init\AppDelegate.cpp" />
-    <ClCompile Include="Classes\init\Main.cpp" />
-    <ClCompile Include="Classes\main\MainScene.cpp" />
-    <ClCompile Include="Classes\Main\MapHandle.cpp" />
-    <ClCompile Include="Classes\Option\BaseClass\ISInterval.cpp" />
-    <ClCompile Include="Classes\Option\BaseClass\ISMouse.cpp" />
-    <ClCompile Include="Classes\Option\CreateOption\OptionForCreate.cpp" />
-    <ClCompile Include="Classes\Option\CreateOption\OptionForIntervalCreate.cpp" />
-    <ClCompile Include="Classes\Option\CreateOption\OptionForMouseCreateDestroy.cpp" />
-    <ClCompile Include="Classes\Option\MoveOption\OptionForMouseMove.cpp" />
-    <ClCompile Include="Classes\Option\MoveOption\OptionForMove.cpp" />
-    <ClCompile Include="Classes\Option\MoveOption\OptionForOneStep.cpp" />
-    <ClCompile Include="Classes\Option\MoveOption\OptionForPatrol.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Classes\Element\AdvancedElement.h" />
-    <ClInclude Include="Classes\element\ClassType.h" />
-    <ClInclude Include="Classes\element\Element.h" />
-    <ClInclude Include="Classes\Element\ElementCreator.h" />
-    <ClInclude Include="Classes\element\ElementNameType.h" />
-    <ClInclude Include="Classes\element\ElementHeaders.h" />
-    <ClInclude Include="Classes\Element\ElementReader.h" />
-    <ClInclude Include="Classes\Element\ElementRelations.h" />
-    <ClInclude Include="Classes\Element\ResultType.h" />
-    <ClInclude Include="Classes\element\SideType.h" />
-    <ClInclude Include="Classes\Field\Cell.h" />
-    <ClInclude Include="Classes\Field\Field.h" />
-    <ClInclude Include="Classes\field\FieldHeaders.h" />
-    <ClInclude Include="Classes\field\FieldPoint.h" />
-    <ClInclude Include="Classes\Field\PathFinder.h" />
-    <ClInclude Include="Classes\init\AppDelegate.h" />
-    <ClInclude Include="Classes\init\Headers.h" />
-    <ClInclude Include="Classes\init\Main.h" />
-    <ClInclude Include="Classes\Main\GameStatusType.h" />
-    <ClInclude Include="Classes\main\MainScene.h" />
-    <ClInclude Include="Classes\Main\MapHandle.h" />
-    <ClInclude Include="Classes\main\Settings.h" />
-    <ClInclude Include="Classes\Option\BaseClass\ISInterval.h" />
-    <ClInclude Include="Classes\Option\BaseClass\ISMouse.h" />
-    <ClInclude Include="Classes\Option\BaseClass\ISOption.h" />
-    <ClInclude Include="Classes\Option\BaseClass\MouseType.h" />
-    <ClInclude Include="Classes\Option\CreateOption\OptionForCreate.h" />
-    <ClInclude Include="Classes\Option\CreateOption\OptionForIntervalCreate.h" />
-    <ClInclude Include="Classes\Option\CreateOption\OptionForMouseCreateDestroy.h" />
-    <ClInclude Include="Classes\Option\MoveOption\MoveType.h" />
-    <ClInclude Include="Classes\Option\MoveOption\OptionForMouseMove.h" />
-    <ClInclude Include="Classes\Option\MoveOption\OptionForMove.h" />
-    <ClInclude Include="Classes\Option\MoveOption\OptionForOneStep.h" />
-    <ClInclude Include="Classes\Option\MoveOption\OptionForPatrol.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
