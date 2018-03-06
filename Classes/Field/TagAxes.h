@@ -3,7 +3,7 @@
 #include "Axes.h"
 
 // Класс координат с идентификатором
-class TagAxes : Axes
+class TagAxes : public Axes
 {
 public:
 	// Инициализация переменных

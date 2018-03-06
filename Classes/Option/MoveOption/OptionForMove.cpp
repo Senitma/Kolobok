@@ -98,5 +98,14 @@ cocos2d::Vector<FieldPoint *> OptionForMove::GenerateByPassPath(int x, int y)
 {
 	auto map = Field::CreateBlockMap();
 
-	return PathFinder::MoveTo(parent->GetX(), parent->GetY(), x, y, map);
+	// Временное решение
+	cocos2d::Vector<TagAxes *> temp = PathFinder::MoveTo(parent->GetX(), parent->GetY(), x, y, map);
+	cocos2d::Vector<FieldPoint *> temp2 = cocos2d::Vector<FieldPoint *>();
+
+	for (int i = 0; i < temp.size(); i++)
+	{
+		temp2.pushBack(new FieldPoint(temp.at(i)->GetX(), temp.at(i)->GetY()));
+	}
+
+	return temp2;
 }

@@ -3,7 +3,7 @@
 #include "cocos2d.h"
 
 // Класс координат
-class Axes : cocos2d::Ref
+class Axes : public cocos2d::Ref
 {
 public:
 	// Инициализация переменных

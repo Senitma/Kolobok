@@ -120,13 +120,13 @@ void Field::RemoveElement(ElementNameType nodeName, int x, int y)
 	Field::RemoveElement(item);
 }
 
-cocos2d::Vector<FieldPoint *> Field::CreateBlockMap()
+cocos2d::Vector<TagAxes *> Field::CreateBlockMap()
 {
-	cocos2d::Vector<FieldPoint *> result;
+	cocos2d::Vector<TagAxes *> result;
 
 	for (int index = 0; index < items.size(); index++)
 	{
-		FieldPoint * newPoint = Field::ConvertToPoint(index);
+		TagAxes * newPoint = Field::ConvertToPoint(index);
 
 		if (items.at(index)->ContainType(ClassType::Block) == true)
 		{
@@ -152,10 +152,10 @@ int Field::ConvertToArrayIndex(int x, int y)
 	return y * Settings::HORIZONTALCELLCOUNT + x;
 }
 
-FieldPoint * Field::ConvertToPoint(int index)
+TagAxes * Field::ConvertToPoint(int index)
 {
 	int x = index % Settings::HORIZONTALCELLCOUNT;
 	int y = index / Settings::HORIZONTALCELLCOUNT;
 
-	return new FieldPoint(x, y);
+	return new TagAxes(x, y);
 }

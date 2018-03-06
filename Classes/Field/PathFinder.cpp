@@ -1,7 +1,7 @@
 #include "PathFinder.h"
 #include "Main\Settings.h"
 
-bool PathFinder::CanMoveTo(int startX, int startY, int finishX, int finishY, cocos2d::Vector<FieldPoint *> blockMap)
+bool PathFinder::CanMoveTo(int startX, int startY, int finishX, int finishY, cocos2d::Vector<TagAxes *> blockMap)
 {
 	blockMap.at(GetIndex(startX, startY))->SetTag(0);
 	blockMap.at(GetIndex(finishX, finishY))->SetTag(-2);
@@ -16,7 +16,7 @@ bool PathFinder::CanMoveTo(int startX, int startY, int finishX, int finishY, coc
 		return false;
 	}
 }
-cocos2d::Vector<FieldPoint*> PathFinder::MoveTo(int startX, int startY, int finishX, int finishY, cocos2d::Vector<FieldPoint *> blockMap)
+cocos2d::Vector<TagAxes *> PathFinder::MoveTo(int startX, int startY, int finishX, int finishY, cocos2d::Vector<TagAxes *> blockMap)
 {
 	blockMap.at(GetIndex(startX, startY))->SetTag(0);
 	blockMap.at(GetIndex(finishX, finishY))->SetTag(-2);
@@ -30,7 +30,7 @@ cocos2d::Vector<FieldPoint*> PathFinder::MoveTo(int startX, int startY, int fini
 	{
 		if (newPath->step > 1)
 		{
-			FieldPoint * newFinish = new FieldPoint(finishX, finishY);
+			TagAxes * newFinish = new TagAxes(finishX, finishY);
 			bool isFind = false;
 			int minX = finishX;
 			int minY = finishY;
@@ -77,14 +77,14 @@ cocos2d::Vector<FieldPoint*> PathFinder::MoveTo(int startX, int startY, int fini
 		}
 		else
 		{
-			cocos2d::Vector<FieldPoint*> noPath;
-			noPath.pushBack(new FieldPoint(startX, startY));
+			cocos2d::Vector<TagAxes *> noPath;
+			noPath.pushBack(new TagAxes(startX, startY));
 			return noPath;
 		}
 	}
 }
 
-bool PathFinder::FindFinish(int startX, int startY, cocos2d::Vector<FieldPoint *> blockMap)
+bool PathFinder::FindFinish(int startX, int startY, cocos2d::Vector<TagAxes *> blockMap)
 {
 	bool isFinished = false;
 	bool isMoved;
@@ -180,13 +180,13 @@ bool PathFinder::FindFinish(int startX, int startY, cocos2d::Vector<FieldPoint *
 
 	return isFinished;
 }
-cocos2d::Vector<FieldPoint *> PathFinder::CreateMoveMap(cocos2d::Vector<FieldPoint *> blockMap)
+cocos2d::Vector<TagAxes *> PathFinder::CreateMoveMap(cocos2d::Vector<TagAxes *> blockMap)
 {
 	int x = finishX;
 	int y = finishY;
 
-	cocos2d::Vector<FieldPoint *> path;
-	path.pushBack(new FieldPoint(x, y));
+	cocos2d::Vector<TagAxes *> path;
+	path.pushBack(new TagAxes(x, y));
 
 	// Формирование набора точек от финиша до цели
 	do
@@ -218,7 +218,7 @@ cocos2d::Vector<FieldPoint *> PathFinder::CreateMoveMap(cocos2d::Vector<FieldPoi
 		}
 	} while (step != 0);
 
-	cocos2d::Vector<FieldPoint *> result;
+	cocos2d::Vector<TagAxes *> result;
 	// Разворот набора
 	for (int index = path.size() - 1; index >= 0; index--)
 	{

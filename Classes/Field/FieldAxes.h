@@ -3,7 +3,7 @@
 #include "Axes.h"
 
 // Класс координат на поле
-class FieldAxes : Axes
+class FieldAxes : public Axes
 {
 public:
 	// Инициализация переменных
