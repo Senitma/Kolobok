@@ -6,7 +6,12 @@
 class Axes : cocos2d::Ref
 {
 public:
-	// Получить положени по оси X
+	// Инициализация переменных
+	Axes() : Axes(0, 0) {};
+	// Инициализация переменных
+	Axes(const int &x, const int &y) { SetX(x); SetY(y); };
+
+	// Получить положение по оси X
 	virtual int GetX() const { return x; };
 	// Получить положение по оси Y
 	virtual int GetY() const { return y; };

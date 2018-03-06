@@ -7,9 +7,14 @@ class TagAxes : Axes
 {
 public:
 	// Инициализация переменных
-	TagAxes() {};
+	TagAxes() : TagAxes(0, 0, 0) {};
+	// Инициализация переменных
+	TagAxes(const int &x, const int &y) : TagAxes(x, y, 0) {};
+	// Инициализация переменных
+	TagAxes(const int &x, const int &y, const int &tag) : Axes(x, y) { SetTag(tag); };
 	// Инициализация переменных
 	TagAxes(Axes &value) { operator=(value); };
+
 	// Получить идентификатор
 	virtual int GetTag() const { return tag; };
 	// Изменить идентификатор
