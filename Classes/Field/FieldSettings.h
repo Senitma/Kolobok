@@ -2,10 +2,15 @@
 
 #include "FieldAxes.h"
 
-// Класс настройки координат на поле
-class FieldAxesSettings : FieldAxes
+// Класс настройки поля
+class FieldSettings : FieldAxes
 {
 public:
+	// Изменить максимальное положение по оси X
+	static void SetMaxForX(const int &value) { maxForX = value; };
+	// Изменить максимальное положение по оси Y
+	static void SetMaxForY(const int &value) { maxForY = value; };
+
 	// Изменить размер ширины узла
 	static void SetNodeWidth(const int &value) { nodeWidth = value; };
 	// Изменить размер высоты узла
