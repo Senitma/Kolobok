@@ -196,5 +196,11 @@
     <ClInclude Include="Classes\Main.h">
       <Filter>Init</Filter>
     </ClInclude>
+    <ClInclude Include="Classes\Field\Axes.h">
+      <Filter>Field</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\Field\TagAxes.h">
+      <Filter>Field</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

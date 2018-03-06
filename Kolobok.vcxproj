@@ -186,10 +186,12 @@ xcopy /Y /Q "$(COCOS_X_ROOT)\cocos2d-x-3.10\prebuilt\win32\*.*" "$(OutDir)"
     <ClInclude Include="Classes\Element\ElementRelations.h" />
     <ClInclude Include="Classes\Element\ResultType.h" />
     <ClInclude Include="Classes\Element\SideType.h" />
+    <ClInclude Include="Classes\Field\Axes.h" />
     <ClInclude Include="Classes\Field\Cell.h" />
     <ClInclude Include="Classes\Field\Field.h" />
     <ClInclude Include="Classes\Field\FieldPoint.h" />
     <ClInclude Include="Classes\Field\PathFinder.h" />
+    <ClInclude Include="Classes\Field\TagAxes.h" />
     <ClInclude Include="Classes\Main.h" />
     <ClInclude Include="Classes\Main\GameStatusType.h" />
     <ClInclude Include="Classes\Main\MainScene.h" />

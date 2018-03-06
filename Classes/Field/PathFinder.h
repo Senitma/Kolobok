@@ -3,6 +3,8 @@
 #include "cocos2d.h"
 #include "Field\FieldPoint.h"
 
+//#include "TagAxes.h"
+
 // Класс поиска оптимального пути
 class PathFinder : private cocos2d::Ref
 {
