@@ -19,10 +19,6 @@ public:
 	static int GetMaxForX() { return maxForX; };
 	// Получить максимальное положение по оси Y
 	static int GetMaxForY() { return maxForY; };
-	// Изменить максимальное положение по оси X
-	static void SetMaxForX(const int &value) { maxForX = value; };
-	// Изменить максимальное положение по оси Y
-	static void SetMaxForY(const int &value) { maxForY = value; };
 
 	// Преобразование в int
 	operator int() const { return y * maxForX + x; };
@@ -35,7 +31,6 @@ protected:
 	int x;
 	// Положение по оси Y
 	int y;
-private:
 	// Максимальное положение по оси X
 	static int maxForX;
 	// Максимальное положение по оси Y

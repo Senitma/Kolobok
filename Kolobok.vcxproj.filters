@@ -28,6 +28,9 @@
     <Filter Include="Other">
       <UniqueIdentifier>{715254bc-d70b-4ec5-bf29-467dd3ace079}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Field\Axes">
+      <UniqueIdentifier>{69f2d60a-c17e-48d3-b369-6c8708fca5ff}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc">
@@ -197,10 +200,13 @@
       <Filter>Init</Filter>
     </ClInclude>
     <ClInclude Include="Classes\Field\Axes.h">
-      <Filter>Field</Filter>
+      <Filter>Field\Axes</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\Field\AxesSettings.h">
+      <Filter>Field\Axes</Filter>
     </ClInclude>
     <ClInclude Include="Classes\Field\TagAxes.h">
-      <Filter>Field</Filter>
+      <Filter>Field\Axes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
