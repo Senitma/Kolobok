@@ -42,10 +42,6 @@ int FieldAxes::ToTop() const
 {
 	return Axes::ConvertToLeft(y);;
 }
-cocos2d::Vec2 FieldAxes::ToVec2() const
-{
-	return Axes::ConvertToVec2(x, y);;
-}
 bool FieldAxes::CheckOutside() const
 {
 	if (originalX != x || originalY != y)

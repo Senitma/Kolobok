@@ -1,10 +1,9 @@
 #pragma once
 
-#include "cocos2d.h"
 #include "BaseAxes.h"
 
 // Класс для расчетов и хранения настроек координат
-class Axes : cocos2d::Ref
+class Axes
 {
 public:
 	// Получить максимальное положение по оси X
@@ -41,8 +40,6 @@ public:
 	static int ConvertToY(const int &value);
 	// Конвертировать смещения в координаты
 	static BaseAxes ConvertToXY(const int &left, const int &top) { return BaseAxes(ConvertToX(left), ConvertToY(top)); };
-	// Конвертировать координаты в вектор
-	static cocos2d::Vec2 ConvertToVec2(const int &x, const int &y);
 	// Конвертировать координаты X в смещение слева
 	static int ConvertToLeft(const int &value);
 	// Конвертировать координаты Y в смещение сверху

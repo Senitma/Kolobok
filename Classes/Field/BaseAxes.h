@@ -1,9 +1,7 @@
 #pragma once
 
-#include "cocos2d.h"
-
 // Базовый класс для всех координат
-class BaseAxes : public cocos2d::Ref
+class BaseAxes
 {
 public:
 	// Инициализация переменных

@@ -1,13 +1,13 @@
 #include "PathFinder.h"
 #include "Main\Settings.h"
 
-bool PathFinder::CanMoveTo(int startX, int startY, int finishX, int finishY, cocos2d::Vector<TagAxes *> blockMap)
+bool PathFinder::CanMoveTo(int startX, int startY, int finishX, int finishY, std::vector<TagAxes> blockMap)
 {
-	blockMap.at(GetIndex(startX, startY))->SetTag(0);
-	blockMap.at(GetIndex(finishX, finishY))->SetTag(-2);
-	PathFinder * newPath = new PathFinder();
+	blockMap.at(GetIndex(startX, startY)).SetTag(0);
+	blockMap.at(GetIndex(finishX, finishY)).SetTag(-2);
+	PathFinder * newPath = new PathFinder(blockMap);
 
-	if (newPath->FindFinish(startX, startY, blockMap) == true)
+	if (newPath->FindFinish(startX, startY) == true)
 	{
 		return true;
 	}
@@ -16,21 +16,21 @@ bool PathFinder::CanMoveTo(int startX, int startY, int finishX, int finishY, coc
 		return false;
 	}
 }
-cocos2d::Vector<TagAxes *> PathFinder::MoveTo(int startX, int startY, int finishX, int finishY, cocos2d::Vector<TagAxes *> blockMap)
+std::vector<TagAxes> PathFinder::MoveTo(int startX, int startY, int finishX, int finishY, std::vector<TagAxes> blockMap)
 {
-	blockMap.at(GetIndex(startX, startY))->SetTag(0);
-	blockMap.at(GetIndex(finishX, finishY))->SetTag(-2);
-	PathFinder * newPath = new PathFinder();
+	blockMap.at(GetIndex(startX, startY)).SetTag(0);
+	blockMap.at(GetIndex(finishX, finishY)).SetTag(-2);
+	PathFinder * newPath = new PathFinder(blockMap);
 
-	if (newPath->FindFinish(startX, startY, blockMap) == true)
+	if (newPath->FindFinish(startX, startY) == true)
 	{
-		return newPath->CreateMoveMap(blockMap);
+		return newPath->CreateMoveMap();
 	}
 	else
 	{
 		if (newPath->step > 1)
 		{
-			TagAxes * newFinish = new TagAxes(finishX, finishY);
+			TagAxes newFinish = TagAxes(finishX, finishY);
 			bool isFind = false;
 			int minX = finishX;
 			int minY = finishY;
@@ -44,7 +44,7 @@ cocos2d::Vector<TagAxes *> PathFinder::MoveTo(int startX, int startY, int finish
 				{
 					for (int y = minY; y < maxY; y++)
 					{
-						if (blockMap.at(GetIndex(x, y))->GetTag() > 0)
+						if (blockMap.at(GetIndex(x, y)).GetTag() > 0)
 						{
 							newFinish = blockMap.at(GetIndex(x, y));
 							isFind = true;
@@ -69,22 +69,22 @@ cocos2d::Vector<TagAxes *> PathFinder::MoveTo(int startX, int startY, int finish
 				}
 			} while (isFind == false);
 
-			newPath->finishX = newFinish->GetX();
-			newPath->finishY = newFinish->GetY();
-			newPath->step = newFinish->GetTag();
+			newPath->finishX = newFinish.GetX();
+			newPath->finishY = newFinish.GetY();
+			newPath->step = newFinish.GetTag();
 
-			return newPath->CreateMoveMap(blockMap);
+			return newPath->CreateMoveMap();
 		}
 		else
 		{
-			cocos2d::Vector<TagAxes *> noPath;
-			noPath.pushBack(new TagAxes(startX, startY));
+			std::vector<TagAxes> noPath;
+			noPath.push_back(TagAxes(startX, startY));
 			return noPath;
 		}
 	}
 }
 
-bool PathFinder::FindFinish(int startX, int startY, cocos2d::Vector<TagAxes *> blockMap)
+bool PathFinder::FindFinish(int startX, int startY)
 {
 	bool isFinished = false;
 	bool isMoved;
@@ -99,38 +99,38 @@ bool PathFinder::FindFinish(int startX, int startY, cocos2d::Vector<TagAxes *> b
 			for (int y = 0; y < Settings::VERTICALCELLCOUNT; y++)
 			{
 				// Найти опорную точку для следующего шага
-				if (blockMap.at(GetIndex(x,y))->GetTag() == step)
+				if (map.at(GetIndex(x,y)).GetTag() == step)
 				{
 					// Пометить все свободные ячейки как размер шага + 1
 					if (x != Settings::HORIZONTALCELLCOUNT - 1)
 					{
-						if (blockMap.at(GetIndex(x + 1, y))->GetTag() == -1)
+						if (map.at(GetIndex(x + 1, y)).GetTag() == -1)
 						{
-							blockMap.at(GetIndex(x + 1, y))->SetTag(step + 1);
+							map.at(GetIndex(x + 1, y)).SetTag(step + 1);
 							isMoved = true;
 						}
 					}
 					if (y != Settings::VERTICALCELLCOUNT - 1)
 					{
-						if (blockMap.at(GetIndex(x, y + 1))->GetTag() == -1)
+						if (map.at(GetIndex(x, y + 1)).GetTag() == -1)
 						{
-							blockMap.at(GetIndex(x, y + 1))->SetTag(step + 1);
+							map.at(GetIndex(x, y + 1)).SetTag(step + 1);
 							isMoved = true;
 						}
 					}
 					if (x != 0)
 					{
-						if (blockMap.at(GetIndex(x - 1, y))->GetTag() == -1)
+						if (map.at(GetIndex(x - 1, y)).GetTag() == -1)
 						{
-							blockMap.at(GetIndex(x - 1, y))->SetTag(step + 1);
+							map.at(GetIndex(x - 1, y)).SetTag(step + 1);
 							isMoved = true;
 						}
 					}
 					if (y != 0)
 					{
-						if (blockMap.at(GetIndex(x, y - 1))->GetTag() == -1)
+						if (map.at(GetIndex(x, y - 1)).GetTag() == -1)
 						{
-							blockMap.at(GetIndex(x, y - 1))->SetTag(step + 1);
+							map.at(GetIndex(x, y - 1)).SetTag(step + 1);
 							isMoved = true;
 						}
 					}
@@ -138,7 +138,7 @@ bool PathFinder::FindFinish(int startX, int startY, cocos2d::Vector<TagAxes *> b
 					// Проверить положение финиша рядом
 					if (x < Settings::HORIZONTALCELLCOUNT - 1)
 					{
-						if (blockMap.at(GetIndex(x + 1, y))->GetTag() == -2)
+						if (map.at(GetIndex(x + 1, y)).GetTag() == -2)
 						{
 							finishX = x + 1;
 							finishY = y;
@@ -147,7 +147,7 @@ bool PathFinder::FindFinish(int startX, int startY, cocos2d::Vector<TagAxes *> b
 					}
 					if (y < Settings::VERTICALCELLCOUNT - 1)
 					{
-						if (blockMap.at(GetIndex(x, y + 1))->GetTag() == -2)
+						if (map.at(GetIndex(x, y + 1)).GetTag() == -2)
 						{
 							finishX = x;
 							finishY = y + 1;
@@ -156,7 +156,7 @@ bool PathFinder::FindFinish(int startX, int startY, cocos2d::Vector<TagAxes *> b
 					}
 					if (x > 0)
 					{
-						if (blockMap.at(GetIndex(x - 1, y))->GetTag() == -2)
+						if (map.at(GetIndex(x - 1, y)).GetTag() == -2)
 						{
 							finishX = x - 1;
 							finishY = y;
@@ -165,7 +165,7 @@ bool PathFinder::FindFinish(int startX, int startY, cocos2d::Vector<TagAxes *> b
 					}
 					if (y > 0)
 					{
-						if (blockMap.at(GetIndex(x, y - 1))->GetTag() == -2)
+						if (map.at(GetIndex(x, y - 1)).GetTag() == -2)
 						{
 							finishX = x;
 							finishY = y - 1;
@@ -180,49 +180,49 @@ bool PathFinder::FindFinish(int startX, int startY, cocos2d::Vector<TagAxes *> b
 
 	return isFinished;
 }
-cocos2d::Vector<TagAxes *> PathFinder::CreateMoveMap(cocos2d::Vector<TagAxes *> blockMap)
+std::vector<TagAxes> PathFinder::CreateMoveMap()
 {
 	int x = finishX;
 	int y = finishY;
 
-	cocos2d::Vector<TagAxes *> path;
-	path.pushBack(new TagAxes(x, y));
+	std::vector<TagAxes> path;
+	path.push_back(TagAxes(x, y));
 
 	// Формирование набора точек от финиша до цели
 	do
 	{
 		// Для предотвращения ходьбы лесенкой проверяется только одна точка за раз
-		if ((x < Settings::HORIZONTALCELLCOUNT - 1) && (blockMap.at(GetIndex(x + 1, y))->GetTag() == step - 1))
+		if ((x < Settings::HORIZONTALCELLCOUNT - 1) && (map.at(GetIndex(x + 1, y)).GetTag() == step - 1))
 		{
-			path.pushBack(blockMap.at(GetIndex(x + 1, y)));
+			path.push_back(map.at(GetIndex(x + 1, y)));
 			step--;
 			x++;
 		}
-		else if ((y < Settings::VERTICALCELLCOUNT - 1) && (blockMap.at(GetIndex(x, y + 1))->GetTag() == step - 1))
+		else if ((y < Settings::VERTICALCELLCOUNT - 1) && (map.at(GetIndex(x, y + 1)).GetTag() == step - 1))
 		{
-			path.pushBack(blockMap.at(GetIndex(x, y + 1)));
+			path.push_back(map.at(GetIndex(x, y + 1)));
 			step--;
 			y++;
 		}
-		else if ((x > 0) && (blockMap.at(GetIndex(x - 1, y))->GetTag() == step - 1))
+		else if ((x > 0) && (map.at(GetIndex(x - 1, y)).GetTag() == step - 1))
 		{
-			path.pushBack(blockMap.at(GetIndex(x - 1, y)));
+			path.push_back(map.at(GetIndex(x - 1, y)));
 			step--;
 			x--;
 		}
-		else if ((y > 0) && (blockMap.at(GetIndex(x, y - 1))->GetTag() == step - 1))
+		else if ((y > 0) && (map.at(GetIndex(x, y - 1)).GetTag() == step - 1))
 		{
-			path.pushBack(blockMap.at(GetIndex(x, y - 1)));
+			path.push_back(map.at(GetIndex(x, y - 1)));
 			step--;
 			y--;
 		}
 	} while (step != 0);
 
-	cocos2d::Vector<TagAxes *> result;
+	std::vector<TagAxes> result;
 	// Разворот набора
 	for (int index = path.size() - 1; index >= 0; index--)
 	{
-		result.pushBack(path.at(index));
+		result.push_back(path.at(index));
 	}
 
 	return result;

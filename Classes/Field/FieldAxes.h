@@ -27,8 +27,6 @@ public:
 	int ToLeft() const;
 	// Конвертировать положение по оси Y в смещение сверху
 	int ToTop() const;
-	// Конвертировать координаты в вектор
-	cocos2d::Vec2 ToVec2() const;
 private:
 	// Неизмененное положение по оси X
 	int originalX;

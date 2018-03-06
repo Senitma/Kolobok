@@ -5,6 +5,7 @@
 #include "Main\GameStatusType.h"
 
 #include "TagAxes.h"
+#include "vector"
 
 class Field : private cocos2d::Ref
 {
@@ -41,12 +42,12 @@ public:
 	static void RemoveElement(ElementNameType name, int x, int y);
 
 	// Создать карту с блоками
-	static cocos2d::Vector<TagAxes *> CreateBlockMap();
+	static std::vector<TagAxes> CreateBlockMap();
 private:
 	// Крнвертрование координат в индекс массива
 	static int ConvertToArrayIndex(FieldPoint value);
 	// Крнвертрование координат в индекс массива
 	static int ConvertToArrayIndex(int x, int y);
 	// Крнвертрование индекса массива в координаты
-	static TagAxes * ConvertToPoint(int index);
+	static TagAxes ConvertToPoint(int index);
 };

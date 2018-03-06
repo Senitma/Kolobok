@@ -30,10 +30,6 @@ int Axes::ConvertToY(const int &value)
 	return value / (fieldHeight / maxForY);
 }
 
-cocos2d::Vec2 Axes::ConvertToVec2(const int &x, const int &y)
-{
-	return cocos2d::Vec2(x, y);
-}
 int Axes::ConvertToLeft(const int &value)
 {
 	return (fieldWidth / maxForX) / 2 + value * (fieldWidth / maxForX);
