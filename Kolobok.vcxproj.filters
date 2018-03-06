@@ -214,5 +214,8 @@
     <ClInclude Include="Classes\Field\FieldAxes.h">
       <Filter>Field\Axes</Filter>
     </ClInclude>
+    <ClInclude Include="Classes\Field\FieldAxesSettings.h">
+      <Filter>Field\Axes</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

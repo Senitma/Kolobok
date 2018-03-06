@@ -1,5 +1,10 @@
 #include "FieldAxes.h"
 
+int Axes::maxForX = 0;
+int Axes::maxForY = 0;
+int FieldAxes::fieldWidth = 0;
+int FieldAxes::fieldHeight = 0;
+
 void FieldAxes::SetX(const int &value)
 {
 	originalX = value;
