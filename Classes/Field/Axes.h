@@ -1,7 +1,7 @@
 #pragma once
 
 #include "cocos2d.h"
-#include "FieldAxes.h"
+#include "BaseAxes.h"
 
 // Класс для расчетов и хранения настроек координат
 class Axes : cocos2d::Ref
@@ -30,15 +30,17 @@ public:
 	// Получить размер высоты зазора
 	static int GetGapHeight() { return gapHeight; };
 
-	// Конвертирование в индекс
+	// Конвертирование координат в индекс
 	static int ConvertToIndex(const int &x, const int &y) { return y * maxForX + x; };
+	// Конвертирование индекса в координаты
+	static BaseAxes ConvertToXY(const int &value);
 
 	// Конвертировать смещения в координаты
 	static int ConvertToX(const int &value);
 	// Конвертировать смещения в координаты
 	static int ConvertToY(const int &value);
 	// Конвертировать смещения в координаты
-	static FieldAxes ConvertToXY(const int &left, const int &top) { return FieldAxes(ConvertToX(left), ConvertToY(top)); };
+	static BaseAxes ConvertToXY(const int &left, const int &top) { return BaseAxes(ConvertToX(left), ConvertToY(top)); };
 	// Конвертировать координаты в вектор
 	static cocos2d::Vec2 ConvertToVec2(const int &x, const int &y);
 	// Конвертировать координаты X в смещение слева

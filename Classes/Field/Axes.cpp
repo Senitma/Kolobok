@@ -2,8 +2,24 @@
 
 int Axes::maxForX = 0;
 int Axes::maxForY = 0;
+
+int Axes::nodeWidth = 0;
+int Axes::nodeHeight = 0;
+int Axes::cellWidth = 0;
+int Axes::cellHeight = 0;
+int Axes::cellDepth = 0;
 int Axes::fieldWidth = 0;
 int Axes::fieldHeight = 0;
+int Axes::gapWidth = 0;
+int Axes::gapHeight = 0;
+
+BaseAxes Axes::ConvertToXY(const int & value)
+{
+	int x = value % maxForX;
+	int y = value / maxForX;
+
+	return BaseAxes(x, y);
+}
 
 int Axes::ConvertToX(const int &value)
 {
