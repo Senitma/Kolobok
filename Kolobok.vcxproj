@@ -158,6 +158,7 @@ xcopy /Y /Q "$(COCOS_X_ROOT)\cocos2d-x-3.10\prebuilt\win32\*.*" "$(OutDir)"
     <ClCompile Include="Classes\Element\ElementCreator.cpp" />
     <ClCompile Include="Classes\Element\ElementReader.cpp" />
     <ClCompile Include="Classes\Element\ElementRelations.cpp" />
+    <ClCompile Include="Classes\Field\Axes.cpp" />
     <ClCompile Include="Classes\Field\Cell.cpp" />
     <ClCompile Include="Classes\Field\Field.cpp" />
     <ClCompile Include="Classes\Field\FieldAxes.cpp" />
@@ -188,10 +189,11 @@ xcopy /Y /Q "$(COCOS_X_ROOT)\cocos2d-x-3.10\prebuilt\win32\*.*" "$(OutDir)"
     <ClInclude Include="Classes\Element\ResultType.h" />
     <ClInclude Include="Classes\Element\SideType.h" />
     <ClInclude Include="Classes\Field\Axes.h" />
+    <ClInclude Include="Classes\Field\BaseAxes.h" />
     <ClInclude Include="Classes\Field\Cell.h" />
     <ClInclude Include="Classes\Field\Field.h" />
     <ClInclude Include="Classes\Field\FieldAxes.h" />
-    <ClInclude Include="Classes\Field\FieldSettings.h" />
+    <ClInclude Include="Classes\Field\AxesSettings.h" />
     <ClInclude Include="Classes\Field\FieldPoint.h" />
     <ClInclude Include="Classes\Field\PathFinder.h" />
     <ClInclude Include="Classes\Field\TagAxes.h" />

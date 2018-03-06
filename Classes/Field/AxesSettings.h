@@ -1,9 +1,9 @@
 #pragma once
 
-#include "FieldAxes.h"
+#include "Axes.h"
 
 // Класс настройки поля
-class FieldSettings : FieldAxes
+class AxesSettings : Axes
 {
 public:
 	// Изменить максимальное положение по оси X

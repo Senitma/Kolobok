@@ -1,9 +1,9 @@
 #pragma once
 
-#include "Axes.h"
+#include "BaseAxes.h"
 
 // Класс координат с идентификатором
-class TagAxes : public Axes
+class TagAxes : public BaseAxes
 {
 public:
 	// Инициализация переменных
@@ -11,9 +11,9 @@ public:
 	// Инициализация переменных
 	TagAxes(const int &x, const int &y) : TagAxes(x, y, 0) {};
 	// Инициализация переменных
-	TagAxes(const int &x, const int &y, const int &tag) : Axes(x, y) { SetTag(tag); };
+	TagAxes(const int &x, const int &y, const int &tag) : BaseAxes(x, y) { SetTag(tag); };
 	// Инициализация переменных
-	TagAxes(Axes &value) { operator=(value); };
+	TagAxes(BaseAxes &value) { operator=(value); };
 
 	// Получить идентификатор
 	virtual int GetTag() const { return tag; };
@@ -21,7 +21,7 @@ public:
 	virtual void SetTag(int value) { tag = value; };
 
 	// Присваивание нового значения
-	void operator=(const Axes &value) { x = value.GetX(); y = value.GetY(); };
+	void operator=(const BaseAxes &value) { x = value.GetX(); y = value.GetY(); };
 	// Сравнение двух координат
 	bool operator==(const TagAxes &value) { return ((x == value.GetX()) && (y == value.GetY() && (tag == value.GetTag()))); };
 	// Сравнение двух координат

@@ -1,9 +1,6 @@
 #include "FieldAxes.h"
+#include "Axes.h"
 
-int Axes::maxForX = 0;
-int Axes::maxForY = 0;
-int FieldAxes::fieldWidth = 0;
-int FieldAxes::fieldHeight = 0;
 
 void FieldAxes::SetX(const int &value)
 {
@@ -12,9 +9,9 @@ void FieldAxes::SetX(const int &value)
 	{
 		x = 0;
 	}
-	else if (originalX > maxForX)
+	else if (originalX > Axes::GetMaxForX())
 	{
-		x = maxForX;
+		x = Axes::GetMaxForX();
 	}
 	else
 	{
@@ -28,14 +25,26 @@ void FieldAxes::SetY(const int &value)
 	{
 		y = 0;
 	}
-	else if (originalY > maxForY)
+	else if (originalY > Axes::GetMaxForY())
 	{
-		y = maxForY;
+		y = Axes::GetMaxForY();
 	}
 	else
 	{
 		y = originalY;
 	}
+}
+int FieldAxes::ToLeft() const
+{
+	return Axes::ConvertToLeft(x);
+}
+int FieldAxes::ToTop() const
+{
+	return Axes::ConvertToLeft(y);;
+}
+cocos2d::Vec2 FieldAxes::ToVec2() const
+{
+	return Axes::ConvertToVec2(x, y);;
 }
 bool FieldAxes::CheckOutside() const
 {
@@ -49,24 +58,3 @@ bool FieldAxes::CheckOutside() const
 	}
 }
 
-int FieldAxes::ConvertToX(const int &value)
-{
-	return value / (fieldWidth / maxForX);
-}
-int FieldAxes::ConvertToY(const int &value)
-{
-	return value / (fieldHeight / maxForY);
-}
-
-cocos2d::Vec2 FieldAxes::ConvertToVec2(const int &x, const int &y)
-{
-	return cocos2d::Vec2(x,y);
-}
-int FieldAxes::ConvertToLeft(const int &value)
-{
-	return (fieldWidth / maxForX) / 2 + value * (fieldWidth / maxForX);
-}
-int FieldAxes::ConvertToTop(const int &value)
-{
-	return fieldHeight - ((fieldHeight / maxForY) / 2 + value * (fieldHeight / maxForY));
-}

@@ -1,43 +1,72 @@
 #pragma once
 
 #include "cocos2d.h"
+#include "FieldAxes.h"
 
-// Класс координат
-class Axes : public cocos2d::Ref
+// Класс для расчетов и хранения настроек координат
+class Axes : cocos2d::Ref
 {
 public:
-	// Инициализация переменных
-	Axes() : Axes(0, 0) {};
-	// Инициализация переменных
-	Axes(const int &x, const int &y) { SetX(x); SetY(y); };
-
-	// Получить положение по оси X
-	virtual int GetX() const { return x; };
-	// Получить положение по оси Y
-	virtual int GetY() const { return y; };
-	// Изменить положение по оси X
-	virtual void SetX(const int &value) { x = value; };
-	// Изменить положение по оси Y
-	virtual void SetY(const int &value) { y = value; };
-
 	// Получить максимальное положение по оси X
 	static int GetMaxForX() { return maxForX; };
 	// Получить максимальное положение по оси Y
 	static int GetMaxForY() { return maxForY; };
+	// Получить размер ширины узла
+	static int GetNodeWidth() { return nodeWidth; };
+	// Получить размер высоты узла
+	static int GetNodeHeight() { return nodeHeight; };
+	// Получить размер ширины клетки
+	static int GetCellWidth() { return cellWidth; };
+	// Получить размер высоты клетки
+	static int GetCellHeight() { return cellHeight; };
+	// Получить размер глубины клетки
+	static int GetCellDepth() { return cellDepth; };
+	// Получить размер ширины поля
+	static int GetFieldWidth() { return fieldWidth; };
+	// Получить размер высоты поля
+	static int GetFieldHeight() { return fieldHeight; };
+	// Получить размер ширины зазора
+	static int GetGapWidth() { return gapWidth; };
+	// Получить размер высоты зазора
+	static int GetGapHeight() { return gapHeight; };
 
-	// Преобразование в int
-	operator int() const { return y * maxForX + x; };
-	// Сравнение двух координат
-	bool operator==(const Axes &value) { return ((x == value.GetX()) && (y == value.GetY())); };
-	// Сравнение двух координат
-	bool operator!=(const Axes &value) { return ((x != value.GetX()) || (y != value.GetY())); };
+	// Конвертирование в индекс
+	static int ConvertToIndex(const int &x, const int &y) { return y * maxForX + x; };
+
+	// Конвертировать смещения в координаты
+	static int ConvertToX(const int &value);
+	// Конвертировать смещения в координаты
+	static int ConvertToY(const int &value);
+	// Конвертировать смещения в координаты
+	static FieldAxes ConvertToXY(const int &left, const int &top) { return FieldAxes(ConvertToX(left), ConvertToY(top)); };
+	// Конвертировать координаты в вектор
+	static cocos2d::Vec2 ConvertToVec2(const int &x, const int &y);
+	// Конвертировать координаты X в смещение слева
+	static int ConvertToLeft(const int &value);
+	// Конвертировать координаты Y в смещение сверху
+	static int ConvertToTop(const int &value);
 protected:
-	// Положение по оси X
-	int x;
-	// Положение по оси Y
-	int y;
 	// Максимальное положение по оси X
 	static int maxForX;
 	// Максимальное положение по оси Y
 	static int maxForY;
+
+	// Ширина узла
+	static int nodeWidth;
+	// Высота узла
+	static int nodeHeight;
+	// Ширина клетки
+	static int cellWidth;
+	// Высота клетки
+	static int cellHeight;
+	// Глубина клетки
+	static int cellDepth;
+	// Ширина поля
+	static int fieldWidth;
+	// Высота поля
+	static int fieldHeight;
+	// Ширина зазора
+	static int gapWidth;
+	// Высота зазора
+	static int gapHeight;
 };
