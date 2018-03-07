@@ -1,21 +1,29 @@
 #pragma once
 
-#include "TagAxes.h"
 #include "vector"
 
+//Базовый класс всех координат
+class BaseAxes;
+// Класс координат с идентификатором
+class TagAxes;
 // Класс поиска оптимального пути
 class PathFinder
 {
 public:
 	// Инициализация переменных
-	PathFinder(std::vector<TagAxes> blockMap) { map = blockMap; };
+	PathFinder(std::vector<TagAxes> & map, const BaseAxes & start, const BaseAxes & finish);
+
 	// Проверка возможности дойти до финиша
-	static bool CanMoveTo(int startX, int startY, int finishX, int finishY, std::vector<TagAxes> blockMap);
+	static bool CanMoveTo(std::vector<TagAxes> & map, const BaseAxes & start, const BaseAxes & finish);
 	// Получить маршрут точек до финиша
-	static std::vector<TagAxes> MoveTo(int startX, int startY, int finishX, int finishY, std::vector<TagAxes> blockMap);
+	static std::vector<BaseAxes> MoveTo(std::vector<TagAxes> & map, const BaseAxes & start, const BaseAxes & finish);
 private:
 	// Количество пройденных шагов
 	int step;
+	// Координаты старта по оси X
+	int startX;
+	// Координаты старта по оси Y
+	int startY;
 	// Координаты финиша по оси X
 	int finishX;
 	// Координаты финиша по оси Y
@@ -24,10 +32,9 @@ private:
 	std::vector<TagAxes> map;
 
 	// Проложить маршрут до финиша
-	bool FindFinish(int startX, int startY);
+	bool FindFinish();
+	// Найти ближайшую точку к финишу 
+	bool FindNewFinish();
 	// Сформировать набор точек для перемещения
-	std::vector<TagAxes> CreateMoveMap();
-
-	// Сформировать индекс из координат
-	static int GetIndex(int x, int y);
+	std::vector<BaseAxes> CreateMoveMap();
 };

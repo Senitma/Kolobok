@@ -4,6 +4,7 @@
 #include "Element\Element.h"
 #include "Element\ElementCreator.h"
 #include "Main\Settings.h"
+#include "Field\BaseAxes.h"
 
 // Главный персонаж
 static Element * ninja;
@@ -23,7 +24,7 @@ void MapHandle::ReloadMap()
 
 bool MapHandle::CheckPath()
 {
-	return PathFinder::CanMoveTo(ninja->GetX(), ninja->GetY(), finish->GetX(), finish->GetY(), Field::CreateBlockMap());
+	return PathFinder::CanMoveTo(Field::CreateBlockMap(), BaseAxes(ninja->GetX(), ninja->GetY()), BaseAxes(finish->GetX(), finish->GetY()));
 }
 
 void MapHandle::LoadForIndex(int index)

@@ -1,239 +1,238 @@
 #include "PathFinder.h"
-#include "Main\Settings.h"
+#include "TagAxes.h"
+#include "Axes.h"
 
-bool PathFinder::CanMoveTo(int startX, int startY, int finishX, int finishY, std::vector<TagAxes> blockMap)
+PathFinder::PathFinder(std::vector<TagAxes> & map, const BaseAxes & start, const BaseAxes & finish)
 {
-	blockMap.at(GetIndex(startX, startY)).SetTag(0);
-	blockMap.at(GetIndex(finishX, finishY)).SetTag(-2);
-	PathFinder * newPath = new PathFinder(blockMap);
+	this->map = map;
+	this->map.at(Axes::ConvertToIndex(start)).SetTag(0);
+	this->map.at(Axes::ConvertToIndex(finish)).SetTag(-2);
 
-	if (newPath->FindFinish(startX, startY) == true)
+	startX = start.GetX();
+	startY = start.GetY();
+	finishX = finish.GetX();
+	finishY = finish.GetY();
+}
+
+bool PathFinder::CanMoveTo(std::vector<TagAxes> & map, const BaseAxes & start, const BaseAxes & finish)
+{
+	PathFinder newPath = PathFinder(map, start, finish);
+
+	return newPath.FindFinish();
+}
+std::vector<BaseAxes> PathFinder::MoveTo(std::vector<TagAxes> & map, const BaseAxes & start, const BaseAxes & finish)
+{
+	PathFinder newPath = PathFinder(map, start, finish);
+
+	if (newPath.FindFinish() == true)
 	{
-		return true;
+		return newPath.CreateMoveMap();
+	}
+	else
+	{
+		if (newPath.FindNewFinish() == true)
+		{
+			// Поиск ближайшей точки к финишу
+			return newPath.CreateMoveMap();
+		}
+		else
+		{
+			// Достигнута самая ближайшая точка к финишу
+			return std::vector<BaseAxes>{ start };
+		}
+	}
+}
+
+bool PathFinder::FindFinish()
+{
+	bool isFinished = false;
+	step = 0;
+
+	int moveCheker;
+	const int MAXEMPTYMOVED = 3;
+
+	do
+	{
+		for (int x = 0; x < Axes::GetMaxForX(); x++)
+		{
+			for (int y = 0; y < Axes::GetMaxForY(); y++)
+			{
+				TagAxes &parent = map.at(Axes::ConvertToIndex(x, y));
+
+				// Функция для добавления новой точки на карте с учетом поворота
+				auto AddStep = [&](TagAxes &point)
+				{
+					if (point.GetTag() == -1)
+					{
+						if ((parent.GetPrevX() != point.GetX()) && (parent.GetPrevY() != point.GetY()))
+						{
+							// Приходится поворачиваться
+							point.SetTag(step + 2);
+						}
+						else
+						{
+							// Перемещение по прямой
+							point.SetTag(step + 1);
+						}
+
+						point.SetPrevX(x);
+						point.SetPrevY(y);
+						moveCheker = MAXEMPTYMOVED;
+					}
+				};
+
+				// Найти опорную точку для следующего шага
+				if (parent.GetTag() == step)
+				{
+					// Отметить все свободные ячейки
+					if (x != Axes::GetMaxForX() - 1)
+					{
+						AddStep(map.at(Axes::ConvertToIndex(x + 1, y)));
+					}
+					if (y != Axes::GetMaxForY() - 1)
+					{
+						AddStep(map.at(Axes::ConvertToIndex(x, y + 1)));
+					}
+					if (x != 0)
+					{
+						AddStep(map.at(Axes::ConvertToIndex(x - 1, y)));
+					}
+					if (y != 0)
+					{
+						AddStep(map.at(Axes::ConvertToIndex(x, y - 1)));
+					}
+
+					// Функция для поиска клетки финиша в соседних клетках
+					auto CheckFinish = [&](TagAxes &point)
+					{
+						if (point.GetTag() == -2)
+						{
+							if ((parent.GetPrevX() != point.GetX()) && (parent.GetPrevY() != point.GetY()))
+							{
+								// Приходится поворачиваться
+								parent.SetTag(parent.GetTag() + 1);
+								step++;
+							}
+
+							return true;
+						}
+						else
+						{
+							return false;
+						}
+					};
+
+					// Проверить положение финиша рядом
+					if (((x < Axes::GetMaxForX() - 1) && (CheckFinish(map.at(Axes::ConvertToIndex(x + 1, y))) == true)) ||
+					    ((y < Axes::GetMaxForY() - 1) && (CheckFinish(map.at(Axes::ConvertToIndex(x, y + 1))) == true)) ||
+						((x > 0) && (CheckFinish(map.at(Axes::ConvertToIndex(x - 1, y))) == true)) ||
+						((y > 0) && (CheckFinish(map.at(Axes::ConvertToIndex(x, y - 1))) == true)))
+					{
+						isFinished = true;
+					}
+				}
+			}
+		}
+
+		step++;
+		moveCheker--;
+	} while (isFinished == false && moveCheker > 0);
+
+	return isFinished;
+}
+bool PathFinder::FindNewFinish()
+{
+	if (step > 1)
+	{
+		int minX = finishX;
+		int minY = finishY;
+		int maxX = finishX;
+		int maxY = finishY;
+
+		// Поиск максимально близкой точки к фииншу, которую можно достичь
+		do
+		{
+			for (int x = minX; x < maxX; x++)
+			{
+				for (int y = minY; y < maxY; y++)
+				{
+					TagAxes point = map.at(Axes::ConvertToIndex(x, y));
+					if (point.GetTag() > 0)
+					{
+						finishX = point.GetX();;
+						finishY = point.GetY();
+						step = point.GetTag();
+
+						return true;
+					}
+				}
+			}
+			if (minX > 0) { minX--; }
+			if (minY > 0) { minY--; }
+			if (maxX < Axes::GetMaxForX()) { maxX++; }
+			if (maxY < Axes::GetMaxForY()) { maxY++; }
+		} while ((minX > 0) || (minY >0) || (maxX < Axes::GetMaxForX()) || (maxY < Axes::GetMaxForY()));
+
+		return false;
 	}
 	else
 	{
 		return false;
 	}
 }
-std::vector<TagAxes> PathFinder::MoveTo(int startX, int startY, int finishX, int finishY, std::vector<TagAxes> blockMap)
-{
-	blockMap.at(GetIndex(startX, startY)).SetTag(0);
-	blockMap.at(GetIndex(finishX, finishY)).SetTag(-2);
-	PathFinder * newPath = new PathFinder(blockMap);
-
-	if (newPath->FindFinish(startX, startY) == true)
-	{
-		return newPath->CreateMoveMap();
-	}
-	else
-	{
-		if (newPath->step > 1)
-		{
-			TagAxes newFinish = TagAxes(finishX, finishY);
-			bool isFind = false;
-			int minX = finishX;
-			int minY = finishY;
-			int maxX = finishX;
-			int maxY = finishY;
-
-			// Поиск максимально близкой точки к фииншу, которую можно достичь
-			do
-			{
-				for (int x = minX; x < maxX; x++)
-				{
-					for (int y = minY; y < maxY; y++)
-					{
-						if (blockMap.at(GetIndex(x, y)).GetTag() > 0)
-						{
-							newFinish = blockMap.at(GetIndex(x, y));
-							isFind = true;
-						}
-					}
-				}
-				if (minX > 0)
-				{
-					minX--;
-				}
-				if (minY > 0)
-				{
-					minY--;
-				}
-				if (maxX < Settings::HORIZONTALCELLCOUNT)
-				{
-					maxX++;
-				}
-				if (maxY < Settings::VERTICALCELLCOUNT)
-				{
-					maxY++;
-				}
-			} while (isFind == false);
-
-			newPath->finishX = newFinish.GetX();
-			newPath->finishY = newFinish.GetY();
-			newPath->step = newFinish.GetTag();
-
-			return newPath->CreateMoveMap();
-		}
-		else
-		{
-			std::vector<TagAxes> noPath;
-			noPath.push_back(TagAxes(startX, startY));
-			return noPath;
-		}
-	}
-}
-
-bool PathFinder::FindFinish(int startX, int startY)
-{
-	bool isFinished = false;
-	bool isMoved;
-
-	step = 0;
-
-	do
-	{
-		isMoved = false;
-		for (int x = 0; x < Settings::HORIZONTALCELLCOUNT; x++)
-		{
-			for (int y = 0; y < Settings::VERTICALCELLCOUNT; y++)
-			{
-				// Найти опорную точку для следующего шага
-				if (map.at(GetIndex(x,y)).GetTag() == step)
-				{
-					// Пометить все свободные ячейки как размер шага + 1
-					if (x != Settings::HORIZONTALCELLCOUNT - 1)
-					{
-						if (map.at(GetIndex(x + 1, y)).GetTag() == -1)
-						{
-							map.at(GetIndex(x + 1, y)).SetTag(step + 1);
-							isMoved = true;
-						}
-					}
-					if (y != Settings::VERTICALCELLCOUNT - 1)
-					{
-						if (map.at(GetIndex(x, y + 1)).GetTag() == -1)
-						{
-							map.at(GetIndex(x, y + 1)).SetTag(step + 1);
-							isMoved = true;
-						}
-					}
-					if (x != 0)
-					{
-						if (map.at(GetIndex(x - 1, y)).GetTag() == -1)
-						{
-							map.at(GetIndex(x - 1, y)).SetTag(step + 1);
-							isMoved = true;
-						}
-					}
-					if (y != 0)
-					{
-						if (map.at(GetIndex(x, y - 1)).GetTag() == -1)
-						{
-							map.at(GetIndex(x, y - 1)).SetTag(step + 1);
-							isMoved = true;
-						}
-					}
-						
-					// Проверить положение финиша рядом
-					if (x < Settings::HORIZONTALCELLCOUNT - 1)
-					{
-						if (map.at(GetIndex(x + 1, y)).GetTag() == -2)
-						{
-							finishX = x + 1;
-							finishY = y;
-							isFinished = true;
-						}
-					}
-					if (y < Settings::VERTICALCELLCOUNT - 1)
-					{
-						if (map.at(GetIndex(x, y + 1)).GetTag() == -2)
-						{
-							finishX = x;
-							finishY = y + 1;
-							isFinished = true;
-						}
-					}
-					if (x > 0)
-					{
-						if (map.at(GetIndex(x - 1, y)).GetTag() == -2)
-						{
-							finishX = x - 1;
-							finishY = y;
-							isFinished = true;
-						}
-					}
-					if (y > 0)
-					{
-						if (map.at(GetIndex(x, y - 1)).GetTag() == -2)
-						{
-							finishX = x;
-							finishY = y - 1;
-							isFinished = true;
-						}
-					}
-				}
-			}
-		}
-		step++;
-	} while (isFinished == false && isMoved == true);
-
-	return isFinished;
-}
-std::vector<TagAxes> PathFinder::CreateMoveMap()
+std::vector<BaseAxes> PathFinder::CreateMoveMap()
 {
 	int x = finishX;
 	int y = finishY;
 
-	std::vector<TagAxes> path;
-	path.push_back(TagAxes(x, y));
+	std::vector<BaseAxes> path;
+	path.push_back(BaseAxes(x, y));
 
 	// Формирование набора точек от финиша до цели
 	do
 	{
-		// Для предотвращения ходьбы лесенкой проверяется только одна точка за раз
-		if ((x < Settings::HORIZONTALCELLCOUNT - 1) && (map.at(GetIndex(x + 1, y)).GetTag() == step - 1))
+		int newStep = step;
+		int newX = x;
+		int newY = y;
+
+		// Функция поиска минимального шага в соседних клетках
+		auto FindMinStep = [&](TagAxes &point)
 		{
-			path.push_back(map.at(GetIndex(x + 1, y)));
-			step--;
-			x++;
-		}
-		else if ((y < Settings::VERTICALCELLCOUNT - 1) && (map.at(GetIndex(x, y + 1)).GetTag() == step - 1))
+			if ((point.GetTag() >= 0) && (point.GetTag() < newStep))
+			{
+				newStep = point.GetTag();
+				newX = point.GetX();
+				newY = point.GetY();
+			}
+		};
+
+		// Поиск минимального шага в соседних клетках
+		if (x < Axes::GetMaxForX() - 1)
 		{
-			path.push_back(map.at(GetIndex(x, y + 1)));
-			step--;
-			y++;
+			FindMinStep(map.at(Axes::ConvertToIndex(x + 1, y)));
 		}
-		else if ((x > 0) && (map.at(GetIndex(x - 1, y)).GetTag() == step - 1))
+		if (y < Axes::GetMaxForY() - 1)
 		{
-			path.push_back(map.at(GetIndex(x - 1, y)));
-			step--;
-			x--;
+			FindMinStep(map.at(Axes::ConvertToIndex(x, y + 1)));
 		}
-		else if ((y > 0) && (map.at(GetIndex(x, y - 1)).GetTag() == step - 1))
+		if (x > 0)
 		{
-			path.push_back(map.at(GetIndex(x, y - 1)));
-			step--;
-			y--;
+			FindMinStep(map.at(Axes::ConvertToIndex(x - 1, y)));
 		}
+		if (y > 0)
+		{
+			FindMinStep(map.at(Axes::ConvertToIndex(x, y - 1)));
+		}
+
+		// Добавление новой координаты в очередь
+		step = newStep;
+		x = newX;
+		y = newY;
+		path.push_back(BaseAxes(x, y));
 	} while (step != 0);
 
-	std::vector<TagAxes> result;
 	// Разворот набора
-	for (int index = path.size() - 1; index >= 0; index--)
-	{
-		result.push_back(path.at(index));
-	}
+	std::reverse(std::begin(path), std::end(path));
 
-	return result;
-}
-
-int PathFinder::GetIndex(int x, int y)
-{
-	if (y * Settings::HORIZONTALCELLCOUNT + x >= 300)
-	{
-		return 0;
-	}
-
-	return y * Settings::HORIZONTALCELLCOUNT + x;
+	return path;
 }

@@ -1,7 +1,7 @@
 #include "Axes.h"
 
-int Axes::maxForX = 0;
-int Axes::maxForY = 0;
+int Axes::maxForX = 20;
+int Axes::maxForY = 15;
 
 int Axes::nodeWidth = 0;
 int Axes::nodeHeight = 0;

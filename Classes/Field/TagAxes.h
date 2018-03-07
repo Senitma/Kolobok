@@ -16,9 +16,17 @@ public:
 	TagAxes(BaseAxes &value) { operator=(value); };
 
 	// Получить идентификатор
-	virtual int GetTag() const { return tag; };
+	int GetTag() const { return tag; };
 	// Изменить идентификатор
-	virtual void SetTag(int value) { tag = value; };
+	void SetTag(int value) { tag = value; };
+	// Получить предыдущее положение по оси X
+	int GetPrevX() const { return prevX; };
+	// Получить предыдущее положение по оси Y
+	int GetPrevY() const { return prevY; };
+	// Изменить предыдущее положение по оси X
+	void SetPrevX(const int &value) { prevX = value; };
+	// Изменить предыдущее положение по оси Y
+	void SetPrevY(const int &value) { prevY = value; };
 
 	// Присваивание нового значения
 	void operator=(const BaseAxes &value) { x = value.GetX(); y = value.GetY(); };
@@ -26,7 +34,11 @@ public:
 	bool operator==(const TagAxes &value) { return ((x == value.GetX()) && (y == value.GetY() && (tag == value.GetTag()))); };
 	// Сравнение двух координат
 	bool operator!=(const TagAxes &value) { return ((x != value.GetX()) || (y != value.GetY() || (tag != value.GetTag()))); };
-protected:
+private:
 	// Идентификатор
 	int tag;
+	// Предыдущее положение по оси X
+	int prevX;
+	// Предыдущее положение по оси Y
+	int prevY;
 };

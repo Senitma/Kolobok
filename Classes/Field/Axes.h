@@ -30,6 +30,8 @@ public:
 	static int GetGapHeight() { return gapHeight; };
 
 	// Конвертирование координат в индекс
+	static int ConvertToIndex(BaseAxes value) { return ConvertToIndex(value.GetX(), value.GetY()); };
+	// Конвертирование координат в индекс
 	static int ConvertToIndex(const int &x, const int &y) { return y * maxForX + x; };
 	// Конвертирование индекса в координаты
 	static BaseAxes ConvertToXY(const int &value);
