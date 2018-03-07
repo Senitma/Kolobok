@@ -1,6 +1,7 @@
 #pragma once
 
 #include "BaseAxes.h"
+#include "Field\FieldPoint.h"
 
 // Класс для расчетов и хранения настроек координат
 class Axes
@@ -29,19 +30,20 @@ public:
 	// Получить размер высоты зазора
 	static int GetGapHeight() { return gapHeight; };
 
+	// Временная заглушка
+	static int ConvertToIndex(FieldPoint &value) { return ConvertToIndex(value.GetX(), value.GetY()); };
 	// Конвертирование координат в индекс
-	static int ConvertToIndex(BaseAxes value) { return ConvertToIndex(value.GetX(), value.GetY()); };
+	static int ConvertToIndex(const BaseAxes &value) { return ConvertToIndex(value.GetX(), value.GetY()); };
 	// Конвертирование координат в индекс
 	static int ConvertToIndex(const int &x, const int &y) { return y * maxForX + x; };
-	// Конвертирование индекса в координаты
-	static BaseAxes ConvertToXY(const int &value);
-
 	// Конвертировать смещения в координаты
 	static int ConvertToX(const int &value);
 	// Конвертировать смещения в координаты
 	static int ConvertToY(const int &value);
+	// Конвертирование индекса в координаты
+	static BaseAxes ConvertToAxes(const int &value);
 	// Конвертировать смещения в координаты
-	static BaseAxes ConvertToXY(const int &left, const int &top) { return BaseAxes(ConvertToX(left), ConvertToY(top)); };
+	static BaseAxes ConvertToAxes(const int &left, const int &top) { return BaseAxes(ConvertToX(left), ConvertToY(top)); };
 	// Конвертировать координаты X в смещение слева
 	static int ConvertToLeft(const int &value);
 	// Конвертировать координаты Y в смещение сверху

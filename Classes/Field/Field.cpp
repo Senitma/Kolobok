@@ -7,6 +7,8 @@
 #include "Option\BaseClass\ISInterval.h"
 #include "Main\MapHandle.h"
 
+#include "Axes.h"
+
 USING_NS_CC;
 
 // Ôîí
@@ -87,36 +89,36 @@ GameStatusType Field::GetGameStatus()
 
 bool Field::CanAddElement(Element * item)
 {
-	return items.at(ConvertToArrayIndex(item->GetXY()))->CanAddElement(item);
+	return items.at(Axes::ConvertToIndex(item->GetXY()))->CanAddElement(item);
 }
 bool Field::CanAddElement(ClassType type, int x, int y)
 {
-	return items.at(ConvertToArrayIndex(x, y))->CanAddElement(type);
+	return items.at(Axes::ConvertToIndex(x, y))->CanAddElement(type);
 }
 void Field::AddElement(Element * item)
 {
-	items.at(ConvertToArrayIndex(item->GetXY()))->AddElement(item);
+	items.at(Axes::ConvertToIndex(item->GetXY()))->AddElement(item);
 }
 bool Field::ContainName(ElementNameType name, int x, int y)
 {
-	return items.at(ConvertToArrayIndex(x, y))->ContainName(name);
+	return items.at(Axes::ConvertToIndex(x, y))->ContainName(name);
 }
 bool Field::ContainElement(Element * item)
 {
-	return items.at(ConvertToArrayIndex(item->GetXY()))->ContainElement(item);
+	return items.at(Axes::ConvertToIndex(item->GetXY()))->ContainElement(item);
 }
 Element * Field::GetElement(ElementNameType name, int x, int y)
 {
-	return items.at(ConvertToArrayIndex(x, y))->GetElement(name);
+	return items.at(Axes::ConvertToIndex(x, y))->GetElement(name);
 }
 
 void Field::RemoveElement(Element * item)
 {
-	items.at(ConvertToArrayIndex(item->GetXY()))->RemoveElement(item);
+	items.at(Axes::ConvertToIndex(item->GetXY()))->RemoveElement(item);
 }
 void Field::RemoveElement(ElementNameType nodeName, int x, int y)
 {
-	Element * item = items.at(ConvertToArrayIndex(x, y))->GetElement(nodeName);
+	Element * item = items.at(Axes::ConvertToIndex(x, y))->GetElement(nodeName);
 	Field::RemoveElement(item);
 }
 
@@ -126,7 +128,7 @@ std::vector<TagAxes> Field::CreateBlockMap()
 
 	for (int index = 0; index < items.size(); index++)
 	{
-		TagAxes newPoint = Field::ConvertToPoint(index);
+		TagAxes newPoint = Axes::ConvertToAxes(index);
 
 		if (items.at(index)->ContainType(ClassType::Block) == true)
 		{
@@ -141,21 +143,4 @@ std::vector<TagAxes> Field::CreateBlockMap()
 	}
 
 	return result;
-}
-
-int Field::ConvertToArrayIndex(FieldPoint value)
-{
-	return Field::ConvertToArrayIndex(value.GetX(), value.GetY());
-}
-int Field::ConvertToArrayIndex(int x, int y)
-{
-	return y * Settings::HORIZONTALCELLCOUNT + x;
-}
-
-TagAxes Field::ConvertToPoint(int index)
-{
-	int x = index % Settings::HORIZONTALCELLCOUNT;
-	int y = index / Settings::HORIZONTALCELLCOUNT;
-
-	return TagAxes(x, y);
 }

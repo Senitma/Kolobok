@@ -43,11 +43,4 @@ public:
 
 	// Создать карту с блоками
 	static std::vector<TagAxes> CreateBlockMap();
-private:
-	// Крнвертрование координат в индекс массива
-	static int ConvertToArrayIndex(FieldPoint value);
-	// Крнвертрование координат в индекс массива
-	static int ConvertToArrayIndex(int x, int y);
-	// Крнвертрование индекса массива в координаты
-	static TagAxes ConvertToPoint(int index);
 };

@@ -13,7 +13,7 @@ int Axes::fieldHeight = 0;
 int Axes::gapWidth = 0;
 int Axes::gapHeight = 0;
 
-BaseAxes Axes::ConvertToXY(const int & value)
+BaseAxes Axes::ConvertToAxes(const int & value)
 {
 	int x = value % maxForX;
 	int y = value / maxForX;
