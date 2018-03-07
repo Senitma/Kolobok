@@ -1,12 +1,12 @@
 #include "AdvancedElement.h"
 #include "Field\Field.h"
 
-void AdvancedElement::SetXY(FieldPoint value)
+void AdvancedElement::SetAxes(BaseAxes value)
 {
 	if (Field::ContainElement(this) == true)
 	{
 		Field::RemoveElement(this);
-		currentPoint = new FieldPoint(value);
+		currentPoint = BaseAxes(value);
 		Field::AddElement(this);
 	}
 }

@@ -96,20 +96,20 @@ AdvancedElement * ElementCreator::CreateFireball(SideType side, int x, int y)
 {
 	AdvancedElement * newElement = Create("FireBall.csb", ElementNameType::Fireball, ClassType::Bullet, side, x, y);
 
-	newElement->AddPoint(new FieldPoint(x, y));
+	newElement->AddPoint(x, y);
 	switch (side)
 	{
 	case SideType::Up:
-		newElement->AddPoint(new FieldPoint(x, 0));
+		newElement->AddPoint(x, 0);
 		break;
 	case SideType::Down:
-		newElement->AddPoint(new FieldPoint(x, Settings::VERTICALCELLCOUNT - 1));
+		newElement->AddPoint(x, Settings::VERTICALCELLCOUNT - 1);
 		break;
 	case SideType::Left:
-		newElement->AddPoint(new FieldPoint(0, y));
+		newElement->AddPoint(0, y);
 		break;
 	case SideType::Right:
-		newElement->AddPoint(new FieldPoint(Settings::HORIZONTALCELLCOUNT - 1, y));
+		newElement->AddPoint(Settings::HORIZONTALCELLCOUNT - 1, y);
 		break;
 	}
 

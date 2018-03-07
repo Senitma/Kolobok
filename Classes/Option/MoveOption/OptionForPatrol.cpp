@@ -6,8 +6,8 @@ void OptionForPatrol::Update()
 
 	if (this->isPatrol == true && parent->GetPointLength() > 0)
 	{
-		if (parent->GetLeft() == FieldPoint::ConvertToLeft(parent->GetPoint(currentIndex)->GetX()) &&
-			parent->GetTop() == FieldPoint::ConvertToTop(parent->GetPoint(currentIndex)->GetY()))
+		if (parent->GetLeft() == FieldPoint::ConvertToLeft(parent->GetPoint(currentIndex).GetX()) &&
+			parent->GetTop() == FieldPoint::ConvertToTop(parent->GetPoint(currentIndex).GetY()))
 		{
 			CalcNewIndex();
 		}
@@ -15,7 +15,7 @@ void OptionForPatrol::Update()
 		{
 			if (isFreeze == true)
 			{
-				if (this->MoveTo(parent->GetPoint(currentIndex)->GetX(), parent->GetPoint(currentIndex)->GetY()) == false)
+				if (this->MoveTo(parent->GetPoint(currentIndex).GetX(), parent->GetPoint(currentIndex).GetY()) == false)
 				{
 					CalcNewIndex();
 				}

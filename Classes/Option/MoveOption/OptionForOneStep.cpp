@@ -173,7 +173,7 @@ void OptionForOneStep::FillVariableForNewPoint(int x, int y)
 
 	oldX = parent->GetX();
 	oldY = parent->GetY();
-	parent->SetXY(FieldPoint(x, y));
+	parent->SetAxes(BaseAxes(x, y));
 
 	this->left = FieldPoint::ConvertToLeft(x);
 	this->top = FieldPoint::ConvertToTop(y);

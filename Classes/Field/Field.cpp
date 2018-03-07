@@ -89,7 +89,7 @@ GameStatusType Field::GetGameStatus()
 
 bool Field::CanAddElement(Element * item)
 {
-	return items.at(Axes::ConvertToIndex(item->GetXY()))->CanAddElement(item);
+	return items.at(Axes::ConvertToIndex(item->GetAxes()))->CanAddElement(item);
 }
 bool Field::CanAddElement(ClassType type, int x, int y)
 {
@@ -97,7 +97,7 @@ bool Field::CanAddElement(ClassType type, int x, int y)
 }
 void Field::AddElement(Element * item)
 {
-	items.at(Axes::ConvertToIndex(item->GetXY()))->AddElement(item);
+	items.at(Axes::ConvertToIndex(item->GetAxes()))->AddElement(item);
 }
 bool Field::ContainName(ElementNameType name, int x, int y)
 {
@@ -105,7 +105,7 @@ bool Field::ContainName(ElementNameType name, int x, int y)
 }
 bool Field::ContainElement(Element * item)
 {
-	return items.at(Axes::ConvertToIndex(item->GetXY()))->ContainElement(item);
+	return items.at(Axes::ConvertToIndex(item->GetAxes()))->ContainElement(item);
 }
 Element * Field::GetElement(ElementNameType name, int x, int y)
 {
@@ -114,7 +114,7 @@ Element * Field::GetElement(ElementNameType name, int x, int y)
 
 void Field::RemoveElement(Element * item)
 {
-	items.at(Axes::ConvertToIndex(item->GetXY()))->RemoveElement(item);
+	items.at(Axes::ConvertToIndex(item->GetAxes()))->RemoveElement(item);
 }
 void Field::RemoveElement(ElementNameType nodeName, int x, int y)
 {

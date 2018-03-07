@@ -1,7 +1,6 @@
 #include "FieldAxes.h"
 #include "Axes.h"
 
-
 void FieldAxes::SetX(const int &value)
 {
 	originalX = value;

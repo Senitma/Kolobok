@@ -51,12 +51,12 @@ void MapHandle::LoadForIndex0()
 	finish = ElementCreator::Create(ElementNameType::Finish, Settings::HORIZONTALCELLCOUNT - 1, Settings::VERTICALCELLCOUNT - 1);
 
 	Element * patrol1 = ElementCreator::Create(ElementNameType::Patrol, SideType::Right, 0, 5);
-	patrol1->AddPoint(new FieldPoint(0, 5));
-	patrol1->AddPoint(new FieldPoint(Settings::HORIZONTALCELLCOUNT - 1, 5));
+	patrol1->AddPoint(0, 5);
+	patrol1->AddPoint(Settings::HORIZONTALCELLCOUNT - 1, 5);
 
 	Element * patrol2 = ElementCreator::Create(ElementNameType::Patrol, SideType::Right, 2, 0);
-	patrol2->AddPoint(new FieldPoint(2, 0));
-	patrol2->AddPoint(new FieldPoint(2, Settings::VERTICALCELLCOUNT - 1));
+	patrol2->AddPoint(2, 0);
+	patrol2->AddPoint(2, Settings::VERTICALCELLCOUNT - 1);
 
 	ElementCreator::Create(ElementNameType::Gun, SideType::Down, 5, 0);
 	ElementCreator::Create(ElementNameType::Gun, SideType::Down, 9, 0);

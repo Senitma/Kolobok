@@ -12,11 +12,11 @@ public:
 	// Инициализация переменных
 	AdvancedElement(cocos2d::Node * node, ElementNameType name, ClassType type) : Element(node, name, type) { isDestroy = false; };
 	// Изменить координаты по оси X
-	void SetX(int value) { currentPoint->SetX(value); };
+	void SetX(int value) { currentPoint.SetX(value); };
 	// Изменить координаты по оси Y
-	void SetY(int value) { currentPoint->SetY(value); };
+	void SetY(int value) { currentPoint.SetY(value); };
 	// Изменить координаты
-	void SetXY(FieldPoint value);
+	void SetAxes(BaseAxes value);
 	// Изменить направление
 	void SetSide(SideType value);
 

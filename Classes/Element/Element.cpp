@@ -6,34 +6,12 @@ Element::Element(cocos2d::Node * node, ElementNameType name, ClassType type)
 	this->name = name;
 	this->type = type;
 
-	currentPoint = new FieldPoint(0, 0);
+	currentPoint = BaseAxes(0, 0);
 }
 
-void Element::AddPoint(FieldPoint * point)
+void Element::AddPoint(int x, int y)
 {
-	this->points.pushBack(point);
-}
-void Element::RemovePoint(FieldPoint * point)
-{
-	if (points.contains(point) == true)
-	{
-		points.eraseObject(point, true);
-	}
-	else
-	{
-		for (int index = 0; index < this->points.size(); index++)
-		{
-			FieldPoint * item = this->points.at(index);
-			if (item->GetX() == point->GetX() && item->GetY() == point->GetY())
-			{
-				points.eraseObject(item, true);
-			}
-		}
-	}
-}
-
-void Element::Destroy()
-{
+	this->points.push_back(BaseAxes(x, y));
 }
 
 
