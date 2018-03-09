@@ -1,5 +1,6 @@
 #include "OptionForOneStep.h"
 #include "Field\Field.h"
+#include "Field\FieldPoint.h"
 
 void OptionForOneStep::Update()
 {
@@ -173,7 +174,7 @@ void OptionForOneStep::FillVariableForNewPoint(int x, int y)
 
 	oldX = parent->GetX();
 	oldY = parent->GetY();
-	parent->SetAxes(BaseAxes(x, y));
+	parent->SetAxes(x, y);
 
 	this->left = FieldPoint::ConvertToLeft(x);
 	this->top = FieldPoint::ConvertToTop(y);

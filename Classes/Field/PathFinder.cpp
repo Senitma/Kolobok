@@ -2,38 +2,76 @@
 #include "TagAxes.h"
 #include "Axes.h"
 
-PathFinder::PathFinder(std::vector<TagAxes> & map, const BaseAxes & start, const BaseAxes & finish)
+PathFinder::PathFinder(std::vector<TagAxes> & map)
 {
 	this->map = map;
-	this->map.at(Axes::ConvertToIndex(start)).SetTag(0);
-	this->map.at(Axes::ConvertToIndex(finish)).SetTag(-2);
-
-	startX = start.GetX();
-	startY = start.GetY();
-	finishX = finish.GetX();
-	finishY = finish.GetY();
 }
 
 bool PathFinder::CanMoveTo(std::vector<TagAxes> & map, const BaseAxes & start, const BaseAxes & finish)
 {
-	PathFinder newPath = PathFinder(map, start, finish);
+	PathFinder newPath = PathFinder(map);
+	newPath.SetStart(start);
+	newPath.SetFinish(finish);
 
-	return newPath.FindFinish();
+	return newPath.FindFinish(false);
 }
-std::vector<BaseAxes> PathFinder::MoveTo(std::vector<TagAxes> & map, const BaseAxes & start, const BaseAxes & finish)
+std::vector<BaseAxes> PathFinder::MoveTo(std::vector<TagAxes> & map, const BaseAxes & start, const BaseAxes & finish, const bool & extendedCheck)
 {
-	PathFinder newPath = PathFinder(map, start, finish);
-
-	if (newPath.FindFinish() == true)
+	// Функция создания карты для перемещения
+	auto CreateMapAxes = [&](PathFinder path)
 	{
-		return newPath.CreateMoveMap();
+		std::vector<BaseAxes> axesPath;
+
+		if (extendedCheck == true)
+		{
+			path.Clear();
+			path.FindFinish(true);
+		}
+
+		axesPath = path.CreateMoveMap();
+		// Разворот набора
+		std::reverse(axesPath.begin(), axesPath.end());
+
+		if (extendedCheck == true)
+		{
+			std::vector<BaseAxes> reverseAxesPath;
+			PathFinder reversePath = PathFinder(map);
+			reversePath.SetStart(path.GetFinish());
+			reversePath.SetFinish(path.GetStart());
+			reversePath.Clear();
+
+			reversePath.FindFinish(true);
+			reverseAxesPath = reversePath.CreateMoveMap();
+
+			if (path.GetStep() > reversePath.GetStep())
+			{
+				return reverseAxesPath;
+			}
+			else
+			{
+				return axesPath;
+			}
+		}
+		else
+		{
+			return axesPath;
+		}
+	};
+
+	PathFinder newPath = PathFinder(map);
+	newPath.SetStart(start);
+	newPath.SetFinish(finish);
+
+	if (newPath.FindFinish(false) == true)
+	{
+		return CreateMapAxes(newPath);
 	}
 	else
 	{
+		// Поиск ближайшей точки к финишу
 		if (newPath.FindNewFinish() == true)
 		{
-			// Поиск ближайшей точки к финишу
-			return newPath.CreateMoveMap();
+			return CreateMapAxes(newPath);
 		}
 		else
 		{
@@ -43,100 +81,103 @@ std::vector<BaseAxes> PathFinder::MoveTo(std::vector<TagAxes> & map, const BaseA
 	}
 }
 
-bool PathFinder::FindFinish()
+BaseAxes PathFinder::GetStart() const
 {
-	bool isFinished = false;
-	step = 0;
+	return BaseAxes(startX, startY);
+}
 
-	int moveCheker;
-	const int MAXEMPTYMOVED = 3;
+BaseAxes PathFinder::GetFinish() const
+{
+	return BaseAxes(finishX, finishY);
+}
+
+void PathFinder::SetStart(const BaseAxes & value)
+{
+	this->map.at(Axes::ConvertToIndex(value)).SetTag(0);
+	startX = value.GetX();
+	startY = value.GetY();
+}
+
+void PathFinder::SetFinish(const BaseAxes & value)
+{
+	this->map.at(Axes::ConvertToIndex(value)).SetTag(-2);
+	finishX = value.GetX();
+	finishY = value.GetY();
+}
+
+bool PathFinder::FindFinish(const bool & rotateCheck)
+{
+	// Функция для добавления новой точки на карте с учетом поворота
+	auto AddStep = [&](const TagAxes & parent, const int & offsetX, const int & offsetY, const int & offsetStep)
+	{
+		TagAxes & child = GetChild(GetChild(parent, offsetX, 0), 0, offsetY);
+
+		if (child.GetTag() == -1)
+		{
+			child.SetTag(step + offsetStep);
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	};
+	// Функция для поиска клетки финиша в соседних клетках
+	auto CheckFinish = [&](TagAxes & parent, const int & offsetX, const int & offsetY)
+	{
+		TagAxes & child = GetChild(parent, offsetX, offsetY);
+
+		if (child.GetTag() == -2)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	};
+
+	step = 0;
+	int currentEmptyMove = 0;
+	const int MAXEMPTYMOVE = 4;
+	bool isFinished = false;
 
 	do
 	{
-		for (int x = 0; x < Axes::GetMaxForX(); x++)
+		std::all_of(map.begin(), map.end(), [&](TagAxes & item)
 		{
-			for (int y = 0; y < Axes::GetMaxForY(); y++)
+			// Найти опорную точку для следующего шага
+			if (item.GetTag() == step)
 			{
-				TagAxes &parent = map.at(Axes::ConvertToIndex(x, y));
-
-				// Функция для добавления новой точки на карте с учетом поворота
-				auto AddStep = [&](TagAxes &point)
+				// Отметить все соседние свободные ячейки Неймана
+				if ((AddStep(item, 1, 0, 1) | AddStep(item, 0, 1, 1) | AddStep(item, -1, 0, 1) | AddStep(item, 0, -1, 1)) == true)
 				{
-					if (point.GetTag() == -1)
-					{
-						if ((parent.GetPrevX() != point.GetX()) && (parent.GetPrevY() != point.GetY()))
-						{
-							// Приходится поворачиваться
-							point.SetTag(step + 2);
-						}
-						else
-						{
-							// Перемещение по прямой
-							point.SetTag(step + 1);
-						}
-
-						point.SetPrevX(x);
-						point.SetPrevY(y);
-						moveCheker = MAXEMPTYMOVED;
-					}
-				};
-
-				// Найти опорную точку для следующего шага
-				if (parent.GetTag() == step)
+					currentEmptyMove = MAXEMPTYMOVE;
+				}
+				if (rotateCheck == true)
 				{
-					// Отметить все свободные ячейки
-					if (x != Axes::GetMaxForX() - 1)
+					// Отметить все соседние свободные ячейки Мура
+					if ((AddStep(item, 1, 1, 3) | AddStep(item, -1, 1, 3) | AddStep(item, 1, -1, 3) | AddStep(item, -1, -1, 3)) == true)
 					{
-						AddStep(map.at(Axes::ConvertToIndex(x + 1, y)));
-					}
-					if (y != Axes::GetMaxForY() - 1)
-					{
-						AddStep(map.at(Axes::ConvertToIndex(x, y + 1)));
-					}
-					if (x != 0)
-					{
-						AddStep(map.at(Axes::ConvertToIndex(x - 1, y)));
-					}
-					if (y != 0)
-					{
-						AddStep(map.at(Axes::ConvertToIndex(x, y - 1)));
-					}
-
-					// Функция для поиска клетки финиша в соседних клетках
-					auto CheckFinish = [&](TagAxes &point)
-					{
-						if (point.GetTag() == -2)
-						{
-							if ((parent.GetPrevX() != point.GetX()) && (parent.GetPrevY() != point.GetY()))
-							{
-								// Приходится поворачиваться
-								parent.SetTag(parent.GetTag() + 1);
-								step++;
-							}
-
-							return true;
-						}
-						else
-						{
-							return false;
-						}
-					};
-
-					// Проверить положение финиша рядом
-					if (((x < Axes::GetMaxForX() - 1) && (CheckFinish(map.at(Axes::ConvertToIndex(x + 1, y))) == true)) ||
-					    ((y < Axes::GetMaxForY() - 1) && (CheckFinish(map.at(Axes::ConvertToIndex(x, y + 1))) == true)) ||
-						((x > 0) && (CheckFinish(map.at(Axes::ConvertToIndex(x - 1, y))) == true)) ||
-						((y > 0) && (CheckFinish(map.at(Axes::ConvertToIndex(x, y - 1))) == true)))
-					{
-						isFinished = true;
+						currentEmptyMove = MAXEMPTYMOVE;
 					}
 				}
-			}
-		}
 
+				// Проверить наличие финиша рядом
+				if ((CheckFinish(item, 1, 0) == true) ||
+					((CheckFinish(item, 0, 1) == true) ||
+					(CheckFinish(item, -1, 0) == true) ||
+					(CheckFinish(item, 0, -1) == true)))
+				{
+					isFinished = true;
+				}
+			}
+
+			return !isFinished;
+		});
 		step++;
-		moveCheker--;
-	} while (isFinished == false && moveCheker > 0);
+		currentEmptyMove--;
+	} while (isFinished == false && currentEmptyMove > 0);
 
 	return isFinished;
 }
@@ -182,57 +223,87 @@ bool PathFinder::FindNewFinish()
 }
 std::vector<BaseAxes> PathFinder::CreateMoveMap()
 {
-	int x = finishX;
-	int y = finishY;
-
 	std::vector<BaseAxes> path;
-	path.push_back(BaseAxes(x, y));
+	TagAxes prevAxes = TagAxes(finishX, finishY, step);
+	BaseAxes prevPrevAxes = prevAxes;
+	step = 0;
 
 	// Формирование набора точек от финиша до цели
-	do
+	while (prevAxes.GetTag() != 0)
 	{
-		int newStep = step;
-		int newX = x;
-		int newY = y;
+		TagAxes newAxes = TagAxes(0, 0, 0);
+		int newStep = 0;
 
-		// Функция поиска минимального шага в соседних клетках
-		auto FindMinStep = [&](TagAxes &point)
+		// Добавление новой координаты в очередь
+		path.push_back(BaseAxes(prevAxes));
+
+		// Функция поиска нового шага рядом с клеткой
+		auto FindMinStep = [&](const int & offsetX, const int & offsetY)
 		{
-			if ((point.GetTag() >= 0) && (point.GetTag() < newStep))
+			TagAxes & child = GetChild(prevAxes, offsetX, offsetY);
+
+			// Пути по прямой в приоритете
+			if ((child.GetTag() >= 0) && (child.GetTag() < prevAxes.GetTag()))
 			{
-				newStep = point.GetTag();
-				newX = point.GetX();
-				newY = point.GetY();
+				if ((child.GetX() == prevPrevAxes.GetX()) || (child.GetY() == prevPrevAxes.GetY()))
+				{
+					newAxes = child;
+					newStep = 1;
+				}
+				else if (newAxes.GetTag() == 0)
+				{
+					newAxes = child;
+					newStep = 2;
+				}
 			}
 		};
 
-		// Поиск минимального шага в соседних клетках
-		if (x < Axes::GetMaxForX() - 1)
-		{
-			FindMinStep(map.at(Axes::ConvertToIndex(x + 1, y)));
-		}
-		if (y < Axes::GetMaxForY() - 1)
-		{
-			FindMinStep(map.at(Axes::ConvertToIndex(x, y + 1)));
-		}
-		if (x > 0)
-		{
-			FindMinStep(map.at(Axes::ConvertToIndex(x - 1, y)));
-		}
-		if (y > 0)
-		{
-			FindMinStep(map.at(Axes::ConvertToIndex(x, y - 1)));
-		}
+		// Поиск нового шага рядом с клеткой
+		FindMinStep(1, 0);
+		FindMinStep(0, 1);
+		FindMinStep(-1, 0);
+		FindMinStep(0, -1);
 
-		// Добавление новой координаты в очередь
-		step = newStep;
-		x = newX;
-		y = newY;
-		path.push_back(BaseAxes(x, y));
-	} while (step != 0);
-
-	// Разворот набора
-	std::reverse(std::begin(path), std::end(path));
+		prevPrevAxes = prevAxes;
+		prevAxes = newAxes;
+		step += newStep;
+	}
+#pragma warning( default: "Убрать строку после переработки опций" )
+	path.push_back(BaseAxes(prevAxes));
 
 	return path;
+}
+
+TagAxes & PathFinder::GetChild(const TagAxes & parent, const int & offsetX, const int & offsetY)
+{
+	if ((offsetX == 1) && (parent.GetX() < Axes::GetMaxForX() - 1))
+	{
+		return map.at(Axes::ConvertToIndex(parent.GetX() + offsetX, parent.GetY() + offsetY));
+	}
+	else if ((offsetY == 1) && (parent.GetY() < Axes::GetMaxForY() - 1))
+	{
+		return map.at(Axes::ConvertToIndex(parent.GetX() + offsetX, parent.GetY() + offsetY));
+	}
+	else if ((offsetX == -1) && (parent.GetX() > 0))
+	{
+		return map.at(Axes::ConvertToIndex(parent.GetX() + offsetX, parent.GetY() + offsetY));
+	}
+	else if ((offsetY == -1) && (parent.GetY() > 0))
+	{
+		return map.at(Axes::ConvertToIndex(parent.GetX() + offsetX, parent.GetY() + offsetY));
+	}
+	else
+	{
+		return map.at(Axes::ConvertToIndex(parent.GetX(), parent.GetY()));
+	}
+}
+void PathFinder::Clear()
+{
+	std::for_each(map.begin(), map.end(), [&](TagAxes & item)
+	{
+		if (item.GetTag() > 0)
+		{
+			item.SetTag(-1);
+		}
+	});
 }

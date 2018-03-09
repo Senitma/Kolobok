@@ -2,6 +2,7 @@
 
 #include "OptionForOneStep.h"
 #include "MoveType.h"
+#include "Field\FieldPoint.h"
 
 // Опция для движения элемента
 class OptionForMove : public OptionForOneStep

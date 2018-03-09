@@ -1,16 +1,17 @@
 #include "AdvancedElement.h"
 #include "Field\Field.h"
 
-void AdvancedElement::SetAxes(BaseAxes value)
+void AdvancedElement::SetAxes(const int & x, const int & y)
 {
 	if (Field::ContainElement(this) == true)
 	{
 		Field::RemoveElement(this);
-		currentPoint = BaseAxes(value);
+		SetX(x);
+		SetY(y);
 		Field::AddElement(this);
 	}
 }
-void AdvancedElement::SetSide(SideType value)
+void AdvancedElement::SetSide(const SideType & value)
 {
 	this->side = value;
 

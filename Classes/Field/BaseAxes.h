@@ -18,10 +18,10 @@ public:
 	// Изменить положение по оси Y
 	virtual void SetY(const int &value) { y = value; };
 
-	// Сравнение двух координат
-	bool operator==(const BaseAxes &value) { return ((x == value.GetX()) && (y == value.GetY())); };
-	// Сравнение двух координат
-	bool operator!=(const BaseAxes &value) { return ((x != value.GetX()) || (y != value.GetY())); };
+	//// Сравнение двух координат
+	//bool operator==(const BaseAxes &value) { return ((x == value.GetX()) && (y == value.GetY())); };
+	//// Сравнение двух координат
+	//bool operator!=(const BaseAxes &value) { return ((x != value.GetX()) || (y != value.GetY())); };
 protected:
 	// Положение по оси X
 	int x;

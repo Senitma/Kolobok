@@ -2,6 +2,7 @@
 #include "Field\Field.h"
 #include "Main\MapHandle.h"
 #include "Option\BaseClass\MouseType.h"
+#include "Field\FieldPoint.h"
 
 void OptionForMouseCreateDestroy::MouseClick(MouseType type, int x, int y)
 {
