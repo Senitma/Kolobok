@@ -20,14 +20,14 @@ void OptionForMouseCreateDestroy::MouseClick(MouseType type, int x, int y)
 			// ”ничтожение блока если он мешает дойти до финиша
 			if (MapHandle::CheckPath() == false)
 			{
-				Field::GetElement(nodeName, calcX, calcY)->Destroy();
+				Field::Destroy(calcX, calcY);
 			}
 		}
 		else
 		{
 			if (Field::ContainName(this->nodeName, calcX, calcY) == true)
 			{
-				Field::GetElement(nodeName, calcX, calcY)->Destroy();
+				Field::Destroy(calcX, calcY);
 			}
 		}
 	}

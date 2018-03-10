@@ -33,7 +33,12 @@ public:
 	int GetPointLength() const { return this->points.size() - 1; };
 
 	// Уничтожить элемент
-	virtual void Destroy() {};
+	virtual void Destroy() = 0;
+
+	// Сравнение двух координат
+	bool operator== (const Element & value) const { return node == value.node; };
+	// Сравнение двух координат
+	bool operator!= (const Element & value) const { return node != value.node; };
 protected:
 	// Сторона поворта
 	SideType side;

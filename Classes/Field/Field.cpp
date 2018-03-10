@@ -87,39 +87,35 @@ GameStatusType Field::GetGameStatus()
 	return gameStatus;
 }
 
-bool Field::CanAddElement(Element * item)
+bool Field::CanAddElement(AdvancedElement * item)
 {
-	return items.at(Axes::ConvertToIndex(item->GetAxes()))->CanAddElement(item);
+	return items.at(Axes::ConvertToIndex(item->GetAxes()))->CanAddElement(*item);
 }
 bool Field::CanAddElement(ClassType type, int x, int y)
 {
 	return items.at(Axes::ConvertToIndex(x, y))->CanAddElement(type);
 }
-void Field::AddElement(Element * item)
+void Field::AddElement(AdvancedElement & item)
 {
-	items.at(Axes::ConvertToIndex(item->GetAxes()))->AddElement(item);
+	items.at(Axes::ConvertToIndex(item.GetAxes()))->AddElement(item);
 }
 bool Field::ContainName(ElementNameType name, int x, int y)
 {
 	return items.at(Axes::ConvertToIndex(x, y))->ContainName(name);
 }
-bool Field::ContainElement(Element * item)
+bool Field::ContainElement(AdvancedElement * item)
 {
-	return items.at(Axes::ConvertToIndex(item->GetAxes()))->ContainElement(item);
-}
-Element * Field::GetElement(ElementNameType name, int x, int y)
-{
-	return items.at(Axes::ConvertToIndex(x, y))->GetElement(name);
+	return items.at(Axes::ConvertToIndex(item->GetAxes()))->ContainElement(*item);
 }
 
-void Field::RemoveElement(Element * item)
+void Field::RemoveElement(AdvancedElement & item)
 {
-	items.at(Axes::ConvertToIndex(item->GetAxes()))->RemoveElement(item);
+	items.at(Axes::ConvertToIndex(item.GetAxes()))->RemoveElement(item);
 }
-void Field::RemoveElement(ElementNameType nodeName, int x, int y)
+
+void Field::Destroy(int x, int y)
 {
-	Element * item = items.at(Axes::ConvertToIndex(x, y))->GetElement(nodeName);
-	Field::RemoveElement(item);
+	items.at(Axes::ConvertToIndex(x, y))->DestroyAll();
 }
 
 std::vector<TagAxes> Field::CreateBlockMap()

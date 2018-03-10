@@ -2,150 +2,115 @@
 #include "Field.h"
 #include "Element\ElementRelations.h"
 
-bool Cell::CanAddElement(Element * item)
+using namespace std;
+
+bool Cell::CanAddElement(const ClassType & type) const
 {
-	return this->CanAddElement(item->GetType());
+	return ElementRelations::CanAdd(type, GetAllTypes());
 }
-bool Cell::CanAddElement(ClassType type)
+void Cell::AddElement(AdvancedElement & item)
 {
-	return ElementRelations::CanAdd(type, this->GetAllTypes());
-}
-void Cell::AddElement(Element * item)
-{
-	if (items.contains(item) == false)
+	AdvancedElement && a = std::move(item);
+
+	if (ContainElement(item) == false)
 	{
-		this->items.pushBack(item);
-		this->CheckRelations();
+		items.push_back(a);
+		CheckRelations();
 	}
 }
-bool Cell::ContainName(ElementNameType name)
+bool Cell::ContainName(const ElementNameType & name) const
 {
-	for (int index = 0; index < this->items.size(); index++)
+	auto result = std::find_if(items.begin(), items.end(), [=](const AdvancedElement & item)
 	{
-		if (items.at(index)->GetName() == name)
-		{
-			return true;
-		}
-	}
+		return name == item.GetName();
+	});
 
-	return false;
+	return result != items.end();
 }
-bool Cell::ContainType(ClassType type)
+bool Cell::ContainType(const ClassType & type) const
 {
-	for (int index = 0; index < this->items.size(); index++)
+	auto result = std::find_if(items.begin(), items.end(), [=](const AdvancedElement & item)
 	{
-		if (items.at(index)->GetType() == type)
-		{
-			return true;
-		}
-	}
+		return type == item.GetType();
+	});
 
-	return false;
+	return result != items.end();
 }
-bool Cell::ContainElement(Element * item)
+bool Cell::ContainElement(const AdvancedElement & item) const
 {
-	return items.contains(item);
+	return std::find(items.begin(), items.end(), item) != items.end();
 }
-void Cell::RemoveElement(Element * item)
+void Cell::RemoveElement(AdvancedElement & item)
 {
-	this->items.eraseObject(item, true);
-	this->CheckRelations();
+	//items.remove_if([&](const AdvancedElement & value) {return item.GetName() == value.GetName(); });
+	items.remove(item);
+	
+	CheckRelations();
 }
-void Cell::RemoveElement(ElementNameType nodename)
-{
-	for (int index = 0; index < this->items.size(); index++)
-	{
-		if (items.at(index)->GetName() == nodename)
-		{
-			this->items.eraseObject(items.at(index), true);
-			index--;
-		}
-	}
-
-	this->CheckRelations();
-}
-Element * Cell::GetElement(ElementNameType nodename)
-{
-	for (int index = 0; index < this->items.size(); index++)
-	{
-		Element * item = items.at(index);
-		if (item->GetName() == nodename)
-		{
-			return item;
-		}
-	}
-
-	return nullptr;
-}
-void Cell::DestroyAll()
-{
-	Destroy(true);
-	items.clear();
-}
-
 ClassType Cell::GetDoubleElements()
 {
-	int calcValue = 0;
-	for (int index = 0; index < this->items.size(); index++)
+	ClassType result = ClassType::Empty;
+	int types = 0;
+
+	std::any_of(items.begin(), items.end(), [&](const AdvancedElement & item)
 	{
-		int type = (int)items.at(index)->GetType();
-		if ((calcValue & type) == type)
+		int type = (int)item.GetType();
+		if ((types & type) == type)
 		{
-			return (ClassType)type;
+			result = item.GetType();
+			return false;
 		}
 		else
 		{
-			calcValue |= type;
+			types |= type;
+			return true;
 		}
-	}
+	});
 
-	return ClassType::Empty;
+	return result;
 }
-int Cell::GetAllTypes()
+int Cell::GetAllTypes() const
 {
-	int calcValue = 0;
-	for (int index = 0; index < this->items.size(); index++)
-	{
-		calcValue |= (int)items.at(index)->GetType();
-	}
+	int result = 0;
 
-	return calcValue;
+	std::for_each(items.begin(), items.end(), [&](const AdvancedElement & item)
+	{
+		result |= (int)item.GetType();
+	});
+
+	return result;
 }
 void Cell::CheckRelations()
 {
-	if (ElementRelations::DoubleCalc(this->GetDoubleElements()) == ResultType::Destroy)
+	if (ElementRelations::DoubleCalc(GetDoubleElements()) == ResultType::Destroy)
 	{
-		this->Destroy();
+		Destroy();
 	}
-	switch (ElementRelations::Calc(this->GetAllTypes()))
+	switch (ElementRelations::Calc(GetAllTypes()))
 	{
 	case ResultType::Win:
 		// Win
 		Field::WinGame();
-		this->Destroy();
+		Destroy();
 		break;
 	case ResultType::Lose:
 		// Lose
 		Field::LoseGame();
-		this->Destroy();
+		Destroy();
 		break;
 	case ResultType::Destroy:
-		this->Destroy();
+		Destroy();
 		break;
 	}
-}
-void Cell::Destroy()
-{
-	Destroy(false);
 }
 void Cell::Destroy(bool allItem)
 {
-	for (int index = this->items.size() - 1; index >= 0; index--)
+	std::for_each(items.begin(), items.end(), [=](AdvancedElement & item)
 	{
-		Element * item = items.at(index);
-		if ((allItem == true) || (ElementRelations::CanDestroy(item->GetType()) == true))
+		if ((allItem == true) || (ElementRelations::CanDestroy(item.GetType()) == true))
 		{
-			item->Destroy();
+			AdvancedElement * prov = &item;
+			prov->Destroy();
 		}
-	}
+	});
 }

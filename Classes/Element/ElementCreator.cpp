@@ -143,7 +143,7 @@ AdvancedElement * ElementCreator::Create(char * nodeName, ElementNameType name, 
 
 	newElement->SetX(x);
 	newElement->SetY(y);
-	Field::AddElement(newElement);
+	Field::AddElement(*newElement);
 
 	newElement->SetSide(side);
 

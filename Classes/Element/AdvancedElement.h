@@ -8,7 +8,7 @@ class AdvancedElement : public Element
 {
 public:
 	// Инициализация переменных
-	AdvancedElement(cocos2d::Node * node, ElementNameType name, ClassType type) : Element(node, name, type) { isDestroy = false; };
+	AdvancedElement(cocos2d::Node * node, ElementNameType name, ClassType type);
 
 	// Изменить координаты по оси X
 	void SetX(const int & value) { Element::SetX(value); };
@@ -35,6 +35,8 @@ public:
 	// Уничтожить элемент
 	void Destroy() override;
 private:
+	AdvancedElement() = delete;
+
 	// Защита от повторной очистки
 	bool isDestroy;
 	// Набор опций

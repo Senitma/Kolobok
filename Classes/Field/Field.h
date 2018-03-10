@@ -1,7 +1,7 @@
 #pragma once
 
 #include "cocos2d.h"
-#include "Element\Element.h"
+#include "Element\AdvancedElement.h"
 #include "Main\GameStatusType.h"
 
 #include "TagAxes.h"
@@ -25,21 +25,19 @@ public:
 	static GameStatusType GetGameStatus();
 
 	// Проверка возможности добавления элемента
-	static bool CanAddElement(Element * item);
+	static bool CanAddElement(AdvancedElement * item);
 	// Проверка возможности добавления элемента
 	static bool CanAddElement(ClassType type, int x, int y);
 	// Добавить элемент
-	static void AddElement(Element *item);
+	static void AddElement(AdvancedElement & item);
 	// Проверить наличие имени в списке элементов
 	static bool ContainName(ElementNameType name, int x, int y);
 	// Проверить наличие элемента
-	static bool ContainElement(Element * item);
-	// Получить элемент из списка
-	static Element * GetElement(ElementNameType name, int x, int y);
+	static bool ContainElement(AdvancedElement * item);
 	// Убрать элемент
-	static void RemoveElement(Element *item);
-	// Убрать элемент по его имени
-	static void RemoveElement(ElementNameType name, int x, int y);
+	static void RemoveElement(AdvancedElement & item);
+	// Удалить элементы
+	static void Destroy(int x, int y);
 
 	// Создать карту с блоками
 	static std::vector<TagAxes> CreateBlockMap();

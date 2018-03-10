@@ -1,14 +1,19 @@
 #include "AdvancedElement.h"
 #include "Field\Field.h"
 
+AdvancedElement::AdvancedElement(cocos2d::Node * node, ElementNameType name, ClassType type) : Element(node, name, type)
+{
+	 isDestroy = false;
+}
+
 void AdvancedElement::SetAxes(const int & x, const int & y)
 {
 	if (Field::ContainElement(this) == true)
 	{
-		Field::RemoveElement(this);
+		Field::RemoveElement(*this);
 		SetX(x);
 		SetY(y);
-		Field::AddElement(this);
+		Field::AddElement(*this);
 	}
 }
 void AdvancedElement::SetSide(const SideType & value)
@@ -78,17 +83,14 @@ void AdvancedElement::Destroy()
 {
 	if (isDestroy == false)
 	{
-		isDestroy = true;
+		Field::RemoveElement(*this);
+
 		for (int index = 0; index < items.size(); index++)
 		{
 			items.at(index)->Destroy();
 			delete items.at(index);
 		}
 
-		Field::RemoveElement(this);
 		node->getParent()->removeChild(node);
-
-		isDestroy = true;
-		//delete this;
 	}
 }
