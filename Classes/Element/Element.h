@@ -1,63 +1,53 @@
 #pragma once
 
 #include "cocos2d.h"
-#include "ElementNameType.h"
-#include "SideType.h"
-#include "ClassType.h"
-#include "Field\BaseAxes.h"
-#include "vector"
+#include "ElementInfo.h"
 
-// Базовый класс всех элементов
-class Element : public cocos2d::Ref
+// Интерфейс интервала
+class ISInterval;
+
+// Расширенный класс элемента
+class Element : ElementInfo
 {
 public:
-	// Получить имя
-	ElementNameType GetName() const { return name; }
-	// Получить тип
-	ClassType GetType() const { return type; }
-	// Получить сторону поворота
-	SideType GetSide() const { return side; }
+	// Инициализация переменных
+	Element(cocos2d::Node * node, ElementNameType name, ClassType type);
 
-	// Получить координату по оси X
-	int GetX() const { return points.at(0).GetX(); }
-	// Получить координату по оси Y
-	int GetY() const { return points.at(0).GetY(); }
-	// Получить координаты
-	BaseAxes GetAxes() const { return points.at(0); };
+	// Изменить направление
+	void SetSide(const SideType & value);
+	// Изменить координаты по оси X
+	void SetX(const int & value);
+	// Изменить координаты по оси Y
+	void SetY(const int & value);
+	// Изменить координаты
+	void SetAxes(const int & x, const int & y);
+
+	// Получить смещение слева
+	int GetLeft() const;
+	// Получить смещение сверху
+	int GetTop() const;
+	// Изменить смещение
+	void SetPosition(const int & x, const int & y);
+	// Получить угол вращения
+	int GetRotation() const;
+	// Измениь угол вращения
+	void SetRotation(const int & value);
 
 	// Добавить точку для патрулирования
-	void AddPoint(const int & x,const int & y);
+	void AddPoint(const int & x, const int & y);
 	// Получить точку для патрулирования
-	BaseAxes GetPoint(const int & index) { return points.at(index + 1); };
+	BaseAxes GetPoint(const int & index);
 	// Получить количество точек для патрулирования
-	int GetPointLength() const { return this->points.size() - 1; };
+	int GetPointLength() const;
 
-	// Уничтожить элемент
-	virtual void Destroy() = 0;
+	// Добавить опцию
+	void AddOption(ISInterval * option);
 
-	// Сравнение двух координат
-	bool operator== (const Element & value) const { return node == value.node; };
-	// Сравнение двух координат
-	bool operator!= (const Element & value) const { return node != value.node; };
-protected:
-	// Сторона поворта
-	SideType side;
-	// Узел для прорисовки
-	cocos2d::Node * node;
-
-	// Инициализация переменных
-	Element(cocos2d::Node * node, const ElementNameType & name, const ClassType & type);
-
-	// Изменить координаты по оси X
-	void SetX(const int & value) { points.at(0).SetX(value); };
-	// Изменить координаты по оси Y
-	void SetY(const int & value) { points.at(0).SetY(value); };
+	// Сравнить элементы
+	bool operator== (const Element & value);
+	// Сравнить элементы
+	bool operator!= (const Element & value);
 private:
-	// Имя элемента
-	ElementNameType name;
-	// Тип элемента
-	ClassType type;
-
-	// Точки для патрулирования
-	std::vector<BaseAxes> points;
+	// Удаление конструктора по умолчанию
+	Element() = delete;
 };

@@ -1,9 +1,15 @@
 #include "AdvancedElement.h"
 #include "Field\Field.h"
 
-AdvancedElement::AdvancedElement(cocos2d::Node * node, ElementNameType name, ClassType type) : Element(node, name, type)
+AdvancedElement::AdvancedElement(cocos2d::Node * node, ElementNameType name, ClassType type)
 {
-	 isDestroy = false;
+	this->node = node;
+	this->name = name;
+	this->type = type;
+
+	points = std::vector<BaseAxes>{ BaseAxes(0, 0) };
+
+	isDestroy = false;
 }
 
 void AdvancedElement::SetAxes(const int & x, const int & y)

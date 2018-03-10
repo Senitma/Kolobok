@@ -1,15 +1,14 @@
 #include "MapHandle.h"
 #include "Field\Field.h"
 #include "Field\PathFinder.h"
-#include "Element\Element.h"
 #include "Element\ElementCreator.h"
 #include "Main\Settings.h"
 #include "Field\BaseAxes.h"
 
 // Главный персонаж
-static Element * ninja;
+static AdvancedElement * ninja;
 // Клетка финиша
-static Element * finish;
+static AdvancedElement * finish;
 // Последняя загруженная карта
 static int lastIndex;
 
@@ -50,11 +49,11 @@ void MapHandle::LoadForIndex0()
 	ninja = ElementCreator::Create(ElementNameType::Ninja, SideType::Right, 0, 0);
 	finish = ElementCreator::Create(ElementNameType::Finish, Settings::HORIZONTALCELLCOUNT - 1, Settings::VERTICALCELLCOUNT - 1);
 
-	Element * patrol1 = ElementCreator::Create(ElementNameType::Patrol, SideType::Right, 0, 5);
+	AdvancedElement * patrol1 = ElementCreator::Create(ElementNameType::Patrol, SideType::Right, 0, 5);
 	patrol1->AddPoint(0, 5);
 	patrol1->AddPoint(Settings::HORIZONTALCELLCOUNT - 1, 5);
 
-	Element * patrol2 = ElementCreator::Create(ElementNameType::Patrol, SideType::Right, 2, 0);
+	AdvancedElement * patrol2 = ElementCreator::Create(ElementNameType::Patrol, SideType::Right, 2, 0);
 	patrol2->AddPoint(2, 0);
 	patrol2->AddPoint(2, Settings::VERTICALCELLCOUNT - 1);
 

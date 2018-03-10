@@ -13,11 +13,11 @@
 #include "Option\MoveOption\OptionForOneStep.h"
 #include "Option\MoveOption\OptionForPatrol.h"
 
-Element * ElementCreator::Create(ElementNameType name, int x, int y)
+AdvancedElement * ElementCreator::Create(ElementNameType name, int x, int y)
 {
 	return ElementCreator::Create(name, SideType::Down, x, y);
 }
-Element * ElementCreator::Create(ElementNameType name, SideType side, int x, int y)
+AdvancedElement * ElementCreator::Create(ElementNameType name, SideType side, int x, int y)
 {
 	switch (name)
 	{

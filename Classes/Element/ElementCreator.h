@@ -2,15 +2,18 @@
 
 #include "cocos2d.h"
 #include "AdvancedElement.h"
+#include "ElementNameType.h"
+#include "ClassType.h"
+#include "SideType.h"
 
 // Класс создания элементов
 class ElementCreator : private cocos2d::Ref
 {
 public:
 	// Создание элемента
-	static Element * Create(ElementNameType name, int x, int y);
+	static AdvancedElement * Create(ElementNameType name, int x, int y);
 	// Создание элемента
-	static Element * Create(ElementNameType name, SideType side, int x, int y);
+	static AdvancedElement * Create(ElementNameType name, SideType side, int x, int y);
 private:
 	// Создание главного персонажа
 	static AdvancedElement * CreateNinja(SideType side, int x, int y);

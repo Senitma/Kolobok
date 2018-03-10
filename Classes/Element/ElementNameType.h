@@ -1,7 +1,7 @@
 #pragma once
 
 // Тип имени элемента
-enum ElementNameType
+enum class ElementNameType
 {
 	// Пустой
 	Empty,
