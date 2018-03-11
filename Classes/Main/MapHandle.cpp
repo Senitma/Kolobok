@@ -3,7 +3,7 @@
 #include "Field\PathFinder.h"
 #include "Element\ElementCreator.h"
 #include "Main\Settings.h"
-#include "Field\BaseAxes.h"
+#include "Field\Axes.h"
 
 // Главный персонаж
 //static Element & ninja;
@@ -23,7 +23,7 @@ void MapHandle::ReloadMap()
 
 bool MapHandle::CheckPath()
 {
-	//return PathFinder::CanMoveTo(Field::CreateBlockMap(), BaseAxes(ninja.GetX(), ninja.GetY()), BaseAxes(finish.GetX(), finish.GetY()));
+	//return PathFinder::CanMoveTo(Field::CreateBlockMap(), Axes(ninja.GetX(), ninja.GetY()), Axes(finish.GetX(), finish.GetY()));
 	return true;
 }
 

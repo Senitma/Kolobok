@@ -92,17 +92,14 @@
     <ClCompile Include="Classes\AppDelegate.cpp">
       <Filter>Init</Filter>
     </ClCompile>
-    <ClCompile Include="Classes\Field\FieldAxes.cpp">
-      <Filter>Field\Axes</Filter>
-    </ClCompile>
-    <ClCompile Include="Classes\Field\Axes.cpp">
-      <Filter>Field\Axes</Filter>
-    </ClCompile>
     <ClCompile Include="Classes\Element\Element.cpp">
       <Filter>Element</Filter>
     </ClCompile>
     <ClCompile Include="Classes\Field\Relations.cpp">
       <Filter>Field</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\Field\AxesInfo.cpp">
+      <Filter>Field\Axes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -187,15 +184,6 @@
     <ClInclude Include="Classes\Field\TagAxes.h">
       <Filter>Field\Axes</Filter>
     </ClInclude>
-    <ClInclude Include="Classes\Field\FieldAxes.h">
-      <Filter>Field\Axes</Filter>
-    </ClInclude>
-    <ClInclude Include="Classes\Field\BaseAxes.h">
-      <Filter>Field\Axes</Filter>
-    </ClInclude>
-    <ClInclude Include="Classes\Field\Axes.h">
-      <Filter>Field\Axes</Filter>
-    </ClInclude>
     <ClInclude Include="Classes\Field\AxesSettings.h">
       <Filter>Field\Axes</Filter>
     </ClInclude>
@@ -210,6 +198,12 @@
     </ClInclude>
     <ClInclude Include="Classes\Field\Relations.h">
       <Filter>Field</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\Field\AxesInfo.h">
+      <Filter>Field\Axes</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\Field\Axes.h">
+      <Filter>Field\Axes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

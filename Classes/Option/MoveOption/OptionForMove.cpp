@@ -99,7 +99,7 @@
 //	auto map = Field::CreateBlockMap();
 //
 //	// Временное решение
-//	std::vector<BaseAxes> temp = PathFinder::MoveTo(map, BaseAxes(parent->GetX(), parent->GetY()), BaseAxes(x, y), true);
+//	std::vector<Axes> temp = PathFinder::MoveTo(map, Axes(parent->GetX(), parent->GetY()), Axes(x, y), true);
 //	cocos2d::Vector<FieldPoint *> temp2 = cocos2d::Vector<FieldPoint *>();
 //
 //	for (int i = 0; i < temp.size(); i++)

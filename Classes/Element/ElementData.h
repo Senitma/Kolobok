@@ -4,7 +4,7 @@
 #include "ElementNameType.h"
 #include "SideType.h"
 #include "ClassType.h"
-#include "Field\BaseAxes.h"
+#include "Field\Axes.h"
 
 // Данные элемента
 struct ElementData
@@ -19,9 +19,9 @@ public:
 	// Узел для прорисовки
 	cocos2d::Node * node;
 	// Положение элемента
-	BaseAxes position;
+	Axes position;
 	// Точки для патрулирования
-	std::vector<BaseAxes> patrolPoints;
+	std::vector<Axes> patrolPoints;
 
 	// Статус элемента
 	bool destroyStatus;

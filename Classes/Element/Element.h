@@ -11,7 +11,7 @@ enum ClassType;
 // Перечисление возможных направлений
 enum class SideType;
 // Координаты элемента
-class BaseAxes;
+class Axes;
 
 // Класс управления элементом
 class Element
@@ -36,7 +36,7 @@ public:
 	// Получить координату по оси Y
 	int GetY() const;
 	// Получить координаты
-	BaseAxes GetAxes() const;
+	Axes GetAxes() const;
 	// Изменить координаты по оси X
 	void SetX(const int & value);
 	// Изменить координаты по оси Y
@@ -62,7 +62,7 @@ public:
 	// Добавить точку для патрулирования
 	void AddPoint(const int & x, const int & y);
 	// Получить точку для патрулирования
-	BaseAxes GetPoint(const int & index) const;
+	Axes GetPoint(const int & index) const;
 	// Получить количество точек для патрулирования
 	int GetPointLength() const;
 

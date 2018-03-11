@@ -7,7 +7,7 @@
 #include "Option\BaseClass\ISInterval.h"
 #include "Main\MapHandle.h"
 #include "Element\ClassType.h"
-#include "Axes.h"
+#include "AxesInfo.h"
 
 USING_NS_CC;
 
@@ -35,9 +35,9 @@ Node * Field::CreateBackground()
 	{
 		for (int y = 0; y < Settings::VERTICALCELLCOUNT; y++)
 		{
-			auto floor = Sprite::create("Floor.png", Rect(0, 0, FieldPoint::GetCellWidth(), FieldPoint::GetCellHeight()));
+			auto floor = Sprite::create("Floor.png", Rect(0, 0, Settings::WIDTHSIZE / Settings::HORIZONTALCELLCOUNT, Settings::HEIGHTSIZE / Settings::VERTICALCELLCOUNT));
 			floor->setAnchorPoint(Vec2(0.0f, 1.0f));
-			floor->setPosition(x * FieldPoint::GetCellWidth(), Settings::HEIGHTSIZE - y * FieldPoint::GetCellHeight());
+			floor->setPosition(x * Settings::WIDTHSIZE / Settings::HORIZONTALCELLCOUNT, Settings::HEIGHTSIZE - y * Settings::HEIGHTSIZE / Settings::VERTICALCELLCOUNT);
 			field->addChild(floor);
 
 			items.pushBack(new Cell());
@@ -89,43 +89,43 @@ GameStatusType Field::GetGameStatus()
 
 bool Field::CanAddElement(Element & item)
 {
-	return items.at(Axes::ConvertToIndex(item.GetAxes()))->CanAddElement(item);
+	return items.at(AxesInfo::ConvertToIndex(item.GetAxes()))->CanAddElement(item);
 }
 bool Field::CanAddElement(ClassType type, int x, int y)
 {
-	return items.at(Axes::ConvertToIndex(x, y))->CanAddElement(type);
+	return items.at(AxesInfo::ConvertToIndex(x, y))->CanAddElement(type);
 }
 void Field::AddElement(Element & value)
 {
-	items.at(Axes::ConvertToIndex(value.GetAxes()))->AddElement(value);
+	items.at(AxesInfo::ConvertToIndex(value.GetAxes()))->AddElement(value);
 }
 void Field::MoveElement(Element & item, int x, int y)
 {
 	if (Field::ContainElement(item) == true)
 	{
-		items.at(Axes::ConvertToIndex(x, y))->AddElement(item);
-		items.at(Axes::ConvertToIndex(item.GetAxes()))->RemoveElement(item);
+		items.at(AxesInfo::ConvertToIndex(x, y))->AddElement(item);
+		items.at(AxesInfo::ConvertToIndex(item.GetAxes()))->RemoveElement(item);
 		item.SetX(x);
 		item.SetY(y);
 	}
 }
 bool Field::ContainName(ElementNameType name, int x, int y)
 {
-	return items.at(Axes::ConvertToIndex(x, y))->ContainName(name);
+	return items.at(AxesInfo::ConvertToIndex(x, y))->ContainName(name);
 }
 bool Field::ContainElement(Element & item)
 {
-	return items.at(Axes::ConvertToIndex(item.GetAxes()))->ContainElement(item);
+	return items.at(AxesInfo::ConvertToIndex(item.GetAxes()))->ContainElement(item);
 }
 
 void Field::RemoveElement(Element & item)
 {
-	items.at(Axes::ConvertToIndex(item.GetAxes()))->RemoveElement(item);
+	items.at(AxesInfo::ConvertToIndex(item.GetAxes()))->RemoveElement(item);
 }
 
 void Field::Destroy(int x, int y)
 {
-	items.at(Axes::ConvertToIndex(x, y))->RemoveElements();
+	items.at(AxesInfo::ConvertToIndex(x, y))->RemoveElements();
 }
 
 std::vector<TagAxes> Field::CreateBlockMap()
@@ -134,7 +134,7 @@ std::vector<TagAxes> Field::CreateBlockMap()
 
 	for (int index = 0; index < items.size(); index++)
 	{
-		TagAxes newPoint = Axes::ConvertToAxes(index);
+		TagAxes newPoint = AxesInfo::ConvertToAxes(index);
 
 		if (items.at(index)->ContainType(ClassType::Block) == true)
 		{

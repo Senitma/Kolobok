@@ -58,7 +58,7 @@ int Element::GetY() const
 {
 	return data->position.GetY();
 }
-BaseAxes Element::GetAxes() const
+Axes Element::GetAxes() const
 {
 	return data->position;
 }
@@ -106,9 +106,9 @@ void Element::SetDestroyStatus(const bool & value)
 
 void Element::AddPoint(const int & x, const int & y)
 {
-	data->patrolPoints.push_back(BaseAxes(x, y));
+	data->patrolPoints.push_back(Axes(x, y));
 }
-BaseAxes Element::GetPoint(const int & index) const
+Axes Element::GetPoint(const int & index) const
 {
 	return data->patrolPoints.at(index);
 }
