@@ -41,9 +41,6 @@
     <ClCompile Include="Classes\Element\ElementCreator.cpp">
       <Filter>Element</Filter>
     </ClCompile>
-    <ClCompile Include="Classes\Element\ElementRelations.cpp">
-      <Filter>Element</Filter>
-    </ClCompile>
     <ClCompile Include="Classes\Field\FieldPoint.cpp">
       <Filter>Field</Filter>
     </ClCompile>
@@ -104,18 +101,15 @@
     <ClCompile Include="Classes\Element\Element.cpp">
       <Filter>Element</Filter>
     </ClCompile>
+    <ClCompile Include="Classes\Field\Relations.cpp">
+      <Filter>Field</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Classes\Element\ElementCreator.h">
       <Filter>Element</Filter>
     </ClInclude>
     <ClInclude Include="Classes\Element\ElementNameType.h">
-      <Filter>Element</Filter>
-    </ClInclude>
-    <ClInclude Include="Classes\Element\ElementRelations.h">
-      <Filter>Element</Filter>
-    </ClInclude>
-    <ClInclude Include="Classes\Element\ResultType.h">
       <Filter>Element</Filter>
     </ClInclude>
     <ClInclude Include="Classes\Element\SideType.h">
@@ -210,6 +204,12 @@
     </ClInclude>
     <ClInclude Include="Classes\Element\ElementData.h">
       <Filter>Element</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\Field\ResultType.h">
+      <Filter>Field</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\Field\Relations.h">
+      <Filter>Field</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

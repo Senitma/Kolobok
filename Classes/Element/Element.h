@@ -7,7 +7,7 @@ class ElementData;
 // Перечисление возможных имен
 enum class ElementNameType;
 // Перечисление возможных типов
-enum class ClassType;
+enum ClassType;
 // Перечисление возможных направлений
 enum class SideType;
 // Координаты элемента

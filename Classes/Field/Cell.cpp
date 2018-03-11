@@ -1,9 +1,10 @@
 #include "Cell.h"
-#include "Element\ElementRelations.h"
+#include "Relations.h"
+#include "ResultType.h"
 
 bool Cell::CanAddElement(const ClassType & type) const
 {
-	return ElementRelations::CanAdd(type, GetAllTypes());
+	return Relations::CanAdd(type, GetAllTypes());
 }
 ResultType Cell::AddElement(const Element & item)
 {
@@ -46,12 +47,12 @@ ResultType Cell::RemoveElement(Element & item)
 
 ClassType Cell::GetDoubleElements() const
 {
-	ClassType result = ClassType::Empty;
+	int result = 0;
 	int types = 0;
 
 	std::any_of(items.begin(), items.end(), [&](const Element & item)
 	{
-		int type = (int)item.GetType();
+		int type = item.GetType();
 		if ((types & type) == type)
 		{
 			result = item.GetType();
@@ -64,7 +65,7 @@ ClassType Cell::GetDoubleElements() const
 		}
 	});
 
-	return result;
+	return (ClassType)result;
 }
 int Cell::GetAllTypes() const
 {
@@ -79,12 +80,12 @@ int Cell::GetAllTypes() const
 }
 ResultType Cell::CheckRelations()
 {
-	if (ElementRelations::DoubleCalc(GetDoubleElements()) == ResultType::Destroy)
+	if (Relations::DoubleCalc(GetDoubleElements()) == ResultType::Destroy)
 	{
 		Destroy(false);
 	}
 
-	ResultType result = ElementRelations::Calc(GetAllTypes());
+	ResultType result = Relations::Calc(GetAllTypes());
 	if (result == ResultType::Destroy)
 	{
 		Destroy(false);
@@ -96,7 +97,7 @@ void Cell::Destroy(const bool & allItem)
 {
 	std::for_each(items.begin(), items.end(), [=](Element & item)
 	{
-		if ((allItem == true) || (ElementRelations::CanDestroy(item.GetType()) == true))
+		if ((allItem == true) || (Relations::CanDestroy(item.GetType()) == true))
 		{
 			items.remove(item);
 		}
