@@ -41,13 +41,7 @@
     <ClCompile Include="Classes\Element\ElementCreator.cpp">
       <Filter>Element</Filter>
     </ClCompile>
-    <ClCompile Include="Classes\Element\ElementReader.cpp">
-      <Filter>Element</Filter>
-    </ClCompile>
     <ClCompile Include="Classes\Element\ElementRelations.cpp">
-      <Filter>Element</Filter>
-    </ClCompile>
-    <ClCompile Include="Classes\Element\AdvancedElement.cpp">
       <Filter>Element</Filter>
     </ClCompile>
     <ClCompile Include="Classes\Field\FieldPoint.cpp">
@@ -107,10 +101,6 @@
     <ClCompile Include="Classes\Field\Axes.cpp">
       <Filter>Field\Axes</Filter>
     </ClCompile>
-    <ClCompile Include="Classes\Element\ElementInfo.cpp">
-      <Filter>Element</Filter>
-    </ClCompile>
-    <ClCompile Include="Classes\Element\ElementData.cpp" />
     <ClCompile Include="Classes\Element\Element.cpp">
       <Filter>Element</Filter>
     </ClCompile>
@@ -122,9 +112,6 @@
     <ClInclude Include="Classes\Element\ElementNameType.h">
       <Filter>Element</Filter>
     </ClInclude>
-    <ClInclude Include="Classes\Element\ElementReader.h">
-      <Filter>Element</Filter>
-    </ClInclude>
     <ClInclude Include="Classes\Element\ElementRelations.h">
       <Filter>Element</Filter>
     </ClInclude>
@@ -132,9 +119,6 @@
       <Filter>Element</Filter>
     </ClInclude>
     <ClInclude Include="Classes\Element\SideType.h">
-      <Filter>Element</Filter>
-    </ClInclude>
-    <ClInclude Include="Classes\Element\AdvancedElement.h">
       <Filter>Element</Filter>
     </ClInclude>
     <ClInclude Include="Classes\Element\ClassType.h">
@@ -221,13 +205,10 @@
     <ClInclude Include="Classes\Field\AxesSettings.h">
       <Filter>Field\Axes</Filter>
     </ClInclude>
-    <ClInclude Include="Classes\Element\ElementData.h">
-      <Filter>Element</Filter>
-    </ClInclude>
-    <ClInclude Include="Classes\Element\ElementInfo.h">
-      <Filter>Element</Filter>
-    </ClInclude>
     <ClInclude Include="Classes\Element\Element.h">
+      <Filter>Element</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\Element\ElementData.h">
       <Filter>Element</Filter>
     </ClInclude>
   </ItemGroup>

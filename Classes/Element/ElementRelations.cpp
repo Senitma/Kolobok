@@ -13,7 +13,7 @@ ResultType ElementRelations::DoubleCalc(ClassType type)
 	// Нет взаимодействия
 	else
 	{
-		return ResultType::Nothing;
+		return ResultType::None;
 	}
 }
 ResultType ElementRelations::DoubleCalc(int type)
@@ -37,7 +37,7 @@ ResultType ElementRelations::Calc(int SumOfTypes)
 		// Block + Empty = Block
 		else if (SumOfTypes == 4)
 		{
-			return ResultType::Nothing;
+			return ResultType::None;
 		}
 		// А вот других случаев быть не может
 		else
@@ -63,7 +63,7 @@ ResultType ElementRelations::Calc(int SumOfTypes)
 	// Нет взаимодействия
 	else
 	{
-		return ResultType::Nothing;
+		return ResultType::None;
 	}
 }
 bool ElementRelations::CanAdd(int type, int sumOfTypes)

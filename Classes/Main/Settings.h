@@ -18,7 +18,7 @@ namespace Settings
 	// Количество клеток по вертикали
 	const int VERTICALCELLCOUNT = 15;
 	// Индекс карты для загрузки
-	const int MAPINDEX = 0;
+	const int MAPINDEX = 2;
 	// Скорость перемещения персонажа
 	const float MOVESPEED = 4;
 	// Скорость вращения персонажа

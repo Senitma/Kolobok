@@ -6,6 +6,8 @@
 class OptionForCreate : public ISOption
 {
 public:
+
+	OptionForCreate(Element & parent) : ISOption(parent) {};
 	// Получить имя создаваемого элемента
 	ElementNameType GetName() { return nodeName; };
 	// Задать имя создаваемого элемента
@@ -25,9 +27,6 @@ public:
 
 	// Создание элемента
 	void Create();
-
-	// Задать родителя опции
-	virtual void SetParent(AdvancedElement * value) override { parent = value; };
 protected:
 	// Имя создаваемого элемента
 	ElementNameType nodeName;

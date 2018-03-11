@@ -6,9 +6,9 @@
 #include "Field\BaseAxes.h"
 
 // Главный персонаж
-static AdvancedElement * ninja;
+//static Element & ninja;
 // Клетка финиша
-static AdvancedElement * finish;
+//static Element & finish;
 // Последняя загруженная карта
 static int lastIndex;
 
@@ -23,7 +23,8 @@ void MapHandle::ReloadMap()
 
 bool MapHandle::CheckPath()
 {
-	return PathFinder::CanMoveTo(Field::CreateBlockMap(), BaseAxes(ninja->GetX(), ninja->GetY()), BaseAxes(finish->GetX(), finish->GetY()));
+	//return PathFinder::CanMoveTo(Field::CreateBlockMap(), BaseAxes(ninja.GetX(), ninja.GetY()), BaseAxes(finish.GetX(), finish.GetY()));
+	return true;
 }
 
 void MapHandle::LoadForIndex(int index)
@@ -46,16 +47,16 @@ void MapHandle::LoadForIndex(int index)
 
 void MapHandle::LoadForIndex0()
 {
-	ninja = ElementCreator::Create(ElementNameType::Ninja, SideType::Right, 0, 0);
-	finish = ElementCreator::Create(ElementNameType::Finish, Settings::HORIZONTALCELLCOUNT - 1, Settings::VERTICALCELLCOUNT - 1);
+	ElementCreator::Create(ElementNameType::Ninja, SideType::Right, 0, 0);
+	ElementCreator::Create(ElementNameType::Finish, Settings::HORIZONTALCELLCOUNT - 1, Settings::VERTICALCELLCOUNT - 1);
 
-	AdvancedElement * patrol1 = ElementCreator::Create(ElementNameType::Patrol, SideType::Right, 0, 5);
-	patrol1->AddPoint(0, 5);
-	patrol1->AddPoint(Settings::HORIZONTALCELLCOUNT - 1, 5);
+	Element & patrol1 = ElementCreator::Create(ElementNameType::Patrol, SideType::Right, 0, 5);
+	patrol1.AddPoint(0, 5);
+	patrol1.AddPoint(Settings::HORIZONTALCELLCOUNT - 1, 5);
 
-	AdvancedElement * patrol2 = ElementCreator::Create(ElementNameType::Patrol, SideType::Right, 2, 0);
-	patrol2->AddPoint(2, 0);
-	patrol2->AddPoint(2, Settings::VERTICALCELLCOUNT - 1);
+	Element & patrol2 = ElementCreator::Create(ElementNameType::Patrol, SideType::Right, 2, 0);
+	patrol2.AddPoint(2, 0);
+	patrol2.AddPoint(2, Settings::VERTICALCELLCOUNT - 1);
 
 	ElementCreator::Create(ElementNameType::Gun, SideType::Down, 5, 0);
 	ElementCreator::Create(ElementNameType::Gun, SideType::Down, 9, 0);
@@ -67,8 +68,8 @@ void MapHandle::LoadForIndex0()
 
 void MapHandle::LoadForIndex1()
 {
-	ninja = ElementCreator::Create(ElementNameType::Ninja, SideType::Right, 0, 0);
-	finish = ElementCreator::Create(ElementNameType::Finish, Settings::HORIZONTALCELLCOUNT - 1, Settings::VERTICALCELLCOUNT - 1);
+	ElementCreator::Create(ElementNameType::Ninja, SideType::Right, 0, 0);
+	ElementCreator::Create(ElementNameType::Finish, Settings::HORIZONTALCELLCOUNT - 1, Settings::VERTICALCELLCOUNT - 1);
 
 	ElementCreator::Create(ElementNameType::Wall, SideType::Down, 0, 1);
 	ElementCreator::Create(ElementNameType::Wall, SideType::Down, 0, 2);
@@ -231,6 +232,6 @@ void MapHandle::LoadForIndex1()
 
 void MapHandle::LoadForIndex2()
 {
-	ninja = ElementCreator::Create(ElementNameType::Ninja, SideType::Right, 0, 0);
-	finish = ElementCreator::Create(ElementNameType::Finish, Settings::HORIZONTALCELLCOUNT - 1, Settings::VERTICALCELLCOUNT - 1);
+	ElementCreator::Create(ElementNameType::Ninja, SideType::Right, 0, 0);
+	ElementCreator::Create(ElementNameType::Finish, Settings::HORIZONTALCELLCOUNT - 1, Settings::VERTICALCELLCOUNT - 1);
 }

@@ -3,6 +3,7 @@
 #include "Main\MapHandle.h"
 #include "Option\BaseClass\MouseType.h"
 #include "Field\FieldPoint.h"
+#include "Element\ClassType.h"
 
 void OptionForMouseCreateDestroy::MouseClick(MouseType type, int x, int y)
 {
@@ -11,8 +12,8 @@ void OptionForMouseCreateDestroy::MouseClick(MouseType type, int x, int y)
 		int calcX = FieldPoint::ConvertToX(x);
 		int calcY = FieldPoint::ConvertToY(y);
 
-		this->SetOffsetX(calcX - parent->GetX());
-		this->SetOffsetY(calcY - parent->GetY());
+		this->SetOffsetX(calcX - parent.GetX());
+		this->SetOffsetY(calcY - parent.GetY());
 
 		if (Field::CanAddElement(ClassType::Block, calcX, calcY) == true)
 		{

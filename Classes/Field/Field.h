@@ -1,7 +1,7 @@
 #pragma once
 
 #include "cocos2d.h"
-#include "Element\AdvancedElement.h"
+#include "Element\Element.h"
 #include "Main\GameStatusType.h"
 
 #include "TagAxes.h"
@@ -25,17 +25,19 @@ public:
 	static GameStatusType GetGameStatus();
 
 	// Проверка возможности добавления элемента
-	static bool CanAddElement(AdvancedElement * item);
+	static bool CanAddElement(Element & item);
 	// Проверка возможности добавления элемента
 	static bool CanAddElement(ClassType type, int x, int y);
 	// Добавить элемент
-	static void AddElement(AdvancedElement & item);
+	static void AddElement(Element & value);
+	// Переместить элемента
+	static void MoveElement(Element & item, int x, int y);
 	// Проверить наличие имени в списке элементов
 	static bool ContainName(ElementNameType name, int x, int y);
 	// Проверить наличие элемента
-	static bool ContainElement(AdvancedElement * item);
+	static bool ContainElement(Element & item);
 	// Убрать элемент
-	static void RemoveElement(AdvancedElement & item);
+	static void RemoveElement(Element & item);
 	// Удалить элементы
 	static void Destroy(int x, int y);
 

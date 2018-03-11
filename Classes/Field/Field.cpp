@@ -6,7 +6,7 @@
 #include "Option\BaseClass\ISMouse.h"
 #include "Option\BaseClass\ISInterval.h"
 #include "Main\MapHandle.h"
-
+#include "Element\ClassType.h"
 #include "Axes.h"
 
 USING_NS_CC;
@@ -73,7 +73,7 @@ void Field::Reload()
 {
 	for (int index = 0; index < items.size(); index++)
 	{
-		items.at(index)->DestroyAll();
+		items.at(index)->RemoveElements();
 	}
 	ISMouse::Clear();
 	ISInterval::Clear();
@@ -87,35 +87,45 @@ GameStatusType Field::GetGameStatus()
 	return gameStatus;
 }
 
-bool Field::CanAddElement(AdvancedElement * item)
+bool Field::CanAddElement(Element & item)
 {
-	return items.at(Axes::ConvertToIndex(item->GetAxes()))->CanAddElement(*item);
+	return items.at(Axes::ConvertToIndex(item.GetAxes()))->CanAddElement(item);
 }
 bool Field::CanAddElement(ClassType type, int x, int y)
 {
 	return items.at(Axes::ConvertToIndex(x, y))->CanAddElement(type);
 }
-void Field::AddElement(AdvancedElement & item)
+void Field::AddElement(Element & value)
 {
-	items.at(Axes::ConvertToIndex(item.GetAxes()))->AddElement(item);
+	items.at(Axes::ConvertToIndex(value.GetAxes()))->AddElement(value);
+}
+void Field::MoveElement(Element & item, int x, int y)
+{
+	if (Field::ContainElement(item) == true)
+	{
+		items.at(Axes::ConvertToIndex(x, y))->AddElement(item);
+		items.at(Axes::ConvertToIndex(item.GetAxes()))->RemoveElement(item);
+		item.SetX(x);
+		item.SetY(y);
+	}
 }
 bool Field::ContainName(ElementNameType name, int x, int y)
 {
 	return items.at(Axes::ConvertToIndex(x, y))->ContainName(name);
 }
-bool Field::ContainElement(AdvancedElement * item)
+bool Field::ContainElement(Element & item)
 {
-	return items.at(Axes::ConvertToIndex(item->GetAxes()))->ContainElement(*item);
+	return items.at(Axes::ConvertToIndex(item.GetAxes()))->ContainElement(item);
 }
 
-void Field::RemoveElement(AdvancedElement & item)
+void Field::RemoveElement(Element & item)
 {
 	items.at(Axes::ConvertToIndex(item.GetAxes()))->RemoveElement(item);
 }
 
 void Field::Destroy(int x, int y)
 {
-	items.at(Axes::ConvertToIndex(x, y))->DestroyAll();
+	items.at(Axes::ConvertToIndex(x, y))->RemoveElements();
 }
 
 std::vector<TagAxes> Field::CreateBlockMap()

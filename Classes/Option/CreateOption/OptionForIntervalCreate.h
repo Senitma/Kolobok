@@ -7,6 +7,8 @@
 class OptionForIntervalCreate : public OptionForCreate, public ISInterval
 {
 public:
+
+	OptionForIntervalCreate(Element & parent) : OptionForCreate(parent) {};
 	// Получить переключатель активности
 	bool GetActive() { return isActive; };
 	// Задать переключатель активности
@@ -17,9 +19,6 @@ public:
 	void SetInterval(int value) { interval = value; };
 	// Обновление данных
 	void Update() override;
-
-	// Задать родителя опции
-	virtual void SetParent(AdvancedElement * value) override { parent = value; parent->AddOption(this); };
 protected:
 	// Переключатель активности
 	bool isActive;

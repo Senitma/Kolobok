@@ -1,41 +1,42 @@
 #pragma once
 
-#include "cocos2d.h"
-#include "Element\AdvancedElement.h"
+#include "Element\Element.h"
 #include "list"
 
+// Перечисление возможных результатов
+enum class ResultType;
 // Класс хранения элементов
 struct Cell : public cocos2d::Ref
 {
 public:
 	// Проверка возможности добавления элемента
-	bool CanAddElement(const AdvancedElement & item) const { return CanAddElement(item.GetType()); };
+	bool CanAddElement(const Element & item) const { return CanAddElement(item.GetType()); };
 	// Проверка возможности добавления элемента
 	bool CanAddElement(const ClassType & type) const;
 	// Добавить элемент
-	void AddElement(AdvancedElement & item);
+	ResultType AddElement(const Element & item);
 	// Проверить наличие имени в списке элементов
 	bool ContainName(const ElementNameType & nodename) const;
 	// Проверить наличие имени в списке элементов
 	bool ContainType(const ClassType & type) const;
 	// Проверить наличие элемента
-	bool ContainElement(const AdvancedElement & item) const;
+	bool ContainElement(const Element & item) const;
 	// Удалить элемент
-	void RemoveElement(AdvancedElement & item);
+	ResultType RemoveElement(Element & item);
 	// Удалить все элементы
-	void DestroyAll() { Destroy(true); };
+	void RemoveElements() { Destroy(true); };
 private:
 	// Набор элементов
-	std::list<AdvancedElement> items;
+	std::list<Element> items;
 
 	// Проверить наличие повторяющихся элементов
-	ClassType GetDoubleElements();
+	ClassType GetDoubleElements() const;
 	// Сложить все типы в один
 	int GetAllTypes() const;
 	// Проверить взаимодействие типов
-	void CheckRelations();
+	ResultType CheckRelations();
 	// Уничтожение элементов
 	void Destroy() { Destroy(false); };
 	// Уничтожение элементов
-	void Destroy(bool allItems);
+	void Destroy(const bool & allItems);
 };

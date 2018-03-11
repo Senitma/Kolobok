@@ -4,7 +4,7 @@
 enum class ResultType
 {
 	// Нет результата
-	Nothing = 0,
+	None,
 	// Выйгрыш
 	Win,
 	// Проигрыш

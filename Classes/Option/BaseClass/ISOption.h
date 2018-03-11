@@ -1,19 +1,17 @@
 #pragma once
 
 #include "cocos2d.h"
-#include "Element\AdvancedElement.h"
+#include "Element\Element.h"
 
 // Интерфейс опции
 class ISOption : public cocos2d::Ref
 {
 public:
 	// Инициализация переменных
-	ISOption() {};
+	ISOption(Element & parent) : parent(parent) {};
 	// Получить родителя опции
-	AdvancedElement * GetParent() { return parent; };
-	// Задать родителя опции
-	virtual void SetParent(AdvancedElement * value) = 0;
+	Element & GetParent() { return parent; };
 protected:
 	// Родитель опции
-	AdvancedElement * parent;
+	Element parent;
 };
