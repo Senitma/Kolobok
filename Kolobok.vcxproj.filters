@@ -44,9 +44,6 @@
     <ClCompile Include="Classes\Field\FieldPoint.cpp">
       <Filter>Field</Filter>
     </ClCompile>
-    <ClCompile Include="Classes\Field\PathFinder.cpp">
-      <Filter>Field</Filter>
-    </ClCompile>
     <ClCompile Include="Classes\Field\Cell.cpp">
       <Filter>Field</Filter>
     </ClCompile>
@@ -101,6 +98,9 @@
     <ClCompile Include="Classes\Field\AxesInfo.cpp">
       <Filter>Field\Axes</Filter>
     </ClCompile>
+    <ClCompile Include="Classes\Field\PathFinder.cpp">
+      <Filter>Field</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Classes\Element\ElementCreator.h">
@@ -119,9 +119,6 @@
       <Filter>Field</Filter>
     </ClInclude>
     <ClInclude Include="Classes\Field\FieldPoint.h">
-      <Filter>Field</Filter>
-    </ClInclude>
-    <ClInclude Include="Classes\Field\PathFinder.h">
       <Filter>Field</Filter>
     </ClInclude>
     <ClInclude Include="Classes\Field\Cell.h">
@@ -204,6 +201,9 @@
     </ClInclude>
     <ClInclude Include="Classes\Field\Axes.h">
       <Filter>Field\Axes</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\Field\PathFinder.h">
+      <Filter>Field</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
