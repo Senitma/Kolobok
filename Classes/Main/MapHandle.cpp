@@ -4,6 +4,9 @@
 #include "Element\ElementCreator.h"
 #include "Main\Settings.h"
 #include "Field\Axes.h"
+#include "Element\ElementNameType.h"
+#include "Element\ClassType.h"
+#include "Element\SideType.h"
 
 // Главный персонаж
 //static Element & ninja;

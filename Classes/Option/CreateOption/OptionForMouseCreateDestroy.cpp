@@ -1,19 +1,19 @@
 #include "OptionForMouseCreateDestroy.h"
 #include "Field\Field.h"
 #include "Main\MapHandle.h"
-#include "Option\BaseClass\MouseType.h"
+#include "Option\MouseType.h"
 #include "Field\FieldPoint.h"
 #include "Element\ClassType.h"
 
-void OptionForMouseCreateDestroy::MouseClick(MouseType type, int x, int y)
+void OptionForMouseCreateDestroy::MouseClick(const MouseType & type, const int & x, const int & y)
 {
 	if (type == MouseType::Right)
 	{
 		int calcX = FieldPoint::ConvertToX(x);
 		int calcY = FieldPoint::ConvertToY(y);
 
-		this->SetOffsetX(calcX - parent.GetX());
-		this->SetOffsetY(calcY - parent.GetY());
+		this->SetOffsetX(calcX - ISOption::parent.GetX());
+		this->SetOffsetY(calcY - ISOption::parent.GetY());
 
 		if (Field::CanAddElement(ClassType::Block, calcX, calcY) == true)
 		{

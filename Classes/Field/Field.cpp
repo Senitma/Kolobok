@@ -3,8 +3,6 @@
 #include "Cell.h"
 #include "Main\Settings.h"
 
-#include "Option\BaseClass\ISMouse.h"
-#include "Option\BaseClass\ISInterval.h"
 #include "Main\MapHandle.h"
 #include "Element\ClassType.h"
 #include "AxesInfo.h"
@@ -75,8 +73,6 @@ void Field::Reload()
 	{
 		items.at(index)->RemoveElements();
 	}
-	ISMouse::Clear();
-	ISInterval::Clear();
 	MapHandle::ReloadMap();
 
 	field->removeChild(infoMessage);

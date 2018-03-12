@@ -1,13 +1,15 @@
 #pragma once
 
-#include "Option\BaseClass\ISOption.h"
+#include "Option\ISOption.h"
 
 // Опция создания элемента
 class OptionForCreate : public ISOption
 {
 public:
 
+	// Инициализация переменных
 	OptionForCreate(Element & parent) : ISOption(parent) {};
+
 	// Получить имя создаваемого элемента
 	ElementNameType GetName() { return nodeName; };
 	// Задать имя создаваемого элемента

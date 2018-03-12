@@ -14,6 +14,13 @@ Element::Element(const Element & value)
 {
 	data = std::move(value.data);
 }
+Element::~Element()
+{
+	if (data.use_count() == 1)
+	{
+		data->node->getParent()->removeChild(data->node);
+	}
+}
 
 ElementNameType Element::GetName() const
 {
@@ -128,12 +135,4 @@ bool Element::operator==(const Element & value) const
 bool Element::operator!=(const Element & value) const
 {
 	return data->node != value.data->node;
-}
-
-Element::~Element()
-{
-	if (data.use_count() == 1)
-	{
-		data->node->getParent()->removeChild(data->node);
-	}
 }

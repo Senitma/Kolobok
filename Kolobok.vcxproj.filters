@@ -31,6 +31,9 @@
     <Filter Include="Field\Axes">
       <UniqueIdentifier>{69f2d60a-c17e-48d3-b369-6c8708fca5ff}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Option\Other">
+      <UniqueIdentifier>{68fb6ac9-5023-4be6-94d0-7984271e81a4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc">
@@ -55,12 +58,6 @@
     </ClCompile>
     <ClCompile Include="Classes\Main\MainScene.cpp">
       <Filter>Main</Filter>
-    </ClCompile>
-    <ClCompile Include="Classes\Option\BaseClass\ISInterval.cpp">
-      <Filter>Option\BaseClass</Filter>
-    </ClCompile>
-    <ClCompile Include="Classes\Option\BaseClass\ISMouse.cpp">
-      <Filter>Option\BaseClass</Filter>
     </ClCompile>
     <ClCompile Include="Classes\Option\CreateOption\OptionForIntervalCreate.cpp">
       <Filter>Option\CreateOption</Filter>
@@ -107,6 +104,12 @@
     <ClCompile Include="Classes\Element\ElementInfo.cpp">
       <Filter>Element</Filter>
     </ClCompile>
+    <ClCompile Include="Classes\Option\ISMouse.cpp">
+      <Filter>Option\BaseClass</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\Option\ISInterval.cpp">
+      <Filter>Option\BaseClass</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Classes\Element\ElementCreator.h">
@@ -141,18 +144,6 @@
     </ClInclude>
     <ClInclude Include="Classes\Main\MainScene.h">
       <Filter>Main</Filter>
-    </ClInclude>
-    <ClInclude Include="Classes\Option\BaseClass\ISMouse.h">
-      <Filter>Option\BaseClass</Filter>
-    </ClInclude>
-    <ClInclude Include="Classes\Option\BaseClass\ISOption.h">
-      <Filter>Option\BaseClass</Filter>
-    </ClInclude>
-    <ClInclude Include="Classes\Option\BaseClass\MouseType.h">
-      <Filter>Option\BaseClass</Filter>
-    </ClInclude>
-    <ClInclude Include="Classes\Option\BaseClass\ISInterval.h">
-      <Filter>Option\BaseClass</Filter>
     </ClInclude>
     <ClInclude Include="Classes\Option\CreateOption\OptionForIntervalCreate.h">
       <Filter>Option\CreateOption</Filter>
@@ -210,6 +201,21 @@
     </ClInclude>
     <ClInclude Include="Classes\Element\ElementInfo.h">
       <Filter>Element</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\Option\ISMouse.h">
+      <Filter>Option\BaseClass</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\Option\ISOption.h">
+      <Filter>Option\BaseClass</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\Option\MouseType.h">
+      <Filter>Option\BaseClass</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\Option\ISInterval.h">
+      <Filter>Option\BaseClass</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\Option\Options.h">
+      <Filter>Option\Other</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

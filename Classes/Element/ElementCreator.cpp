@@ -1,22 +1,17 @@
-#include "cocostudio/CocoStudio.h"
-
-
 #include "ElementCreator.h"
+
+#include "cocos2d.h"
+#include "cocostudio\CocoStudio.h"
+
+#include "Element.h"
+#include "ElementNameType.h"
+#include "ClassType.h"
+#include "SideType.h"
+#include "ElementInfo.h"
+
 #include "Field\Field.h"
-#include "Main\Settings.h"
-#include "Field\FieldPoint.h"
-
-
-
-#include "Option\CreateOption\OptionForCreate.h"
-#include "Option\CreateOption\OptionForIntervalCreate.h"
-#include "Option\CreateOption\OptionForMouseCreateDestroy.h"
-
-#include "Option\MoveOption\MoveType.h"
-#include "Option\MoveOption\OptionForMouseMove.h"
-#include "Option\MoveOption\OptionForMove.h"
-#include "Option\MoveOption\OptionForOneStep.h"
-#include "Option\MoveOption\OptionForPatrol.h"
+#include "Field\AxesInfo.h"
+#include "Option\Options.h"
 
 Element ElementCreator::Create(ElementNameType name, int x, int y)
 {
@@ -38,8 +33,8 @@ Element ElementCreator::Create(ElementNameType name, SideType side, int x, int y
 		return ElementCreator::CreateGun(side, x, y);
 	case ElementNameType::Fireball:
 		return ElementCreator::CreateFireball(side, x, y);
-	//default:
-	//	// Error
+	default:
+		throw "Имя елемента не найдено";
 	}
 }
 
@@ -54,8 +49,8 @@ Element ElementCreator::CreateNinja(SideType side, int x, int y)
 	//moveOption->SetMoveType(MoveType::ToByPass);
 	//moveOption->SetRotate(true);
 
-	OptionForMouseCreateDestroy * createOption = new OptionForMouseCreateDestroy(newElement);
-	createOption->SetName(ElementNameType::Wall);
+	auto & createOption = Options::Create<OptionForMouseCreateDestroy>(newElement);
+	createOption.SetName(ElementNameType::Wall);
 
 	return newElement;
 }
@@ -107,13 +102,13 @@ Element ElementCreator::CreateFireball(SideType side, int x, int y)
 		newElement.AddPoint(x, 0);
 		break;
 	case SideType::Down:
-		newElement.AddPoint(x, Settings::VERTICALCELLCOUNT - 1);
+		newElement.AddPoint(x, AxesInfo::GetMaxY() - 1);
 		break;
 	case SideType::Left:
 		newElement.AddPoint(0, y);
 		break;
 	case SideType::Right:
-		newElement.AddPoint(Settings::HORIZONTALCELLCOUNT - 1, y);
+		newElement.AddPoint(AxesInfo::GetMaxX() - 1, y);
 		break;
 	}
 
@@ -135,8 +130,8 @@ Element ElementCreator::Create(char * nodeName, ElementNameType name, ClassType 
 	cocos2d::Size size = nodeDraw->getChildren().at(0)->getContentSize();
 	float width = size.width;
 	float height = size.height;
-	float scaleWidth = 64 / width;
-	float scaleHeight = 64 / height;
+	float scaleWidth = ElementInfo::GetNodeWidth() / width;
+	float scaleHeight = ElementInfo::GetNodeHeight() / height;
 
 	nodeDraw->setScale(scaleWidth, scaleHeight);
 	// Настройка элемента
@@ -144,7 +139,7 @@ Element ElementCreator::Create(char * nodeName, ElementNameType name, ClassType 
 	newElement.SetX(x);
 	newElement.SetY(y);
 
-	newElement.SetPosition(FieldPoint::ConvertToLeft(x), FieldPoint::ConvertToTop(y));
+	newElement.SetPosition(AxesInfo::ConvertToLeft(x), AxesInfo::ConvertToTop(y));
 	newElement.SetSide(side);
 
 	switch (type)

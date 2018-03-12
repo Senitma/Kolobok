@@ -5,8 +5,8 @@
 #include "cocostudio/CocoStudio.h"
 #include "ui/CocosGUI.h"
 
-#include "Option\BaseClass\ISMouse.h"
-#include "Option\BaseClass\ISInterval.h"
+#include "Option\ISMouse.h"
+#include "Option\ISInterval.h"
 
 USING_NS_CC;
 
@@ -51,7 +51,7 @@ void MainScene::onEnter()
 		EventMouse* mouseEvent = dynamic_cast<EventMouse*>(event);
 
 		Vec2 currentLocation = mouseEvent->getLocation();
-		ISMouse::MouseClickAll((MouseType)mouseEvent->getMouseButton(), currentLocation.x, currentLocation.y);
+		ISMouse::PassMouseClick((MouseType)mouseEvent->getMouseButton(), currentLocation.x, Settings::FIELDHEIGHTSIZE - currentLocation.y);
 
 		return true;
 	};
@@ -62,5 +62,5 @@ void MainScene::update(float delta)
 {
 	Layer::update(delta);
 
-	ISInterval::UpdateAll();
+	ISInterval::PassUpdate();
 }

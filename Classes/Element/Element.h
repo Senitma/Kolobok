@@ -13,7 +13,7 @@ enum class SideType;
 // Координаты элемента
 class Axes;
 
-// Класс управления элементом
+// Класс управления данными элемента
 class Element
 {
 public:
@@ -21,6 +21,8 @@ public:
 	Element(cocos2d::Node * node, ElementNameType name, ClassType type);
 	// Копирование элемента
 	Element(const Element&);
+	// Удаление данных
+	~Element();
 
 	// Получить имя
 	ElementNameType GetName() const;
@@ -72,9 +74,6 @@ public:
 	bool operator== (const Element & value) const;
 	// Сравнение двух координат
 	bool operator!= (const Element & value) const;
-
-	// Удаление данных
-	~Element();
 private:
 	// Данные элемента
 	std::shared_ptr<ElementData> data;

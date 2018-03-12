@@ -4,11 +4,8 @@
 class ElementInfo
 {
 public:
-
+	// Получить ширину узла
 	static int GetNodeWidth();
-
+	// Получить высоту узла
 	static int GetNodeHeight();
-
-private:
-
 };

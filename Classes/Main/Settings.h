@@ -1,6 +1,6 @@
 #pragma once
 
-// Основные настройки приложения
+// Моудль настроек приложения
 namespace Settings
 {
 #pragma region Настройки окна

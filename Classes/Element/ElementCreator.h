@@ -1,12 +1,15 @@
 #pragma once
 
-#include "cocos2d.h"
-#include "Element.h"
-#include "ElementNameType.h"
-#include "ClassType.h"
-#include "SideType.h"
+// Класс управления данными элемента
+class Element;
+// Перечисление возможных имен
+enum class ElementNameType;
+// Перечисление возможных типов
+enum ClassType;
+// Перечисление возможных направлений
+enum class SideType;
 
-// Класс создания элементов
+// Модуль элементов
 class ElementCreator
 {
 public:

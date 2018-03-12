@@ -4,7 +4,7 @@ void OptionForIntervalCreate::Update()
 {
 	if (isActive == true)
 	{
-		if (currentTime > this->interval)
+		if (currentTime > interval)
 		{
 			currentTime = 0;
 			Create();

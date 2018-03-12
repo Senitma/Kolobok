@@ -1,12 +1,13 @@
 #include "OptionForCreate.h"
 #include "Element\ElementCreator.h"
+#include "Element\SideType.h"
 
 void OptionForCreate::Create()
 {
 	int calcX;
 	int calcY;
 
-	if (isRotate == true && parent.GetSide() != SideType::None)
+	if ((isRotate == true) && (parent.GetSide() != SideType::None))
 	{
 		switch (parent.GetSide())
 		{
@@ -36,5 +37,5 @@ void OptionForCreate::Create()
 		calcY = parent.GetY() + offsetY;
 	}
 
-	ElementCreator::Create(nodeName,parent.GetSide(), calcX, calcY);
+	ElementCreator::Create(nodeName, parent.GetSide(), calcX, calcY);
 }

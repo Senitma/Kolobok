@@ -1,13 +1,15 @@
 #pragma once
 
 #include "OptionForCreate.h"
-#include "Option\BaseClass\ISMouse.h"
+#include "Option\ISMouse.h"
 
 // Опция создания элемента
 class OptionForMouseCreateDestroy : public OptionForCreate, public ISMouse
 {
 public:
 
-	OptionForMouseCreateDestroy(Element & parent) : OptionForCreate(parent) {};
-	void MouseClick(MouseType type, int x, int y) override;
+	// Инициализация переменных
+	OptionForMouseCreateDestroy(Element & parent) : OptionForCreate(parent), ISMouse(parent) {};
+
+	void MouseClick(const MouseType & type, const int & x, const int & y) override;
 };

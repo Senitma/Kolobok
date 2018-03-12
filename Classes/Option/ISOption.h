@@ -1,10 +1,9 @@
 #pragma once
 
-#include "cocos2d.h"
 #include "Element\Element.h"
 
-// Интерфейс опции
-class ISOption : public cocos2d::Ref
+// Базовый интерфейс для всех опций
+class ISOption
 {
 public:
 	// Инициализация переменных
