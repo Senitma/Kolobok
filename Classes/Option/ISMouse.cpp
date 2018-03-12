@@ -2,6 +2,7 @@
 #include "list"
 #include "algorithm"
 
+// Набор опций
 static std::list<std::shared_ptr<ISMouse>> items;
 
 void ISMouse::Register(std::shared_ptr<ISMouse> option)

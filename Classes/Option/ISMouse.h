@@ -10,7 +10,7 @@ class ISMouse : ISOption
 {
 public:
 	// Инициализация переменных
-	ISMouse(Element & parent) : ISOption(parent) {};
+	ISMouse(Element & parent) : ISOption(parent) {}
 
 	// Обработать клик мышкой
 	virtual void MouseClick(const MouseType & type, const int & x, const int & y) = 0;

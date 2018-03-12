@@ -2,17 +2,16 @@
 #include "list"
 #include "algorithm"
 
-// Набор опций с обновлением
-static std::list<ISInterval *> items;
+// Набор опций
+static std::list<std::shared_ptr<ISInterval>> items;
 
-ISInterval::ISInterval(Element & parent) : ISOption(parent)
+void ISInterval::Register(std::shared_ptr<ISInterval> option)
 {
-	items.push_back(this);
+	items.push_back(option);
 }
-
 void ISInterval::PassUpdate()
 {
-	std::for_each(items.begin(), items.end(), [](ISInterval * item)
+	std::for_each(items.begin(), items.end(), [](std::shared_ptr<ISInterval> item)
 	{
 		if (item->GetParent().GetDestroyStatus() == false)
 		{
