@@ -1,6 +1,6 @@
 #pragma once
 
-// Тип имени элемента
+// Перечисление возможных имен
 enum class ElementNameType
 {
 	// Пустой

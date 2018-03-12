@@ -7,7 +7,7 @@
 #include "SideType.h"
 
 // Класс создания элементов
-class ElementCreator : private cocos2d::Ref
+class ElementCreator
 {
 public:
 	// Создание элемента
