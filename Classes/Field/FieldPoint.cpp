@@ -47,7 +47,7 @@ int FieldPoint::ConvertToX(int left)
 }
 int FieldPoint::ConvertToY(int top)
 {
-	return (Settings::HEIGHTSIZE - top) / FieldPoint::GetCellHeight();
+	return (Settings::FIELDHEIGHTSIZE - top) / FieldPoint::GetCellHeight();
 }
 FieldPoint * FieldPoint::ConvertToXY(int left, int top)
 {
@@ -63,14 +63,14 @@ int FieldPoint::ConvertToLeft(int x)
 }
 int FieldPoint::ConvertToTop(int y)
 {
-	return Settings::HEIGHTSIZE - (FieldPoint::GetCellHeight() / 2 + y * FieldPoint::GetCellHeight());
+	return Settings::FIELDHEIGHTSIZE - (FieldPoint::GetCellHeight() / 2 + y * FieldPoint::GetCellHeight());
 }
 
 int FieldPoint::GetCellWidth()
 {
-	return Settings::WIDTHSIZE / Settings::HORIZONTALCELLCOUNT;
+	return Settings::FIELDWIDTHSIZE / Settings::HORIZONTALCELLCOUNT;
 }
 int FieldPoint::GetCellHeight()
 {
-	return Settings::HEIGHTSIZE / Settings::VERTICALCELLCOUNT;
+	return Settings::FIELDHEIGHTSIZE / Settings::VERTICALCELLCOUNT;
 }

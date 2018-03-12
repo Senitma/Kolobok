@@ -19,7 +19,7 @@ void ISMouse::MouseClickAll(MouseType type, int x, int y)
 	{
 		for (int index = 0; index < items.size(); index++)
 		{
-			items.at(index)->MouseClick(type, x, Settings::HEIGHTSIZE - y);
+			items.at(index)->MouseClick(type, x, Settings::FIELDHEIGHTSIZE - y);
 		}
 	}
 	else

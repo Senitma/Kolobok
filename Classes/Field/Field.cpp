@@ -26,7 +26,7 @@ Node * Field::CreateBackground()
 	field = new Node();
 
 	// Задний фон
-	auto background = Sprite::create("Background.png", Rect(0, 0, Settings::WIDTHSIZE, Settings::HEIGHTSIZE));
+	auto background = Sprite::create("Background.png", Rect(0, 0, Settings::FIELDWIDTHSIZE, Settings::FIELDHEIGHTSIZE));
 	background->setAnchorPoint(Vec2(0.0f, 0.0f));
 	field->addChild(background);
 
@@ -35,9 +35,9 @@ Node * Field::CreateBackground()
 	{
 		for (int y = 0; y < Settings::VERTICALCELLCOUNT; y++)
 		{
-			auto floor = Sprite::create("Floor.png", Rect(0, 0, Settings::WIDTHSIZE / Settings::HORIZONTALCELLCOUNT, Settings::HEIGHTSIZE / Settings::VERTICALCELLCOUNT));
+			auto floor = Sprite::create("Floor.png", Rect(0, 0, Settings::FIELDWIDTHSIZE / Settings::HORIZONTALCELLCOUNT, Settings::FIELDHEIGHTSIZE / Settings::VERTICALCELLCOUNT));
 			floor->setAnchorPoint(Vec2(0.0f, 1.0f));
-			floor->setPosition(x * Settings::WIDTHSIZE / Settings::HORIZONTALCELLCOUNT, Settings::HEIGHTSIZE - y * Settings::HEIGHTSIZE / Settings::VERTICALCELLCOUNT);
+			floor->setPosition(x * Settings::FIELDWIDTHSIZE / Settings::HORIZONTALCELLCOUNT, Settings::FIELDHEIGHTSIZE - y * Settings::FIELDHEIGHTSIZE / Settings::VERTICALCELLCOUNT);
 			field->addChild(floor);
 
 			items.pushBack(new Cell());
@@ -56,7 +56,7 @@ void Field::WinGame()
 	gameStatus = GameStatusType::Win;
 	infoMessage = Sprite::create("Win.png", Rect(0, 0, 512, 256));
 	infoMessage->setAnchorPoint(Vec2(0.0f, 1.0f));
-	infoMessage->setPosition(Settings::WIDTHSIZE / 2 - 256, Settings::HEIGHTSIZE / 2 + 128);
+	infoMessage->setPosition(Settings::FIELDWIDTHSIZE / 2 - 256, Settings::FIELDHEIGHTSIZE / 2 + 128);
 	infoMessage->setLocalZOrder(5);
 	field->addChild(infoMessage);
 }
@@ -65,7 +65,7 @@ void Field::LoseGame()
 	gameStatus = GameStatusType::Lose;
 	infoMessage = Sprite::create("Lose.png", Rect(0, 0, 512, 256));
 	infoMessage->setAnchorPoint(Vec2(0.0f, 1.0f));
-	infoMessage->setPosition(Settings::WIDTHSIZE / 2 - 256, Settings::HEIGHTSIZE / 2 + 128);
+	infoMessage->setPosition(Settings::FIELDWIDTHSIZE / 2 - 256, Settings::FIELDHEIGHTSIZE / 2 + 128);
 	infoMessage->setLocalZOrder(5);
 	field->addChild(infoMessage);
 }

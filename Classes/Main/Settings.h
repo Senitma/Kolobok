@@ -1,32 +1,52 @@
 #pragma once
 
-// Настройки приложения
-namespace Settings
+// Основные настройки приложения
+class Settings
 {
+public:
+
 #pragma region Настройки окна
+
 	// Ширина окна
-	const int WIDTHSIZE = 1280;
+	static const int FIELDWIDTHSIZE = 1280;
 	// Высота окна
-	const int HEIGHTSIZE = 960;
+	static const int FIELDHEIGHTSIZE = 960;
 	// Переключатель FPS
-	const bool SHOWFPS = true;
+	static const bool SHOWFPS = true;
+
+	// Ширина прорисовки
+	static const int NODEWIDTH = 64;
+	// Высота прорисовки
+	static const int NODEHEIGHT = 64;
+	// Ширина ячейки
+	static const int CELLWIDTHSIZE = 0;
+	// Высота ячейки
+	static const int CELLHEIGHTSIZE = 0;
+	// Глубина ячейки
+	static const int CELLDEPTHSIZE = 0;
+	// Ширина зазора
+	static const int GAPWIDTHSIZE = 0;
+	// Высота зазора
+	static const int GAPHEIGHTSIZE = 0;
+
 #pragma endregion
 #pragma region Настройки игры
 
 	// количество клеток по горизонтали
-	const int HORIZONTALCELLCOUNT = 20;
+	static int HORIZONTALCELLCOUNT;
 	// Количество клеток по вертикали
-	const int VERTICALCELLCOUNT = 15;
+	static int VERTICALCELLCOUNT;
+
 	// Индекс карты для загрузки
-	const int MAPINDEX = 2;
+	static int MAPINDEX;
 	// Скорость перемещения персонажа
-	const float MOVESPEED = 4;
+	static float MOVESPEED;
 	// Скорость вращения персонажа
-	const float ROTATESPEED = 4;
+	static float ROTATESPEED;
 	// Период создания снаряда
-	const float CREATEFIREBALLINTERVAL = 120;
+	static float CREATEFIREBALLINTERVAL;
 	// Скорость снаряда
-	const float FIREBALLSPEED = 8;
+	static float FIREBALLSPEED;
 
 #pragma endregion
-}
+};

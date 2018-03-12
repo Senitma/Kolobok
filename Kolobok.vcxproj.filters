@@ -101,6 +101,12 @@
     <ClCompile Include="Classes\Field\PathFinder.cpp">
       <Filter>Field</Filter>
     </ClCompile>
+    <ClCompile Include="Classes\Main\Settings.cpp">
+      <Filter>Main</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\Element\ElementInfo.cpp">
+      <Filter>Element</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Classes\Element\ElementCreator.h">
@@ -181,9 +187,6 @@
     <ClInclude Include="Classes\Field\TagAxes.h">
       <Filter>Field\Axes</Filter>
     </ClInclude>
-    <ClInclude Include="Classes\Field\AxesSettings.h">
-      <Filter>Field\Axes</Filter>
-    </ClInclude>
     <ClInclude Include="Classes\Element\Element.h">
       <Filter>Element</Filter>
     </ClInclude>
@@ -204,6 +207,9 @@
     </ClInclude>
     <ClInclude Include="Classes\Field\PathFinder.h">
       <Filter>Field</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\Element\ElementInfo.h">
+      <Filter>Element</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

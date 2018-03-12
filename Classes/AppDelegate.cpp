@@ -26,11 +26,11 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	auto director = cocos2d::Director::getInstance();
 	auto glview = director->getOpenGLView();
 	if (!glview) {
-		glview = cocos2d::GLViewImpl::createWithRect("Kolobok", cocos2d::Rect(0, 0, Settings::WIDTHSIZE, Settings::HEIGHTSIZE));
+		glview = cocos2d::GLViewImpl::createWithRect("Kolobok", cocos2d::Rect(0, 0, Settings::FIELDWIDTHSIZE, Settings::FIELDHEIGHTSIZE));
 		director->setOpenGLView(glview);
 	}
 
-	glview->setDesignResolutionSize(Settings::WIDTHSIZE, Settings::HEIGHTSIZE, ResolutionPolicy::FIXED_WIDTH);
+	glview->setDesignResolutionSize(Settings::FIELDWIDTHSIZE, Settings::FIELDHEIGHTSIZE, ResolutionPolicy::FIXED_WIDTH);
 
 	// turn on display FPS
 	director->setDisplayStats(true);

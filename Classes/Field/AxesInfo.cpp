@@ -1,22 +1,28 @@
 #include "AxesInfo.h"
 #include "Axes.h"
+#include "Main\Settings.h"
 
-int AxesInfo::maxForX = 20;
-int AxesInfo::maxForY = 15;
-int AxesInfo::nodeWidth = 0;
-int AxesInfo::nodeHeight = 0;
-int AxesInfo::cellWidth = 0;
-int AxesInfo::cellHeight = 0;
-int AxesInfo::cellDepth = 0;
-int AxesInfo::fieldWidth = 0;
-int AxesInfo::fieldHeight = 0;
-int AxesInfo::gapWidth = 0;
-int AxesInfo::gapHeight = 0;
+int AxesInfo::GetMaxX()
+{
+	return Settings::HORIZONTALCELLCOUNT;
+}
+int AxesInfo::GetMaxY()
+{
+	return Settings::VERTICALCELLCOUNT;
+}
+int AxesInfo::GetFieldWidth()
+{
+	return Settings::FIELDWIDTHSIZE;
+}
+int AxesInfo::GetFieldHeight()
+{
+	return Settings::FIELDHEIGHTSIZE;
+}
 
 Axes AxesInfo::ConvertToAxes(const int & value)
 {
-	int x = value % maxForX;
-	int y = value / maxForX;
+	int x = value % GetMaxX();
+	int y = value / GetMaxX();
 
 	return Axes(x, y);
 }
@@ -28,19 +34,23 @@ int AxesInfo::ConvertToIndex(const Axes & value)
 {
 	return ConvertToIndex(value.GetX(), value.GetY());
 }
+int AxesInfo::ConvertToIndex(const int & x, const int & y)
+{
+	return y * GetMaxX() + x;
+}
 int AxesInfo::ConvertToX(const int &value)
 {
-	return value / (fieldWidth / maxForX);
+	return value / (GetFieldWidth() / GetMaxX());
 }
 int AxesInfo::ConvertToY(const int &value)
 {
-	return value / (fieldHeight / maxForY);
+	return value / (GetFieldHeight() / GetMaxY());
 }
 int AxesInfo::ConvertToLeft(const int &value)
 {
-	return (fieldWidth / maxForX) / 2 + value * (fieldWidth / maxForX);
+	return (GetFieldWidth() / GetMaxX()) / 2 + value * (GetFieldWidth() / GetMaxX());
 }
 int AxesInfo::ConvertToTop(const int &value)
 {
-	return fieldHeight - ((fieldHeight / maxForY) / 2 + value * (fieldHeight / maxForY));
+	return GetFieldHeight() - ((GetFieldHeight() / GetMaxY()) / 2 + value * (GetFieldHeight() / GetMaxY()));
 }

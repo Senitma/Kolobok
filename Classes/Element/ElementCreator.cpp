@@ -135,8 +135,8 @@ Element ElementCreator::Create(char * nodeName, ElementNameType name, ClassType 
 	cocos2d::Size size = nodeDraw->getChildren().at(0)->getContentSize();
 	float width = size.width;
 	float height = size.height;
-	float scaleWidth = FieldPoint::GetCellWidth() / width;
-	float scaleHeight = FieldPoint::GetCellHeight() / height;
+	float scaleWidth = 64 / width;
+	float scaleHeight = 64 / height;
 
 	nodeDraw->setScale(scaleWidth, scaleHeight);
 	// Настройка элемента

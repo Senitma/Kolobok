@@ -155,6 +155,7 @@ xcopy /Y /Q "$(COCOS_X_ROOT)\cocos2d-x-3.10\prebuilt\win32\*.*" "$(OutDir)"
     <ClCompile Include="Classes\AppDelegate.cpp" />
     <ClCompile Include="Classes\Element\Element.cpp" />
     <ClCompile Include="Classes\Element\ElementCreator.cpp" />
+    <ClCompile Include="Classes\Element\ElementInfo.cpp" />
     <ClCompile Include="Classes\Field\AxesInfo.cpp" />
     <ClCompile Include="Classes\Field\Cell.cpp" />
     <ClCompile Include="Classes\Field\PathFinder.cpp" />
@@ -164,6 +165,7 @@ xcopy /Y /Q "$(COCOS_X_ROOT)\cocos2d-x-3.10\prebuilt\win32\*.*" "$(OutDir)"
     <ClCompile Include="Classes\Main.cpp" />
     <ClCompile Include="Classes\Main\MainScene.cpp" />
     <ClCompile Include="Classes\Main\MapHandle.cpp" />
+    <ClCompile Include="Classes\Main\Settings.cpp" />
     <ClCompile Include="Classes\Option\BaseClass\ISInterval.cpp" />
     <ClCompile Include="Classes\Option\BaseClass\ISMouse.cpp" />
     <ClCompile Include="Classes\Option\CreateOption\OptionForCreate.cpp" />
@@ -180,6 +182,7 @@ xcopy /Y /Q "$(COCOS_X_ROOT)\cocos2d-x-3.10\prebuilt\win32\*.*" "$(OutDir)"
     <ClInclude Include="Classes\Element\ClassType.h" />
     <ClInclude Include="Classes\Element\ElementCreator.h" />
     <ClInclude Include="Classes\Element\ElementData.h" />
+    <ClInclude Include="Classes\Element\ElementInfo.h" />
     <ClInclude Include="Classes\Element\ElementNameType.h" />
     <ClInclude Include="Classes\Element\SideType.h" />
     <ClInclude Include="Classes\Field\AxesInfo.h" />
@@ -188,7 +191,6 @@ xcopy /Y /Q "$(COCOS_X_ROOT)\cocos2d-x-3.10\prebuilt\win32\*.*" "$(OutDir)"
     <ClInclude Include="Classes\Field\PathFinder.h" />
     <ClInclude Include="Classes\Field\Relations.h" />
     <ClInclude Include="Classes\Field\Field.h" />
-    <ClInclude Include="Classes\Field\AxesSettings.h" />
     <ClInclude Include="Classes\Field\FieldPoint.h" />
     <ClInclude Include="Classes\Field\ResultType.h" />
     <ClInclude Include="Classes\Field\TagAxes.h" />

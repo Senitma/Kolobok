@@ -211,9 +211,9 @@ bool PathFinder::FindNewFinish()
 			}
 			if (minX > 0) { minX--; }
 			if (minY > 0) { minY--; }
-			if (maxX < AxesInfo::GetMaxForX()) { maxX++; }
-			if (maxY < AxesInfo::GetMaxForY()) { maxY++; }
-		} while ((minX > 0) || (minY >0) || (maxX < AxesInfo::GetMaxForX()) || (maxY < AxesInfo::GetMaxForY()));
+			if (maxX < AxesInfo::GetMaxX()) { maxX++; }
+			if (maxY < AxesInfo::GetMaxY()) { maxY++; }
+		} while ((minX > 0) || (minY >0) || (maxX < AxesInfo::GetMaxX()) || (maxY < AxesInfo::GetMaxY()));
 
 		return false;
 	}
@@ -277,11 +277,11 @@ std::vector<Axes> PathFinder::CreateMoveMap()
 
 TagAxes & PathFinder::GetChild(const TagAxes & parent, const int & offsetX, const int & offsetY)
 {
-	if ((offsetX == 1) && (parent.GetX() < AxesInfo::GetMaxForX() - 1))
+	if ((offsetX == 1) && (parent.GetX() < AxesInfo::GetMaxX() - 1))
 	{
 		return map.at(AxesInfo::ConvertToIndex(parent.GetX() + offsetX, parent.GetY() + offsetY));
 	}
-	else if ((offsetY == 1) && (parent.GetY() < AxesInfo::GetMaxForY() - 1))
+	else if ((offsetY == 1) && (parent.GetY() < AxesInfo::GetMaxY() - 1))
 	{
 		return map.at(AxesInfo::ConvertToIndex(parent.GetX() + offsetX, parent.GetY() + offsetY));
 	}
