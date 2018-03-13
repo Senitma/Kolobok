@@ -16,9 +16,6 @@
     <Filter Include="Option">
       <UniqueIdentifier>{60550e84-889b-4b05-b1a5-147e039d159f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Option\BaseClass">
-      <UniqueIdentifier>{bdf64ac8-eb57-430a-aa83-599b8ad61286}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Option\CreateOption">
       <UniqueIdentifier>{1e8a8997-d233-40a6-a93f-c91410922a38}</UniqueIdentifier>
     </Filter>
@@ -27,9 +24,6 @@
     </Filter>
     <Filter Include="Other">
       <UniqueIdentifier>{715254bc-d70b-4ec5-bf29-467dd3ace079}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Field\Axes">
-      <UniqueIdentifier>{69f2d60a-c17e-48d3-b369-6c8708fca5ff}</UniqueIdentifier>
     </Filter>
     <Filter Include="Option\Other">
       <UniqueIdentifier>{68fb6ac9-5023-4be6-94d0-7984271e81a4}</UniqueIdentifier>
@@ -41,17 +35,11 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Classes\Element\ElementCreator.cpp">
-      <Filter>Element</Filter>
-    </ClCompile>
     <ClCompile Include="Classes\Field\Cell.cpp">
       <Filter>Field</Filter>
     </ClCompile>
     <ClCompile Include="Classes\Field\Field.cpp">
       <Filter>Field</Filter>
-    </ClCompile>
-    <ClCompile Include="Classes\Main\MapHandle.cpp">
-      <Filter>Main</Filter>
     </ClCompile>
     <ClCompile Include="Classes\Main\MainScene.cpp">
       <Filter>Main</Filter>
@@ -89,29 +77,32 @@
     <ClCompile Include="Classes\Field\Relations.cpp">
       <Filter>Field</Filter>
     </ClCompile>
-    <ClCompile Include="Classes\Field\AxesInfo.cpp">
-      <Filter>Field\Axes</Filter>
-    </ClCompile>
     <ClCompile Include="Classes\Field\PathFinder.cpp">
       <Filter>Field</Filter>
     </ClCompile>
-    <ClCompile Include="Classes\Main\Settings.cpp">
-      <Filter>Main</Filter>
-    </ClCompile>
-    <ClCompile Include="Classes\Element\ElementInfo.cpp">
+    <ClCompile Include="Classes\Element\Elements.cpp">
       <Filter>Element</Filter>
     </ClCompile>
-    <ClCompile Include="Classes\Option\ISMouse.cpp">
-      <Filter>Option\BaseClass</Filter>
-    </ClCompile>
     <ClCompile Include="Classes\Option\ISInterval.cpp">
-      <Filter>Option\BaseClass</Filter>
+      <Filter>Option\Other</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\Option\ISMouse.cpp">
+      <Filter>Option\Other</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\Field\AxesInfo.cpp">
+      <Filter>Field</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\Main\Maps.cpp">
+      <Filter>Main</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\EditSettings.cpp">
+      <Filter>Init</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\Settings.cpp">
+      <Filter>Init</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Classes\Element\ElementCreator.h">
-      <Filter>Element</Filter>
-    </ClInclude>
     <ClInclude Include="Classes\Element\ElementNameType.h">
       <Filter>Element</Filter>
     </ClInclude>
@@ -126,12 +117,6 @@
     </ClInclude>
     <ClInclude Include="Classes\Field\Cell.h">
       <Filter>Field</Filter>
-    </ClInclude>
-    <ClInclude Include="Classes\Main\MapHandle.h">
-      <Filter>Main</Filter>
-    </ClInclude>
-    <ClInclude Include="Classes\Main\Settings.h">
-      <Filter>Main</Filter>
     </ClInclude>
     <ClInclude Include="Classes\Main\GameStatusType.h">
       <Filter>Main</Filter>
@@ -169,9 +154,6 @@
     <ClInclude Include="Classes\Main.h">
       <Filter>Init</Filter>
     </ClInclude>
-    <ClInclude Include="Classes\Field\TagAxes.h">
-      <Filter>Field\Axes</Filter>
-    </ClInclude>
     <ClInclude Include="Classes\Element\Element.h">
       <Filter>Element</Filter>
     </ClInclude>
@@ -184,32 +166,44 @@
     <ClInclude Include="Classes\Field\Relations.h">
       <Filter>Field</Filter>
     </ClInclude>
-    <ClInclude Include="Classes\Field\AxesInfo.h">
-      <Filter>Field\Axes</Filter>
-    </ClInclude>
-    <ClInclude Include="Classes\Field\Axes.h">
-      <Filter>Field\Axes</Filter>
-    </ClInclude>
     <ClInclude Include="Classes\Field\PathFinder.h">
       <Filter>Field</Filter>
     </ClInclude>
-    <ClInclude Include="Classes\Element\ElementInfo.h">
-      <Filter>Element</Filter>
-    </ClInclude>
-    <ClInclude Include="Classes\Option\ISMouse.h">
-      <Filter>Option\BaseClass</Filter>
-    </ClInclude>
-    <ClInclude Include="Classes\Option\ISOption.h">
-      <Filter>Option\BaseClass</Filter>
-    </ClInclude>
-    <ClInclude Include="Classes\Option\MouseType.h">
-      <Filter>Option\BaseClass</Filter>
-    </ClInclude>
-    <ClInclude Include="Classes\Option\ISInterval.h">
-      <Filter>Option\BaseClass</Filter>
-    </ClInclude>
     <ClInclude Include="Classes\Option\Options.h">
       <Filter>Option\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\Element\Elements.h">
+      <Filter>Element</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\Option\ISInterval.h">
+      <Filter>Option\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\Option\ISMouse.h">
+      <Filter>Option\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\Option\ISOption.h">
+      <Filter>Option\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\Option\MouseType.h">
+      <Filter>Option\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\Field\Axes.h">
+      <Filter>Field</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\Field\AxesInfo.h">
+      <Filter>Field</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\Field\TagAxes.h">
+      <Filter>Field</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\Main\Maps.h">
+      <Filter>Main</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\Settings.h">
+      <Filter>Init</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\EditSettings.h">
+      <Filter>Init</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

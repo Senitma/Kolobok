@@ -1,9 +1,9 @@
 #include "cocostudio/CocoStudio.h"
 #include "Field.h"
 #include "Cell.h"
-#include "Main\Settings.h"
+#include "Settings.h"
 
-#include "Main\MapHandle.h"
+#include "Main\Maps.h"
 #include "Element\ClassType.h"
 #include "AxesInfo.h"
 
@@ -71,7 +71,7 @@ void Field::Reload()
 	{
 		items.at(index).RemoveElements();
 	}
-	MapHandle::ReloadMap();
+	Maps::ReloadMap();
 
 	field->removeChild(infoMessage);
 	gameStatus = GameStatusType::Gaming;

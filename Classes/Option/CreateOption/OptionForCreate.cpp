@@ -1,5 +1,5 @@
 #include "OptionForCreate.h"
-#include "Element\ElementCreator.h"
+#include "Element\Elements.h"
 #include "Element\SideType.h"
 
 OptionForCreate::OptionForCreate(Element & parent) : ISOption(parent)
@@ -45,5 +45,5 @@ void OptionForCreate::Create()
 		calcY = parent.GetY() + offsetY;
 	}
 
-	ElementCreator::Create(nodeName, parent.GetSide(), calcX, calcY);
+	Elements::Create(nodeName, parent.GetSide(), calcX, calcY);
 }

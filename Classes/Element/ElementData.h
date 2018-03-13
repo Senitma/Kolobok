@@ -1,10 +1,11 @@
 #pragma once
 
-#include "cocos2d.h"
 #include "ElementNameType.h"
 #include "SideType.h"
 #include "ClassType.h"
 #include "Field\Axes.h"
+
+#include "cocos2d.h"
 
 // Данные элемента
 struct ElementData
@@ -13,7 +14,7 @@ struct ElementData
 	ElementNameType name;
 	// Тип элемента
 	ClassType type;
-	// Сторона поворта
+	// Сторона направления
 	SideType side;
 	// Узел для прорисовки
 	cocos2d::Node * node;

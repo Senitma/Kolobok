@@ -1,7 +1,10 @@
-#include "PathFinder.h"
+#include "algorithm"
+
 #include "TagAxes.h"
 #include "AxesInfo.h"
-#include "algorithm"
+#include "Settings.h"
+
+#include "PathFinder.h"
 
 PathFinder::PathFinder(std::vector<TagAxes> & map)
 {
@@ -211,9 +214,9 @@ bool PathFinder::FindNewFinish()
 			}
 			if (minX > 0) { minX--; }
 			if (minY > 0) { minY--; }
-			if (maxX < AxesInfo::GetMaxX()) { maxX++; }
-			if (maxY < AxesInfo::GetMaxY()) { maxY++; }
-		} while ((minX > 0) || (minY >0) || (maxX < AxesInfo::GetMaxX()) || (maxY < AxesInfo::GetMaxY()));
+			if (maxX < Settings::HORIZONTALCELLCOUNT) { maxX++; }
+			if (maxY < Settings::VERTICALCELLCOUNT) { maxY++; }
+		} while ((minX > 0) || (minY >0) || (maxX < Settings::HORIZONTALCELLCOUNT) || (maxY < Settings::VERTICALCELLCOUNT));
 
 		return false;
 	}
@@ -277,11 +280,11 @@ std::vector<Axes> PathFinder::CreateMoveMap()
 
 TagAxes & PathFinder::GetChild(const TagAxes & parent, const int & offsetX, const int & offsetY)
 {
-	if ((offsetX == 1) && (parent.GetX() < AxesInfo::GetMaxX() - 1))
+	if ((offsetX == 1) && (parent.GetX() < Settings::HORIZONTALCELLCOUNT - 1))
 	{
 		return map.at(AxesInfo::ConvertToIndex(parent.GetX() + offsetX, parent.GetY() + offsetY));
 	}
-	else if ((offsetY == 1) && (parent.GetY() < AxesInfo::GetMaxY() - 1))
+	else if ((offsetY == 1) && (parent.GetY() < Settings::VERTICALCELLCOUNT - 1))
 	{
 		return map.at(AxesInfo::ConvertToIndex(parent.GetX() + offsetX, parent.GetY() + offsetY));
 	}

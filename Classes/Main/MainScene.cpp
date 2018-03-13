@@ -1,6 +1,6 @@
 #include "MainScene.h"
 #include "Field\Field.h"
-#include "MapHandle.h"
+#include "Maps.h"
 #include "Settings.h"
 #include "cocostudio/CocoStudio.h"
 #include "ui/CocosGUI.h"
@@ -33,7 +33,7 @@ bool MainScene::init()
 	this->addChild(rootNode);
 
 	this->addChild(Field::CreateBackground());
-	MapHandle::LoadForIndex(Settings::MAPINDEX);
+	Maps::Load();
 
 	this->scheduleUpdate();
 

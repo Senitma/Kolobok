@@ -50,7 +50,7 @@ public:
 	// Получить смещение сверху
 	int GetTop() const;
 	// Изменить смещение
-	void SetPosition(const int x, const int y);
+	void SetPosition(const int & x, const int & y);
 	// Получить угол вращения
 	int GetRotation() const;
 	// Измениь угол вращения

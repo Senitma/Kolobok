@@ -1,5 +1,5 @@
-#include "Element.h"
 #include "ElementData.h"
+#include "Element.h"
 
 Element::Element(cocos2d::Node * node, ElementNameType name, ClassType type)
 {
@@ -77,7 +77,7 @@ int Element::GetTop() const
 {
 	return data->node->getPosition().y;
 }
-void Element::SetPosition(const int x, const int y)
+void Element::SetPosition(const int & x, const int & y)
 {
 	data->node->setPosition(cocos2d::Vec2(x, y));
 }

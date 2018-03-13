@@ -3,10 +3,12 @@
 // Перечисление возможных имен
 enum class ElementNameType
 {
-	// Пустой
+	// Имя не указано
 	Empty,
+	// Пол
+	Floor,
 	// Главный персонаж
-	Ninja,
+	Main,
 	// Финиш
 	Finish,
 	// Стена

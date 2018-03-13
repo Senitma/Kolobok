@@ -1,28 +1,12 @@
-#include "AxesInfo.h"
 #include "Axes.h"
-#include "Main\Settings.h"
+#include "Settings.h"
 
-int AxesInfo::GetMaxX()
-{
-	return Settings::HORIZONTALCELLCOUNT;
-}
-int AxesInfo::GetMaxY()
-{
-	return Settings::VERTICALCELLCOUNT;
-}
-int AxesInfo::GetFieldWidth()
-{
-	return Settings::FIELDWIDTHSIZE;
-}
-int AxesInfo::GetFieldHeight()
-{
-	return Settings::FIELDHEIGHTSIZE;
-}
+#include "AxesInfo.h"
 
 Axes AxesInfo::ConvertToAxes(const int & value)
 {
-	int x = value % GetMaxX();
-	int y = value / GetMaxX();
+	int x = value % Settings::HORIZONTALCELLCOUNT;
+	int y = value / Settings::HORIZONTALCELLCOUNT;
 
 	return Axes(x, y);
 }
@@ -36,21 +20,21 @@ int AxesInfo::ConvertToIndex(const Axes & value)
 }
 int AxesInfo::ConvertToIndex(const int & x, const int & y)
 {
-	return y * GetMaxX() + x;
+	return y * Settings::HORIZONTALCELLCOUNT + x;
 }
 int AxesInfo::ConvertToX(const int &value)
 {
-	return value / (GetFieldWidth() / GetMaxX());
+	return value / (Settings::FIELDWIDTHSIZE / Settings::HORIZONTALCELLCOUNT);
 }
 int AxesInfo::ConvertToY(const int &value)
 {
-	return (GetFieldHeight() - value) / (GetFieldHeight() / GetMaxY());
+	return (Settings::FIELDHEIGHTSIZE - value) / (Settings::FIELDHEIGHTSIZE / Settings::VERTICALCELLCOUNT);
 }
 int AxesInfo::ConvertToLeft(const int &value)
 {
-	return (GetFieldWidth() / GetMaxX()) / 2 + value * (GetFieldWidth() / GetMaxX());
+	return (Settings::FIELDWIDTHSIZE / Settings::HORIZONTALCELLCOUNT) / 2 + value * (Settings::FIELDWIDTHSIZE / Settings::HORIZONTALCELLCOUNT);
 }
 int AxesInfo::ConvertToTop(const int &value)
 {
-	return GetFieldHeight() - ((GetFieldHeight() / GetMaxY()) / 2 + value * (GetFieldHeight() / GetMaxY()));
+	return Settings::FIELDHEIGHTSIZE - ((Settings::FIELDHEIGHTSIZE / Settings::VERTICALCELLCOUNT) / 2 + value * (Settings::FIELDHEIGHTSIZE / Settings::VERTICALCELLCOUNT));
 }

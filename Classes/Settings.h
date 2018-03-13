@@ -1,6 +1,8 @@
 #pragma once
 
-// Моудль настроек приложения
+#include "Main\Maps.h"
+
+// Модуль настроек приложения
 namespace Settings
 {
 #pragma region Настройки окна
@@ -31,20 +33,21 @@ namespace Settings
 #pragma region Настройки игры
 
 	// количество клеток по горизонтали
-	extern int HORIZONTALCELLCOUNT;
+	extern const int & HORIZONTALCELLCOUNT;
 	// Количество клеток по вертикали
-	extern int VERTICALCELLCOUNT;
+	extern const int & VERTICALCELLCOUNT;
 
-	// Индекс карты для загрузки
-	extern int MAPINDEX;
+	// Карта для загрузки по умолчанию
+	const MapIndexType DEFAULTMAP = MapIndexType::Empty;
+
 	// Скорость перемещения персонажа
-	extern float MOVESPEED;
+	const float MOVESPEED = 4;
 	// Скорость вращения персонажа
-	extern float ROTATESPEED;
+	const float ROTATESPEED = 4;
 	// Период создания снаряда
-	extern float CREATEFIREBALLINTERVAL;
+	const float CREATEFIREBALLINTERVAL = 120;
 	// Скорость снаряда
-	extern float FIREBALLSPEED;
+	const float FIREBALLSPEED = 8;
 
 #pragma endregion
 };

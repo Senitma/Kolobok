@@ -1,5 +1,5 @@
 #include "AppDelegate.h"
-#include "Main\Settings.h"
+#include "Settings.h"
 #include "Main\MainScene.h"
 
 AppDelegate::AppDelegate() {
