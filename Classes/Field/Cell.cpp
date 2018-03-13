@@ -1,15 +1,9 @@
+#include "algorithm"
 #include "Cell.h"
 #include "AxesInfo.h"
 #include "Relations.h"
 #include "ResultType.h"
 
-Cell::Cell()
-{
-	x = 0;
-	y = 0;
-
-	items = std::list<Element>();
-}
 Cell::Cell(const int & x, const int & y)
 {
 	this->x = x;

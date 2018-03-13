@@ -1,7 +1,12 @@
 #pragma once
 
-#include "cocos2d.h"
+#include "memory"
 
+namespace cocos2d
+{
+	// Узел для прорисовки
+	class Node;
+}
 // Данные элемента
 class ElementData;
 // Перечисление возможных имен

@@ -10,8 +10,6 @@ class Cell
 {
 public:
 	// Инициализация переменных
-	Cell();
-	// Инициализация переменных
 	Cell(const int & x, const int & y);
 
 	// Проверка возможности добавления элемента
@@ -48,4 +46,7 @@ private:
 	void Destroy() { Destroy(false); };
 	// Уничтожение элементов
 	void Destroy(const bool & allItems);
+
+	// Удаление конструктора по умолчанию
+	Cell() = delete;
 };
