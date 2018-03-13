@@ -7,8 +7,9 @@
 class OptionForIntervalCreate : public OptionForCreate, public ISInterval
 {
 public:
+
 	// Инициализация переменных
-	OptionForIntervalCreate(Element & parent) : OptionForCreate(parent) , ISInterval(parent) {};
+	OptionForIntervalCreate(Element & parent);
 
 	// Получить переключатель активности
 	bool GetActive() { return isActive; };
@@ -20,12 +21,16 @@ public:
 	void SetInterval(int value) { interval = value; };
 	// Обновление данных
 	void Update() override;
+
 protected:
+
 	// Переключатель активности
 	bool isActive;
 	// Период создания
 	int interval;
+
 private:
+
 	// Текущее время
 	int currentTime;
 };

@@ -24,12 +24,6 @@ void MapHandle::ReloadMap()
 	MapHandle::LoadForIndex(lastIndex);
 }
 
-bool MapHandle::CheckPath()
-{
-	//return PathFinder::CanMoveTo(Field::CreateBlockMap(), Axes(ninja.GetX(), ninja.GetY()), Axes(finish.GetX(), finish.GetY()));
-	return true;
-}
-
 void MapHandle::LoadForIndex(int index)
 {
 	switch (index)

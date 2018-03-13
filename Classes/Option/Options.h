@@ -5,7 +5,6 @@
 #include "CreateOption\OptionForIntervalCreate.h"
 #include "CreateOption\OptionForMouseCreateDestroy.h"
 
-#include "MoveOption\MoveType.h"
 #include "MoveOption\OptionForMouseMove.h"
 #include "MoveOption\OptionForMove.h"
 #include "MoveOption\OptionForOneStep.h"
@@ -43,7 +42,7 @@ namespace Options
 	// Тип опции
 	template<class T>
 	// Регистрация опции с мышкой
-	typename std::enable_if<std::is_base_of<ISInterval, T>::value, void>::type RegisterMouse(std::shared_ptr<T> option){}
+	typename std::enable_if<!std::is_base_of<ISMouse, T>::value, void>::type RegisterMouse(std::shared_ptr<T> option){}
 
 	// Тип опции
 	template<class T>
@@ -57,5 +56,5 @@ namespace Options
 	// Тип опции
 	template<class T>
 	// Регистрация опции с обновлением
-	typename std::enable_if<std::is_base_of<ISMouse, T>::value, void>::type RegisterInterval(std::shared_ptr<T> option) {}
+	typename std::enable_if<!std::is_base_of<ISInterval, T>::value, void>::type RegisterInterval(std::shared_ptr<T> option) {}
 }

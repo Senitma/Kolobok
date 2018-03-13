@@ -1,16 +1,15 @@
 #include "OptionForMouseCreateDestroy.h"
-#include "Field\Field.h"
-#include "Main\MapHandle.h"
-#include "Option\MouseType.h"
-#include "Field\FieldPoint.h"
 #include "Element\ClassType.h"
+#include "Field\Field.h"
+#include "Field\AxesInfo.h"
+#include "Option\MouseType.h"
 
 void OptionForMouseCreateDestroy::MouseClick(const MouseType & type, const int & x, const int & y)
 {
 	if (type == MouseType::Right)
 	{
-		int calcX = FieldPoint::ConvertToX(x);
-		int calcY = FieldPoint::ConvertToY(y);
+		int calcX = AxesInfo::ConvertToX(x);
+		int calcY = AxesInfo::ConvertToY(y);
 
 		this->SetOffsetX(calcX - ISOption::parent.GetX());
 		this->SetOffsetY(calcY - ISOption::parent.GetY());
@@ -19,14 +18,14 @@ void OptionForMouseCreateDestroy::MouseClick(const MouseType & type, const int &
 		{
 			this->Create();
 			// ”ничтожение блока если он мешает дойти до финиша
-			if (MapHandle::CheckPath() == false)
+			if (Field::CheckPath() == false)
 			{
 				Field::Destroy(calcX, calcY);
 			}
 		}
 		else
 		{
-			if (Field::ContainName(this->nodeName, calcX, calcY) == true)
+			if (Field::ContainName(nodeName, calcX, calcY) == true)
 			{
 				Field::Destroy(calcX, calcY);
 			}

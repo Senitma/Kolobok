@@ -12,8 +12,6 @@ public:
 	static void LoadForIndex(int index);
 	// Перезагрузить карту
 	static void ReloadMap();
-	// Проверить наличие пути от главного персонажа до финиша
-	static bool CheckPath();
 private:
 	// Загрузить карту по индексу 0
 	static void LoadForIndex0();

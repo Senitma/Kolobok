@@ -1,10 +1,9 @@
 //#pragma once
 //
-//#include "Option\BaseClass\ISOption.h"
-//#include "Option\BaseClass\ISInterval.h"
+//#include "Option\ISInterval.h"
 //
 //// Опция для перемещения на одну клетку
-//class OptionForOneStep : public ISOption, ISInterval
+//class OptionForOneStep : public ISInterval
 //{
 //public:
 //	// Получить скорость перемещения
@@ -24,9 +23,6 @@
 //	virtual void Update() override;
 //	// Передвинуть элемент
 //	virtual bool MoveTo(int x, int y);
-//
-//	// Задать родителя опции
-//	virtual void SetParent(Element * value) override { parent = value; parent->AddOption(this); };
 //protected:
 //	// Скорость перемещения
 //	int moveSpeed;

@@ -2,6 +2,14 @@
 #include "Element\ElementCreator.h"
 #include "Element\SideType.h"
 
+OptionForCreate::OptionForCreate(Element & parent) : ISOption(parent)
+{
+	nodeName = ElementNameType();
+	offsetX = 0;
+	offsetY = 0;
+	isRotate = false;
+}
+
 void OptionForCreate::Create()
 {
 	int calcX;

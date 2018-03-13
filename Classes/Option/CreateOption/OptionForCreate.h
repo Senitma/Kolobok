@@ -8,7 +8,7 @@ class OptionForCreate : public ISOption
 public:
 
 	// Инициализация переменных
-	OptionForCreate(Element & parent) : ISOption(parent) {};
+	OptionForCreate(Element & parent);
 
 	// Получить имя создаваемого элемента
 	ElementNameType GetName() { return nodeName; };
@@ -29,7 +29,9 @@ public:
 
 	// Создание элемента
 	void Create();
+
 protected:
+
 	// Имя создаваемого элемента
 	ElementNameType nodeName;
 	// Смещение пр оси X

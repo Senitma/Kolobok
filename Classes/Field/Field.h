@@ -43,4 +43,6 @@ public:
 
 	// —оздать карту с блоками
 	static std::vector<TagAxes> CreateBlockMap();
+	// ѕроверить наличие пути от главного персонажа до финиша
+	static bool CheckPath();
 };
