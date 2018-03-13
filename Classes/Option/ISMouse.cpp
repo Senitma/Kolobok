@@ -1,6 +1,7 @@
-#include "ISMouse.h"
-#include "list"
 #include "algorithm"
+#include "list"
+
+#include "ISMouse.h"
 
 // Набор опций
 static std::list<std::shared_ptr<ISMouse>> items;

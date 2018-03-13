@@ -1,8 +1,10 @@
 #include "algorithm"
-#include "Cell.h"
+
 #include "AxesInfo.h"
 #include "Relations.h"
 #include "ResultType.h"
+
+#include "Cell.h"
 
 Cell::Cell(const int & x, const int & y)
 {
@@ -115,6 +117,7 @@ void Cell::Destroy(const bool & allItem)
 	});
 }
 
+// Friend функция класса Element
 void SetAxes(Element & element, const int & x, const int & y)
 {
 	element.SetX(x);

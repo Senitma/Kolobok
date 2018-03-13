@@ -2,10 +2,12 @@
 
 // Класс координат
 class Axes;
+
 // Класс информации для координат
 class AxesInfo
 {
 public:
+
 	// Конвертирование координат в индекс
 	static int ConvertToIndex(const Axes & value);
 	// Конвертирование координат в индекс
@@ -22,5 +24,5 @@ public:
 	static int ConvertToLeft(const int &value);
 	// Конвертировать координаты Y в смещение сверху
 	static int ConvertToTop(const int &value);
-private:
+
 };

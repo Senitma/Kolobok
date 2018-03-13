@@ -1,10 +1,11 @@
 #pragma once
 
-#include "Element\Element.h"
 #include "list"
+#include "Element\Element.h"
 
 // Перечисление возможных результатов
 enum class ResultType;
+
 // Класс хранения элементов
 class Cell
 {
@@ -12,8 +13,11 @@ public:
 	// Инициализация переменных
 	Cell(const int & x, const int & y);
 
-	// Проверка возможности добавления элемента
-	bool CanAddElement(const Element & item) const { return CanAddElement(item.GetType()); };
+	// Получить положение по оси X
+	int GetX() const { return x; };
+	// Получить положение по оси Y
+	int GetY() const { return y; };
+
 	// Проверка возможности добавления элемента
 	bool CanAddElement(const ClassType & type) const;
 	// Добавить элемент

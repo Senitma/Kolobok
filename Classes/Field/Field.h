@@ -1,48 +1,40 @@
 #pragma once
 
-#include "cocos2d.h"
-#include "Element\Element.h"
-#include "Main\GameStatusType.h"
-
-#include "TagAxes.h"
 #include "vector"
 
-class Field
+#include "TagAxes.h"
+#include "Element\Element.h"
+
+// Модуль управления полем
+namespace Field
 {
-public:
-	// Создать фон
-	static cocos2d::Node * CreateBackground();
-
-	// Прорисовка элемента на поле
-	static void DrawElement(cocos2d::Node * item);
 	// Выгрыш
-	static void WinGame();
+	void WinGame();
 	// Проигыш
-	static void LoseGame();
+	void LoseGame();
 	// Перезагрузить поле
-	static void Reload();
-	// Получить текущий статус игры
-	static GameStatusType GetGameStatus();
+	void Reload();
+
+	// Создать фон
+	cocos2d::Node * CreateBackground();
+	// Прорисовка элемента на поле
+	void DrawElement(cocos2d::Node * item);
 
 	// Проверка возможности добавления элемента
-	static bool CanAddElement(Element & item);
-	// Проверка возможности добавления элемента
-	static bool CanAddElement(ClassType type, int x, int y);
-	// Добавить элемент
-	static void AddElement(Element & value, const int & x, const int & y);
-	// Переместить элемента
-	static void MoveElement(Element & item, int x, int y);
+	bool CanAddElement(const ClassType & type, const int & x, const int & y);
 	// Проверить наличие имени в списке элементов
-	static bool ContainName(ElementNameType name, int x, int y);
-	// Проверить наличие элемента
-	static bool ContainElement(Element & item);
+	bool ContainName(const ElementNameType & name, const int & x, const int & y);
+	// Добавить элемент
+	void AddElement(Element & value, const int & x, const int & y);
+	// Переместить элемента
+	void MoveElement(Element & item, const int & x, const int & y);
 	// Убрать элемент
-	static void RemoveElement(Element & item);
+	void RemoveElement(Element & item);
 	// Удалить элементы
-	static void Destroy(int x, int y);
+	void Destroy(const int & x, const int & y);
 
 	// Создать карту с блоками
-	static std::vector<TagAxes> CreateBlockMap();
+	std::vector<TagAxes> CreateBlockMap();
 	// Проверить наличие пути от главного персонажа до финиша
-	static bool CheckPath();
+	bool CheckPath();
 };

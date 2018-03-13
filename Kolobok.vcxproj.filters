@@ -118,9 +118,6 @@
     <ClInclude Include="Classes\Field\Cell.h">
       <Filter>Field</Filter>
     </ClInclude>
-    <ClInclude Include="Classes\Main\GameStatusType.h">
-      <Filter>Main</Filter>
-    </ClInclude>
     <ClInclude Include="Classes\Main\MainScene.h">
       <Filter>Main</Filter>
     </ClInclude>

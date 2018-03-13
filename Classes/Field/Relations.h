@@ -4,6 +4,7 @@
 enum ClassType;
 // Перечисление возможных результатов
 enum class ResultType;
+
 // Модуль расчета результата взаимодействия элементов
 namespace Relations
 {

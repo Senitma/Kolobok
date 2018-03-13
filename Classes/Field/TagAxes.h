@@ -6,6 +6,7 @@
 class TagAxes : public Axes
 {
 public:
+
 	// Инициализация переменных
 	TagAxes() : TagAxes(0, 0, 0) {};
 	// Инициализация переменных
@@ -26,7 +27,10 @@ public:
 	bool operator==(const TagAxes & value) const { return ((x == value.GetX()) && (y == value.GetY() && (tag == value.GetTag()))); };
 	// Сравнение двух координат
 	bool operator!=(const TagAxes & value) const { return ((x != value.GetX()) || (y != value.GetY() || (tag != value.GetTag()))); };
+
 private:
+
 	// Идентификатор
 	int tag;
+
 };

@@ -1,6 +1,7 @@
-#include "ISInterval.h"
-#include "list"
 #include "algorithm"
+#include "list"
+
+#include "ISInterval.h"
 
 // Набор опций
 static std::list<std::shared_ptr<ISInterval>> items;

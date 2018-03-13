@@ -193,7 +193,6 @@ xcopy /Y /Q "$(COCOS_X_ROOT)\cocos2d-x-3.10\prebuilt\win32\*.*" "$(OutDir)"
     <ClInclude Include="Classes\Field\TagAxes.h" />
     <ClInclude Include="Classes\EditSettings.h" />
     <ClInclude Include="Classes\Main.h" />
-    <ClInclude Include="Classes\Main\GameStatusType.h" />
     <ClInclude Include="Classes\Main\MainScene.h" />
     <ClInclude Include="Classes\Main\Maps.h" />
     <ClInclude Include="Classes\Option\CreateOption\OptionForCreate.h" />

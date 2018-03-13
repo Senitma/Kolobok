@@ -1,6 +1,7 @@
-#include "Relations.h"
-#include "Element\ClassType.h"
 #include "ResultType.h"
+#include "Element\ClassType.h"
+
+#include "Relations.h"
 
 ResultType Relations::DoubleCalc(ClassType type)
 {
