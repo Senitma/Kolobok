@@ -6,7 +6,7 @@
 // Перечисление возможных результатов
 enum class ResultType;
 // Класс хранения элементов
-struct Cell : public cocos2d::Ref
+class Cell : public cocos2d::Ref
 {
 public:
 	// Проверка возможности добавления элемента

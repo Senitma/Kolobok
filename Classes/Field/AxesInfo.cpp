@@ -44,7 +44,7 @@ int AxesInfo::ConvertToX(const int &value)
 }
 int AxesInfo::ConvertToY(const int &value)
 {
-	return value / (GetFieldHeight() / GetMaxY());
+	return (GetFieldHeight() - value) / (GetFieldHeight() / GetMaxY());
 }
 int AxesInfo::ConvertToLeft(const int &value)
 {
