@@ -101,3 +101,22 @@ bool Relations::CanDestroy(ClassType type)
 			return false;
 	}
 }
+
+int Relations::GetOrderDelta(ClassType type)
+{
+	switch (type)
+	{
+	case Character:
+		return 1;
+	case Finish:
+		return 1;
+	case Block:
+		return 4;
+	case Enemy:
+		return 1;
+	case Bullet:
+		return 3;
+	default:
+		return 0;
+	}
+}

@@ -1,6 +1,5 @@
 #include "Element.h"
 #include "ElementData.h"
-#include "Field\Field.h"
 
 Element::Element(cocos2d::Node * node, ElementNameType name, ClassType type)
 {
@@ -69,18 +68,6 @@ Axes Element::GetAxes() const
 {
 	return data->position;
 }
-void Element::SetX(const int & value)
-{
-	data->position.SetX(value);
-}
-void Element::SetY(const int & value)
-{
-	data->position.SetY(value);
-}
-void Element::SetAxes(const int & x, const int & y)
-{
-	Field::MoveElement(*this, x, y);
-}
 
 int Element::GetLeft() const
 {
@@ -135,4 +122,17 @@ bool Element::operator==(const Element & value) const
 bool Element::operator!=(const Element & value) const
 {
 	return data->node != value.data->node;
+}
+
+void Element::SetX(const int & value)
+{
+	data->position.SetX(value);
+}
+void Element::SetY(const int & value)
+{
+	data->position.SetY(value);
+}
+void Element::SetOrder(const int & value)
+{
+	data->node->setLocalZOrder(value);
 }

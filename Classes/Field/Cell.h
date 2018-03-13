@@ -19,7 +19,7 @@ public:
 	// Проверка возможности добавления элемента
 	bool CanAddElement(const ClassType & type) const;
 	// Добавить элемент
-	ResultType AddElement(const Element & item);
+	ResultType AddElement(Element & item);
 	// Проверить наличие имени в списке элементов
 	bool ContainName(const ElementNameType & nodename) const;
 	// Проверить наличие имени в списке элементов

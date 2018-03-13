@@ -39,12 +39,6 @@ public:
 	int GetY() const;
 	// Получить координаты
 	Axes GetAxes() const;
-	// Изменить координаты по оси X
-	void SetX(const int & value);
-	// Изменить координаты по оси Y
-	void SetY(const int & value);
-	// Изменить координаты
-	void SetAxes(const int & x, const int & y);
 
 	// Получить смещение слева
 	int GetLeft() const;
@@ -77,6 +71,16 @@ public:
 private:
 	// Данные элемента
 	std::shared_ptr<ElementData> data;
+
+	// Изменить координаты по оси X
+	void SetX(const int & value);
+	// Изменить координаты по оси Y
+	void SetY(const int & value);
+	// Изменить порядок отображения прорисовки
+	void SetOrder(const int & value);
+
+	// Изменить положение элемента
+	friend void SetAxes(Element & element, const int & x, const int & y);
 
 	// Удаление конструктора по умолчанию
 	Element() = delete;

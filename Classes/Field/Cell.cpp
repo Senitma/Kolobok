@@ -1,4 +1,5 @@
 #include "Cell.h"
+#include "AxesInfo.h"
 #include "Relations.h"
 #include "ResultType.h"
 
@@ -21,10 +22,11 @@ bool Cell::CanAddElement(const ClassType & type) const
 {
 	return Relations::CanAdd(type, GetAllTypes());
 }
-ResultType Cell::AddElement(const Element & item)
+ResultType Cell::AddElement(Element & item)
 {
 	if (ContainElement(item) == false)
 	{
+		SetAxes(item, x, y);
 		items.push_back(item);
 		return CheckRelations();
 	}
@@ -117,4 +119,11 @@ void Cell::Destroy(const bool & allItem)
 			items.remove(item);
 		}
 	});
+}
+
+void SetAxes(Element & element, const int & x, const int & y)
+{
+	element.SetX(x);
+	element.SetY(y);
+	element.SetOrder(AxesInfo::ConvertToIndex(x, y) * Relations::GetOrderDelta(element.GetType()));
 }

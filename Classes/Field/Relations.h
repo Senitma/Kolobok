@@ -16,4 +16,7 @@ namespace Relations
 	bool CanAdd(ClassType type, int sumOfTypes);
 	// Проверка возможности уничтожения
 	bool CanDestroy(ClassType type);
+
+	// получить степень расположения объекта
+	int GetOrderDelta(ClassType type);
 };

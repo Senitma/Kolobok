@@ -136,33 +136,11 @@ Element ElementCreator::Create(char * nodeName, ElementNameType name, ClassType 
 	nodeDraw->setScale(scaleWidth, scaleHeight);
 	// Настройка элемента
 	Element newElement(nodeDraw, name, type);
-	newElement.SetX(x);
-	newElement.SetY(y);
-
 	newElement.SetPosition(AxesInfo::ConvertToLeft(x), AxesInfo::ConvertToTop(y));
 	newElement.SetSide(side);
 
-	switch (type)
-	{
-	case ClassType::Character:
-		nodeDraw->setLocalZOrder(2);
-		break;
-	case ClassType::Finish:
-		nodeDraw->setLocalZOrder(1);
-		break;
-	case ClassType::Block:
-		nodeDraw->setLocalZOrder(4);
-		break;
-	case ClassType::Enemy:
-		nodeDraw->setLocalZOrder(2);
-		break;
-	case ClassType::Bullet:
-		nodeDraw->setLocalZOrder(3);
-		break;
-	}
-
 	Field::DrawElement(nodeDraw);
-	Field::AddElement(newElement);
+	Field::AddElement(newElement, x, y);
 
 	return newElement;
 }

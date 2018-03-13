@@ -27,16 +27,16 @@ cocos2d::Node * Field::CreateBackground()
 	field->addChild(background);
 
 	// Создание клеток
-	for (int x = 0; x < Settings::HORIZONTALCELLCOUNT; x++)
+	for (int y = 0; y < Settings::VERTICALCELLCOUNT; y++)
 	{
-		for (int y = 0; y < Settings::VERTICALCELLCOUNT; y++)
+		for (int x = 0; x < Settings::HORIZONTALCELLCOUNT; x++)
 		{
 			auto floor = cocos2d::Sprite::create("Floor.png", cocos2d::Rect(0, 0, Settings::FIELDWIDTHSIZE / Settings::HORIZONTALCELLCOUNT, Settings::FIELDHEIGHTSIZE / Settings::VERTICALCELLCOUNT));
 			floor->setAnchorPoint(cocos2d::Vec2(0.0f, 1.0f));
 			floor->setPosition(x * Settings::FIELDWIDTHSIZE / Settings::HORIZONTALCELLCOUNT, Settings::FIELDHEIGHTSIZE - y * Settings::FIELDHEIGHTSIZE / Settings::VERTICALCELLCOUNT);
 			field->addChild(floor);
 
-			items.push_back(Cell());
+			items.push_back(Cell(x, y));
 		}
 	}
 
@@ -89,18 +89,18 @@ bool Field::CanAddElement(ClassType type, int x, int y)
 {
 	return items.at(AxesInfo::ConvertToIndex(x, y)).CanAddElement(type);
 }
-void Field::AddElement(Element & value)
+void Field::AddElement(Element & value, const int & x, const int & y)
 {
-	items.at(AxesInfo::ConvertToIndex(value.GetAxes())).AddElement(value);
+	items.at(AxesInfo::ConvertToIndex(x, y)).AddElement(value);
 }
 void Field::MoveElement(Element & item, int x, int y)
 {
 	if (Field::ContainElement(item) == true)
 	{
+		int oldIndex = AxesInfo::ConvertToIndex(item.GetX(), item.GetY());
+
 		items.at(AxesInfo::ConvertToIndex(x, y)).AddElement(item);
-		items.at(AxesInfo::ConvertToIndex(item.GetAxes())).RemoveElement(item);
-		item.SetX(x);
-		item.SetY(y);
+		items.at(oldIndex).RemoveElement(item);
 	}
 }
 bool Field::ContainName(ElementNameType name, int x, int y)

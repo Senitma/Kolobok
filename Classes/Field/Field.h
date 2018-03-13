@@ -29,7 +29,7 @@ public:
 	// Проверка возможности добавления элемента
 	static bool CanAddElement(ClassType type, int x, int y);
 	// Добавить элемент
-	static void AddElement(Element & value);
+	static void AddElement(Element & value, const int & x, const int & y);
 	// Переместить элемента
 	static void MoveElement(Element & item, int x, int y);
 	// Проверить наличие имени в списке элементов
