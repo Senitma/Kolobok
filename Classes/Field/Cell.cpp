@@ -2,6 +2,21 @@
 #include "Relations.h"
 #include "ResultType.h"
 
+Cell::Cell()
+{
+	x = 0;
+	y = 0;
+
+	items = std::list<Element>();
+}
+Cell::Cell(const int & x, const int & y)
+{
+	this->x = x;
+	this->y = y;
+
+	items = std::list<Element>();
+}
+
 bool Cell::CanAddElement(const ClassType & type) const
 {
 	return Relations::CanAdd(type, GetAllTypes());

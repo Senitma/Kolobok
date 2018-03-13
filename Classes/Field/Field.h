@@ -7,7 +7,7 @@
 #include "TagAxes.h"
 #include "vector"
 
-class Field : private cocos2d::Ref
+class Field
 {
 public:
 	// Создать фон

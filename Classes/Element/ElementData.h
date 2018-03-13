@@ -9,7 +9,6 @@
 // Данные элемента
 struct ElementData
 {
-public:
 	// Имя элемента
 	ElementNameType name;
 	// Тип элемента

@@ -6,9 +6,14 @@
 // Перечисление возможных результатов
 enum class ResultType;
 // Класс хранения элементов
-class Cell : public cocos2d::Ref
+class Cell
 {
 public:
+	// Инициализация переменных
+	Cell();
+	// Инициализация переменных
+	Cell(const int & x, const int & y);
+
 	// Проверка возможности добавления элемента
 	bool CanAddElement(const Element & item) const { return CanAddElement(item.GetType()); };
 	// Проверка возможности добавления элемента
@@ -26,6 +31,10 @@ public:
 	// Удалить все элементы
 	void RemoveElements() { Destroy(true); };
 private:
+	// Положение ячейки по оси X
+	int x;
+	// Положение ячейки по оси Y
+	int y;
 	// Набор элементов
 	std::list<Element> items;
 

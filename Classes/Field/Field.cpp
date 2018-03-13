@@ -7,25 +7,23 @@
 #include "Element\ClassType.h"
 #include "AxesInfo.h"
 
-USING_NS_CC;
-
 // Фон
-static Node * field;
+static cocos2d::Node * field;
 // Набор клеток
-static Vector<Cell*> items;
+static std::vector<Cell> items;
 // Текущий статус в игре
 static GameStatusType gameStatus;
 // Изображение информации
-static Sprite * infoMessage;
+static cocos2d::Sprite * infoMessage;
 
-Node * Field::CreateBackground()
+cocos2d::Node * Field::CreateBackground()
 {
 	// Формирование поля
-	field = new Node();
+	field = new cocos2d::Node();
 
 	// Задний фон
-	auto background = Sprite::create("Background.png", Rect(0, 0, Settings::FIELDWIDTHSIZE, Settings::FIELDHEIGHTSIZE));
-	background->setAnchorPoint(Vec2(0.0f, 0.0f));
+	auto background = cocos2d::Sprite::create("Background.png", cocos2d::Rect(0, 0, Settings::FIELDWIDTHSIZE, Settings::FIELDHEIGHTSIZE));
+	background->setAnchorPoint(cocos2d::Vec2(0.0f, 0.0f));
 	field->addChild(background);
 
 	// Создание клеток
@@ -33,27 +31,27 @@ Node * Field::CreateBackground()
 	{
 		for (int y = 0; y < Settings::VERTICALCELLCOUNT; y++)
 		{
-			auto floor = Sprite::create("Floor.png", Rect(0, 0, Settings::FIELDWIDTHSIZE / Settings::HORIZONTALCELLCOUNT, Settings::FIELDHEIGHTSIZE / Settings::VERTICALCELLCOUNT));
-			floor->setAnchorPoint(Vec2(0.0f, 1.0f));
+			auto floor = cocos2d::Sprite::create("Floor.png", cocos2d::Rect(0, 0, Settings::FIELDWIDTHSIZE / Settings::HORIZONTALCELLCOUNT, Settings::FIELDHEIGHTSIZE / Settings::VERTICALCELLCOUNT));
+			floor->setAnchorPoint(cocos2d::Vec2(0.0f, 1.0f));
 			floor->setPosition(x * Settings::FIELDWIDTHSIZE / Settings::HORIZONTALCELLCOUNT, Settings::FIELDHEIGHTSIZE - y * Settings::FIELDHEIGHTSIZE / Settings::VERTICALCELLCOUNT);
 			field->addChild(floor);
 
-			items.pushBack(new Cell());
+			items.push_back(Cell());
 		}
 	}
 
 	return field;
 }
 
-void Field::DrawElement(Node * item)
+void Field::DrawElement(cocos2d::Node * item)
 {
 	field->addChild(item);
 }
 void Field::WinGame()
 {
 	gameStatus = GameStatusType::Win;
-	infoMessage = Sprite::create("Win.png", Rect(0, 0, 512, 256));
-	infoMessage->setAnchorPoint(Vec2(0.0f, 1.0f));
+	infoMessage = cocos2d::Sprite::create("Win.png", cocos2d::Rect(0, 0, 512, 256));
+	infoMessage->setAnchorPoint(cocos2d::Vec2(0.0f, 1.0f));
 	infoMessage->setPosition(Settings::FIELDWIDTHSIZE / 2 - 256, Settings::FIELDHEIGHTSIZE / 2 + 128);
 	infoMessage->setLocalZOrder(5);
 	field->addChild(infoMessage);
@@ -61,8 +59,8 @@ void Field::WinGame()
 void Field::LoseGame()
 {
 	gameStatus = GameStatusType::Lose;
-	infoMessage = Sprite::create("Lose.png", Rect(0, 0, 512, 256));
-	infoMessage->setAnchorPoint(Vec2(0.0f, 1.0f));
+	infoMessage = cocos2d::Sprite::create("Lose.png", cocos2d::Rect(0, 0, 512, 256));
+	infoMessage->setAnchorPoint(cocos2d::Vec2(0.0f, 1.0f));
 	infoMessage->setPosition(Settings::FIELDWIDTHSIZE / 2 - 256, Settings::FIELDHEIGHTSIZE / 2 + 128);
 	infoMessage->setLocalZOrder(5);
 	field->addChild(infoMessage);
@@ -71,7 +69,7 @@ void Field::Reload()
 {
 	for (int index = 0; index < items.size(); index++)
 	{
-		items.at(index)->RemoveElements();
+		items.at(index).RemoveElements();
 	}
 	MapHandle::ReloadMap();
 
@@ -85,43 +83,43 @@ GameStatusType Field::GetGameStatus()
 
 bool Field::CanAddElement(Element & item)
 {
-	return items.at(AxesInfo::ConvertToIndex(item.GetAxes()))->CanAddElement(item);
+	return items.at(AxesInfo::ConvertToIndex(item.GetAxes())).CanAddElement(item);
 }
 bool Field::CanAddElement(ClassType type, int x, int y)
 {
-	return items.at(AxesInfo::ConvertToIndex(x, y))->CanAddElement(type);
+	return items.at(AxesInfo::ConvertToIndex(x, y)).CanAddElement(type);
 }
 void Field::AddElement(Element & value)
 {
-	items.at(AxesInfo::ConvertToIndex(value.GetAxes()))->AddElement(value);
+	items.at(AxesInfo::ConvertToIndex(value.GetAxes())).AddElement(value);
 }
 void Field::MoveElement(Element & item, int x, int y)
 {
 	if (Field::ContainElement(item) == true)
 	{
-		items.at(AxesInfo::ConvertToIndex(x, y))->AddElement(item);
-		items.at(AxesInfo::ConvertToIndex(item.GetAxes()))->RemoveElement(item);
+		items.at(AxesInfo::ConvertToIndex(x, y)).AddElement(item);
+		items.at(AxesInfo::ConvertToIndex(item.GetAxes())).RemoveElement(item);
 		item.SetX(x);
 		item.SetY(y);
 	}
 }
 bool Field::ContainName(ElementNameType name, int x, int y)
 {
-	return items.at(AxesInfo::ConvertToIndex(x, y))->ContainName(name);
+	return items.at(AxesInfo::ConvertToIndex(x, y)).ContainName(name);
 }
 bool Field::ContainElement(Element & item)
 {
-	return items.at(AxesInfo::ConvertToIndex(item.GetAxes()))->ContainElement(item);
+	return items.at(AxesInfo::ConvertToIndex(item.GetAxes())).ContainElement(item);
 }
 
 void Field::RemoveElement(Element & item)
 {
-	items.at(AxesInfo::ConvertToIndex(item.GetAxes()))->RemoveElement(item);
+	items.at(AxesInfo::ConvertToIndex(item.GetAxes())).RemoveElement(item);
 }
 
 void Field::Destroy(int x, int y)
 {
-	items.at(AxesInfo::ConvertToIndex(x, y))->RemoveElements();
+	items.at(AxesInfo::ConvertToIndex(x, y)).RemoveElements();
 }
 
 std::vector<TagAxes> Field::CreateBlockMap()
@@ -132,7 +130,7 @@ std::vector<TagAxes> Field::CreateBlockMap()
 	{
 		TagAxes newPoint = AxesInfo::ConvertToAxes(index);
 
-		if (items.at(index)->ContainType(ClassType::Block) == true)
+		if (items.at(index).ContainType(ClassType::Block) == true)
 		{
 			newPoint.SetTag(-3);
 			result.push_back(newPoint);
