@@ -44,9 +44,6 @@
     <ClCompile Include="Classes\Element\ElementCreator.cpp">
       <Filter>Element</Filter>
     </ClCompile>
-    <ClCompile Include="Classes\Field\FieldPoint.cpp">
-      <Filter>Field</Filter>
-    </ClCompile>
     <ClCompile Include="Classes\Field\Cell.cpp">
       <Filter>Field</Filter>
     </ClCompile>
@@ -125,9 +122,6 @@
       <Filter>Element</Filter>
     </ClInclude>
     <ClInclude Include="Classes\Field\Field.h">
-      <Filter>Field</Filter>
-    </ClInclude>
-    <ClInclude Include="Classes\Field\FieldPoint.h">
       <Filter>Field</Filter>
     </ClInclude>
     <ClInclude Include="Classes\Field\Cell.h">

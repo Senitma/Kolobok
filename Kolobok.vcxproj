@@ -161,7 +161,6 @@ xcopy /Y /Q "$(COCOS_X_ROOT)\cocos2d-x-3.10\prebuilt\win32\*.*" "$(OutDir)"
     <ClCompile Include="Classes\Field\PathFinder.cpp" />
     <ClCompile Include="Classes\Field\Relations.cpp" />
     <ClCompile Include="Classes\Field\Field.cpp" />
-    <ClCompile Include="Classes\Field\FieldPoint.cpp" />
     <ClCompile Include="Classes\Main.cpp" />
     <ClCompile Include="Classes\Main\MainScene.cpp" />
     <ClCompile Include="Classes\Main\MapHandle.cpp" />
@@ -191,7 +190,6 @@ xcopy /Y /Q "$(COCOS_X_ROOT)\cocos2d-x-3.10\prebuilt\win32\*.*" "$(OutDir)"
     <ClInclude Include="Classes\Field\PathFinder.h" />
     <ClInclude Include="Classes\Field\Relations.h" />
     <ClInclude Include="Classes\Field\Field.h" />
-    <ClInclude Include="Classes\Field\FieldPoint.h" />
     <ClInclude Include="Classes\Field\ResultType.h" />
     <ClInclude Include="Classes\Field\TagAxes.h" />
     <ClInclude Include="Classes\Main.h" />
