@@ -7,7 +7,6 @@
 class OptionForIntervalCreate : public OptionForCreate, public ISInterval
 {
 public:
-
 	// Инициализация переменных
 	OptionForIntervalCreate(Element & parent);
 
@@ -19,18 +18,15 @@ public:
 	int GetInterval() { return interval; };
 	// Задать период создания
 	void SetInterval(int value) { interval = value; };
+
 	// Обновление данных
 	void Update() override;
-
 protected:
-
 	// Переключатель активности
 	bool isActive;
 	// Период создания
 	int interval;
-
 private:
-
 	// Текущее время
 	int currentTime;
 };

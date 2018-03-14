@@ -65,12 +65,9 @@ Element Elements::CreateMain(SideType side, int x, int y)
 {
 	Element newElement = Elements::Create("Ninja.csb", ElementNameType::Main, ClassType::Character, side, x, y);
 
-	//OptionForMouseMove * moveOption = new OptionForMouseMove();
-	//moveOption->SetParent(&newElement);
-	//moveOption->SetMoveSpeed(Settings::MOVESPEED);
-	//moveOption->SetRotateSpeed(Settings::ROTATESPEED);
-	//moveOption->SetMoveType(MoveType::ToByPass);
-	//moveOption->SetRotate(true);
+	auto & moveOption = Options::Create<OptionForMouseMove>(newElement);
+	moveOption.SetMoveSpeed(Settings::MOVESPEED);
+	moveOption.SetRotateSpeed(Settings::ROTATESPEED);
 
 	auto & createOption = Options::Create<OptionForMouseCreateDestroy>(newElement);
 	createOption.SetName(ElementNameType::Wall);

@@ -5,6 +5,7 @@
 OptionForCreate::OptionForCreate(Element & parent) : ISOption(parent)
 {
 	nodeName = ElementNameType();
+
 	offsetX = 0;
 	offsetY = 0;
 	isRotate = false;
@@ -19,22 +20,23 @@ void OptionForCreate::Create()
 	{
 		switch (parent.GetSide())
 		{
-
-			case SideType::Up:
-				calcX = parent.GetX() - offsetX;
-				calcY = parent.GetY() - offsetY;
-				break;
-			case SideType::Down:
-				calcX = parent.GetX() + offsetX;
-				calcY = parent.GetY() + offsetY;
-				break;
 			case SideType::Left:
 				calcX = parent.GetX() - offsetX;
 				calcY = parent.GetY() + offsetY;
 				break;
+			case SideType::Up:
+				calcX = parent.GetX() - offsetX;
+				calcY = parent.GetY() - offsetY;
+				break;
 			case SideType::Right:
 				calcX = parent.GetX() + offsetX;
 				calcY = parent.GetY() - offsetY;
+				break;
+			case SideType::Down:
+				// Значение по умолчнию
+			default:
+				calcX = parent.GetX() + offsetX;
+				calcY = parent.GetY() + offsetY;
 				break;
 		}
 	}

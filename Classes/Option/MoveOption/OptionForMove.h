@@ -1,19 +1,18 @@
 //#pragma once
 //
 //#include "OptionForOneStep.h"
-//#include "MoveType.h"
-//#include "Field\FieldPoint.h"
+//
+//// Перечисление возможных типов перемещения
+//enum class MoveType;
 //
 //// Опция для движения элемента
 //class OptionForMove : public OptionForOneStep
 //{
 //public:
-//	// Задать родителя опции
-//	void SetParent(Element * parent) override;
 //	// Получить переключатель вида движения
 //	MoveType GetMoveType() { return moveType; };
 //	// Задать переключатель типа движения
-//	void SetMoveType(MoveType value) { this->moveType = value; };
+//	void SetMoveType(MoveType value) { moveType = value; };
 //
 //	// Обновление данных
 //	virtual void Update() override;

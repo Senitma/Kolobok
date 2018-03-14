@@ -7,7 +7,7 @@ enum class ElementNameType;
 // Перечисление возможных типов
 enum ClassType;
 // Перечисление возможных направлений
-enum class SideType;
+enum SideType;
 
 // Модуль управления элементами
 namespace Elements

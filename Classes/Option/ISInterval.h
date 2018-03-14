@@ -3,11 +3,11 @@
 #include "ISOption.h"
 
 // Интерфейс опции с обновлением
-class ISInterval : ISOption
+class ISInterval : public ISOption
 {
 public:
 	// Инициализация переменных
-	ISInterval(Element & parent) : ISOption(parent) {};
+	ISInterval(const Element & parent) : ISOption(parent) {};
 
 	// Обновление данных
 	virtual void Update() = 0;

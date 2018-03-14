@@ -1,72 +1,85 @@
-//#pragma once
-//
-//#include "Option\ISInterval.h"
-//
-//// Опция для перемещения на одну клетку
-//class OptionForOneStep : public ISInterval
-//{
-//public:
-//	// Получить скорость перемещения
-//	int GetMoveSpeed() { return moveSpeed; };
-//	// Задать скорость пермещения
-//	void SetMoveSpeed(int value) { moveSpeed = value; };
-//	// Получить возможность вращения
-//	bool GetRotate() { return isRotate; };
-//	// Задать возможность вращения
-//	void SetRotate(bool value) { isRotate = value; };
-//	// Получить скорость вращения
-//	int GetRotateSpeed() { return rotateSpeed; };
-//	// Задать возможность вращения
-//	void SetRotateSpeed(int value) { rotateSpeed = value; };
-//
-//	// Обновление данных
-//	virtual void Update() override;
-//	// Передвинуть элемент
-//	virtual bool MoveTo(int x, int y);
-//protected:
-//	// Скорость перемещения
-//	int moveSpeed;
-//	// Переключатель возможности поворота
-//	bool isRotate;
-//	// Скорость поворота
-//	int rotateSpeed;
-//
-//	// Новые координаты по оси X
-//	int x;
-//	// Новые координаты по оси Y
-//	int y;
-//	// Переключатель состояния
-//	bool isFreeze;
-//private:
-//	// Старые координаты по оси X
-//	int oldX;
-//	// Старые координаты по оси Y
-//	int oldY;
-//
-//	// Текущий оступ слева
-//	int currentLeft;
-//	// Текущий отступ сверху
-//	int currentTop;
-//	// Новый отступ слева
-//	int left;
-//	// Новый отступ сверху
-//	int top;
-//	// Размер одного шага
-//	int moveStepSize;
-//	// Блокировка других действий при перемещении
-//	bool isMoveLock;
-//
-//	// Новая сторона
-//	SideType side;
-//	// Текущее значение поворота
-//	int currentRotate;
-//	// Новое значение поворота
-//	int rotate;
-//	// Размер одного шага
-//	int rotateStepSize;
-//	// Блокировка других действий при повороте
-//	bool isRotateLock;
-//
-//	// Заполнить все данные координат
-//	void FillVariableForNewPoint(int x, int y);
-//};
+#pragma once
+
+#include "Option\ISInterval.h"
+
+// Опция для перемещения на одну клетку
+class OptionForOneStep : public ISInterval
+{
+public:
+	// Инициализация переменных
+	OptionForOneStep(const Element & parent) : ISInterval(parent) {}
+
+	// Получить скорость перемещения
+	int GetMoveSpeed() const { return moveSpeed; };
+	// Задать скорость пермещения
+	void SetMoveSpeed(const int & value) { moveSpeed = value; };
+	// Получить скорость вращения
+	int GetRotateSpeed() const { return rotateSpeed; };
+	// Задать возможность вращения
+	void SetRotateSpeed(const int & value) { rotateSpeed = value; };
+
+	// Обновление данных
+	virtual void Update() override;
+	// Передвинуть элемент
+	virtual void MoveTo(const int & x, const int & y);
+protected:
+	// Краткое перечисление возможных состояний
+	enum StatusType
+	{
+		// Стоит на месте
+		Stand = 0,
+		// Перемещается
+		Move = 30,
+		// Поворачивается
+		Rotate = 510
+	};
+
+	// Получить текущий статус
+	StatusType GetCurrentStatus() const;
+private:
+	// Полное перечисление возможных состояний
+	enum FullStatusType
+	{
+		// Перемещается
+		MoveLeft = 2,
+		// Перемещается
+		MoveUp = 4,
+		// Перемещается
+		MoveRight = 8,
+		// Перемещается
+		MoveDown = 16,
+		// Поворачивается 
+		RotateUpToLeft = 36,
+		// Поворачивается
+		RotateDownToLeft = 48,
+		// Поворачивается 
+		RotateLeftToUp = 66,
+		// Поворачивается
+		RotateRightToUp = 72,
+		// Поворачивается
+		RotateUpToRight = 132,
+		// Поворачивается
+		RotateDownToRight = 144,
+		// Поворачивается
+		RotateLeftToDown = 258,
+		// Поворачивается
+		RotateRightToDown = 264,
+	};
+
+	// Скорость перемещения
+	int moveSpeed;
+	// Скорость поворота
+	int rotateSpeed;
+
+	// Текущее состояние опции
+	FullStatusType currentStatus;
+	// Новое положение по оси X
+	int nextX;
+	// Новое положение по оси Y
+	int nextY;
+
+	// Текущий интервал
+	int currentInterval;
+	// максимальный интервал
+	int maxInterval;
+};

@@ -8,13 +8,13 @@ namespace cocos2d
 	class Node;
 }
 // Данные элемента
-class ElementData;
+struct ElementData;
 // Перечисление возможных имен
 enum class ElementNameType;
 // Перечисление возможных типов
 enum ClassType;
 // Перечисление возможных направлений
-enum class SideType;
+enum SideType;
 // Координаты элемента
 class Axes;
 

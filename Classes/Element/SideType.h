@@ -1,16 +1,16 @@
 #pragma once
 
 // Перечисление возможных направлений
-enum class SideType
+enum SideType
 {
 	// Поворот не задан
-	None,
-	// Вверх
-	Up,
-	// Вниз
-	Down,
+	None = 0,
 	// Влево
-	Left,
+	Left = 2,
+	// Вверх
+	Up = 4,
 	// Вправо
-	Right
+	Right = 8,
+	// Вниз
+	Down = 16
 };

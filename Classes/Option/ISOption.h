@@ -7,7 +7,7 @@ class ISOption
 {
 public:
 	// Инициализация переменных
-	ISOption(Element & parent) : parent(parent) {};
+	ISOption(const Element & parent) : parent(parent) {};
 	// Получить родителя опции
 	Element & GetParent() { return parent; };
 protected:
