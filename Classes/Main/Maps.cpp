@@ -2,7 +2,9 @@
 #include "Element\SideType.h"
 #include "Element\Element.h"
 #include "Element\Elements.h"
+#include "Field\Field.h"
 #include "Settings.h"
+#include "EditSettings.h"
 
 #include "Maps.h"
 
@@ -18,6 +20,8 @@ namespace Maps
 	void LoadLabyrinth();
 	// Загрузка пустой карты
 	void LoadEmpty();
+	// Создать пол
+	void GenerateFloor();
 }
 
 void Maps::Load()
@@ -51,6 +55,10 @@ void Maps::ReloadMap()
 
 void Maps::LoadExample()
 {
+	EditSettings::HORIZONTALCELLCOUNT = 20;
+	EditSettings::VERTICALCELLCOUNT = 15;
+	GenerateFloor();
+
 	Elements::Create(ElementNameType::Main, SideType::Right, 0, 0);
 	Elements::Create(ElementNameType::Finish, Settings::HORIZONTALCELLCOUNT - 1, Settings::VERTICALCELLCOUNT - 1);
 
@@ -71,6 +79,10 @@ void Maps::LoadExample()
 }
 void Maps::LoadLabyrinth()
 {
+	EditSettings::HORIZONTALCELLCOUNT = 20;
+	EditSettings::VERTICALCELLCOUNT = 15;
+	GenerateFloor();
+
 	Elements::Create(ElementNameType::Main, SideType::Right, 0, 0);
 	Elements::Create(ElementNameType::Finish, Settings::HORIZONTALCELLCOUNT - 1, Settings::VERTICALCELLCOUNT - 1);
 
@@ -234,6 +246,21 @@ void Maps::LoadLabyrinth()
 }
 void Maps::LoadEmpty()
 {
+	GenerateFloor();
+
 	Elements::Create(ElementNameType::Main, SideType::Right, 0, 0);
 	Elements::Create(ElementNameType::Finish, Settings::HORIZONTALCELLCOUNT - 1, Settings::VERTICALCELLCOUNT - 1);
+}
+
+void Maps::GenerateFloor()
+{
+	Field::InitCells();
+
+	for (int y = 0; y < Settings::VERTICALCELLCOUNT; y++)
+	{
+		for (int x = 0; x < Settings::HORIZONTALCELLCOUNT; x++)
+		{
+			Elements::Create(ElementNameType::Floor, x, y);
+		}
+	}
 }

@@ -1,6 +1,9 @@
 #include "ElementData.h"
 #include "Element.h"
 
+// —татус автоматического удалени€ прорисовок
+bool AutoDrawDeleteStatus = true;
+
 Element::Element(cocos2d::Node * node, ElementNameType name, ClassType type)
 {
 	data = std::make_shared<ElementData>();
@@ -15,10 +18,14 @@ Element::Element(const Element & value)
 }
 Element::~Element()
 {
-	if (data.use_count() == 1)
+	if ((data.use_count() == 1) && (AutoDrawDeleteStatus == true))
 	{
-		data->node->getParent()->removeChild(data->node);
+		data->node->removeFromParent();
 	}
+}
+void Element::OffAutoDrawDelete()
+{
+	AutoDrawDeleteStatus = false;
 }
 
 ElementNameType Element::GetName() const

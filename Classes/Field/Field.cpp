@@ -9,12 +9,12 @@
 #include "Field.h"
 
 // Фон
-cocos2d::Node * field;
+cocos2d::Node * field = cocos2d::Node::create();
 // Изображение информации
 cocos2d::Sprite * infoMessage;
 
 // Набор клеток
-std::vector<Cell> items;
+std::vector<Cell> cells;
 
 void Field::WinGame()
 {
@@ -34,58 +34,51 @@ void Field::LoseGame()
 }
 void Field::Reload()
 {
-	items.clear();
+	cells.clear();
 	Maps::ReloadMap();
 
 	field->removeChild(infoMessage);
 }
 
+cocos2d::Node * Field::GetInstance()
+{
+	// Заливка фона
+	auto background = cocos2d::Sprite::create("Background.png", cocos2d::Rect(0, 0, Settings::FIELDWIDTHSIZE, Settings::FIELDHEIGHTSIZE));
+	background->setAnchorPoint(cocos2d::Vec2(0.0f, 0.0f));
+	background->setColor(cocos2d::Color3B(153, 205, 205));
+	background->setLocalZOrder(-1);
+
+	field->addChild(background);
+	return field;
+}
+void Field::InitCells()
+{
+	cells = std::vector<Cell>(Settings::VERTICALCELLCOUNT * Settings::HORIZONTALCELLCOUNT);
+	int index = 0;
+
+	std::for_each(cells.begin(), cells.end(), [&](Cell & item) 
+	{
+		item.SetIndex(index);
+		index++;
+	});
+}
 void Field::DrawElement(cocos2d::Node * item)
 {
 	field->addChild(item);
 }
-cocos2d::Node * Field::CreateBackground()
-{
-	// Формирование поля
-	field = new cocos2d::Node();
-
-	// Задний фон
-	auto background = cocos2d::Sprite::create("Background.png", cocos2d::Rect(0, 0, Settings::FIELDWIDTHSIZE, Settings::FIELDHEIGHTSIZE));
-	background->setAnchorPoint(cocos2d::Vec2(0.0f, 0.0f));
-	field->addChild(background);
-
-	// Создание клеток
-	int width = Settings::FIELDWIDTHSIZE / Settings::HORIZONTALCELLCOUNT;
-	int height = Settings::FIELDHEIGHTSIZE / Settings::VERTICALCELLCOUNT;
-
-	for (int y = 0; y < Settings::VERTICALCELLCOUNT; y++)
-	{
-		for (int x = 0; x < Settings::HORIZONTALCELLCOUNT; x++)
-		{
-			auto floor = cocos2d::Sprite::create("Floor.png", cocos2d::Rect(0, 0, width, height));
-			floor->setAnchorPoint(cocos2d::Vec2(0.0f, 1.0f));
-			floor->setPosition(x * width, Settings::FIELDHEIGHTSIZE - y * height);
-			field->addChild(floor);
-
-			items.push_back(Cell(x, y));
-		}
-	}
-
-	return field;
-}
 
 bool Field::CanAddElement(const ClassType & type, const int & x, const int & y)
 {
-	return items.at(AxesInfo::ConvertToIndex(x, y)).CanAddElement(type);
+	return cells.at(AxesInfo::ConvertToIndex(x, y)).CanAddElement(type);
 }
 bool Field::ContainName(const ElementNameType & name, const int & x, const int & y)
 {
-	return items.at(AxesInfo::ConvertToIndex(x, y)).ContainName(name);
+	return cells.at(AxesInfo::ConvertToIndex(x, y)).ContainName(name);
 }
 
 void Field::AddElement(Element & value, const int & x, const int & y)
 {
-	items.at(AxesInfo::ConvertToIndex(x, y)).AddElement(value);
+	cells.at(AxesInfo::ConvertToIndex(x, y)).AddElement(value);
 }
 void Field::MoveElement(Element & item, const int & x, const int & y)
 {
@@ -93,24 +86,24 @@ void Field::MoveElement(Element & item, const int & x, const int & y)
 	//{
 		int oldIndex = AxesInfo::ConvertToIndex(item.GetX(), item.GetY());
 
-		items.at(AxesInfo::ConvertToIndex(x, y)).AddElement(item);
-		items.at(oldIndex).RemoveElement(item);
+		cells.at(AxesInfo::ConvertToIndex(x, y)).AddElement(item);
+		cells.at(oldIndex).RemoveElement(item);
 	//}
 }
 void Field::RemoveElement(Element & item)
 {
-	items.at(AxesInfo::ConvertToIndex(item.GetAxes())).RemoveElement(item);
+	cells.at(AxesInfo::ConvertToIndex(item.GetAxes())).RemoveElement(item);
 }
 void Field::Destroy(const int & x, const int & y)
 {
-	items.at(AxesInfo::ConvertToIndex(x, y)).RemoveElements();
+	cells.at(AxesInfo::ConvertToIndex(x, y)).RemoveElements();
 }
 
 std::vector<TagAxes> Field::CreateBlockMap()
 {
 	std::vector<TagAxes> result;
 
-	std::for_each(items.begin(), items.end(), [&](const Cell & item) 
+	std::for_each(cells.begin(), cells.end(), [&](const Cell & item) 
 	{
 		TagAxes newPoint = AxesInfo::ConvertToAxes(item.GetX(), item.GetY());
 

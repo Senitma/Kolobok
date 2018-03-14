@@ -15,8 +15,10 @@ namespace Field
 	// Перезагрузить поле
 	void Reload();
 
-	// Создать фон
-	cocos2d::Node * CreateBackground();
+	// Получить ссылку на прорисовку
+	cocos2d::Node * GetInstance();
+	// Инициализировать ячейки
+	void InitCells();
 	// Прорисовка элемента на поле
 	void DrawElement(cocos2d::Node * item);
 

@@ -11,23 +11,25 @@ class Cell
 {
 public:
 	// Инициализация переменных
-	Cell(const int & x, const int & y);
+	Cell();
 
 	// Получить положение по оси X
 	int GetX() const { return x; };
 	// Получить положение по оси Y
 	int GetY() const { return y; };
+	// Изменить положение через индекс
+	void SetIndex(const int & index);
 
 	// Проверка возможности добавления элемента
 	bool CanAddElement(const ClassType & type) const;
-	// Добавить элемент
-	ResultType AddElement(Element & item);
 	// Проверить наличие имени в списке элементов
 	bool ContainName(const ElementNameType & nodename) const;
 	// Проверить наличие имени в списке элементов
 	bool ContainType(const ClassType & type) const;
 	// Проверить наличие элемента
 	bool ContainElement(const Element & item) const;
+	// Добавить элемент
+	ResultType AddElement(Element & item);
 	// Удалить элемент
 	ResultType RemoveElement(Element & item);
 	// Удалить все элементы
@@ -50,7 +52,4 @@ private:
 	void Destroy() { Destroy(false); };
 	// Уничтожение элементов
 	void Destroy(const bool & allItems);
-
-	// Удаление конструктора по умолчанию
-	Cell() = delete;
 };

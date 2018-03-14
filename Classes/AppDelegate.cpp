@@ -1,6 +1,7 @@
 #include "AppDelegate.h"
 #include "Settings.h"
 #include "Main\MainScene.h"
+#include "Element\Element.h"
 
 AppDelegate::AppDelegate() {
 
@@ -8,6 +9,7 @@ AppDelegate::AppDelegate() {
 
 AppDelegate::~AppDelegate()
 {
+	Element::OffAutoDrawDelete();
 }
 
 //if you want a different context,just modify the value of glContextAttrs

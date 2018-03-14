@@ -1,33 +1,27 @@
 #include "algorithm"
 
+#include "Axes.h"
 #include "AxesInfo.h"
 #include "Relations.h"
 #include "ResultType.h"
 
 #include "Cell.h"
 
-Cell::Cell(const int & x, const int & y)
+Cell::Cell()
 {
-	this->x = x;
-	this->y = y;
-
 	items = std::list<Element>();
+}
+
+void Cell::SetIndex(const int & index)
+{
+	Axes value = AxesInfo::ConvertToAxes(index);
+	x = value.GetX();
+	y = value.GetY();
 }
 
 bool Cell::CanAddElement(const ClassType & type) const
 {
 	return Relations::CanAdd(type, GetAllTypes());
-}
-ResultType Cell::AddElement(Element & item)
-{
-	if (ContainElement(item) == false)
-	{
-		SetAxes(item, x, y);
-		items.push_back(item);
-		return CheckRelations();
-	}
-
-	return ResultType::None;
 }
 bool Cell::ContainName(const ElementNameType & name) const
 {
@@ -50,6 +44,17 @@ bool Cell::ContainType(const ClassType & type) const
 bool Cell::ContainElement(const Element & item) const
 {
 	return std::find(items.begin(), items.end(), item) != items.end();
+}
+ResultType Cell::AddElement(Element & item)
+{
+	if (ContainElement(item) == false)
+	{
+		SetAxes(item, x, y);
+		items.push_back(item);
+		return CheckRelations();
+	}
+
+	return ResultType::None;
 }
 ResultType Cell::RemoveElement(Element & item)
 {
@@ -108,7 +113,7 @@ ResultType Cell::CheckRelations()
 }
 void Cell::Destroy(const bool & allItem)
 {
-	std::for_each(items.begin(), items.end(), [=](Element & item)
+	std::for_each(++items.begin(), items.end(), [=](Element & item)
 	{
 		if ((allItem == true) || (Relations::CanDestroy(item.GetType()) == true))
 		{

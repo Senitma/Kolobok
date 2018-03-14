@@ -4,6 +4,7 @@
 #include "Settings.h"
 #include "cocostudio/CocoStudio.h"
 #include "ui/CocosGUI.h"
+#include "Element\Element.h"
 
 #include "Option\ISMouse.h"
 #include "Option\ISInterval.h"
@@ -32,8 +33,8 @@ bool MainScene::init()
 	ui::Helper::doLayout(rootNode);
 	this->addChild(rootNode);
 
-	this->addChild(Field::CreateBackground());
 	Maps::Load();
+	this->addChild(Field::GetInstance());
 
 	this->scheduleUpdate();
 

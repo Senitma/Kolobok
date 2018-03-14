@@ -124,9 +124,6 @@
     <ClInclude Include="Classes\Option\CreateOption\OptionForIntervalCreate.h">
       <Filter>Option\CreateOption</Filter>
     </ClInclude>
-    <ClInclude Include="Classes\Option\CreateOption\OptionForMouseCreateDestroy.h">
-      <Filter>Option\CreateOption</Filter>
-    </ClInclude>
     <ClInclude Include="Classes\Option\CreateOption\OptionForCreate.h">
       <Filter>Option\CreateOption</Filter>
     </ClInclude>
@@ -201,6 +198,9 @@
     </ClInclude>
     <ClInclude Include="Classes\EditSettings.h">
       <Filter>Init</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\Option\CreateOption\OptionForMouseCreateDestroy.h">
+      <Filter>Option\CreateOption</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

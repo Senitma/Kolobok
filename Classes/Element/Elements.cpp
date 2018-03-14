@@ -20,6 +20,8 @@ namespace Elements
 	Element CreateMain(SideType side, int x, int y);
 	// Добавление клетки финиша
 	Element CreateFinish(SideType side, int x, int y);
+	// Добавление клетки пола
+	Element CreateFloor(SideType side, int x, int y);
 	// Добавление стены
 	Element CreateWall(SideType side, int x, int y);
 	// Добавление патруля
@@ -44,6 +46,8 @@ Element Elements::Create(ElementNameType name, SideType side, int x, int y)
 		return Elements::CreateMain(side, x, y);
 	case ElementNameType::Finish:
 		return Elements::CreateFinish(side, x, y);
+	case ElementNameType::Floor:
+		return Elements::CreateFloor(side, x, y);
 	case ElementNameType::Wall:
 		return Elements::CreateWall(side, x, y);
 	case ElementNameType::Patrol:
@@ -53,7 +57,7 @@ Element Elements::Create(ElementNameType name, SideType side, int x, int y)
 	case ElementNameType::Fireball:
 		return Elements::CreateFireball(side, x, y);
 	default:
-		throw "Имя елемента не найдено";
+		throw "Имя элемента не найдено";
 	}
 }
 
@@ -76,6 +80,10 @@ Element Elements::CreateMain(SideType side, int x, int y)
 Element Elements::CreateFinish(SideType side, int x, int y)
 {
 	return Elements::Create("Finish.csb", ElementNameType::Finish, ClassType::Finish, side, x, y);
+}
+Element Elements::CreateFloor(SideType side, int x, int y)
+{
+	return Elements::Create("Floor.csb", ElementNameType::Floor, ClassType::Empty, side, x, y);
 }
 Element Elements::CreateWall(SideType side, int x, int y)
 {

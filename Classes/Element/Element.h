@@ -28,6 +28,8 @@ public:
 	Element(const Element&);
 	// Удаление данных
 	~Element();
+	// Выключить автоматическое удаление прорисовок
+	static void OffAutoDrawDelete();
 
 	// Получить имя
 	ElementNameType GetName() const;
@@ -77,9 +79,9 @@ private:
 	// Данные элемента
 	std::shared_ptr<ElementData> data;
 
-	// Изменить координаты по оси X
+	// Изменить положение по оси X
 	void SetX(const int & value);
-	// Изменить координаты по оси Y
+	// Изменить положение по оси Y
 	void SetY(const int & value);
 	// Изменить порядок отображения прорисовки
 	void SetOrder(const int & value);

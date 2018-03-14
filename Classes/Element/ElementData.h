@@ -25,4 +25,6 @@ struct ElementData
 
 	// Статус элемента
 	bool destroyStatus;
+	// Статус узла для прорисовки
+	bool destroyNodeStatus;
 };
