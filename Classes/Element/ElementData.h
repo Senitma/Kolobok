@@ -21,7 +21,7 @@ struct ElementData
 	// Положение элемента
 	Axes position;
 	// Точки для патрулирования
-	std::vector<Axes> patrolPoints;
+	std::queue<Axes> patrolPoints;
 
 	// Статус элемента
 	bool destroyStatus;

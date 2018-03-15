@@ -92,6 +92,7 @@ void Field::MoveElement(Element & item, const int & x, const int & y)
 }
 void Field::RemoveElement(Element & item)
 {
+	item.SetDestroyStatus(true);
 	cells.at(AxesInfo::ConvertToIndex(item.GetAxes())).RemoveElement(item);
 }
 void Field::Destroy(const int & x, const int & y)

@@ -107,15 +107,11 @@ void Element::SetDestroyStatus(const bool & value)
 
 void Element::AddPoint(const int & x, const int & y)
 {
-	data->patrolPoints.push_back(Axes(x, y));
+	data->patrolPoints.push(Axes(x, y));
 }
-Axes Element::GetPoint(const int & index) const
+std::queue<Axes> & Element::GetPoints()
 {
-	return data->patrolPoints.at(index);
-}
-int Element::GetPointLength() const
-{
-	return data->patrolPoints.size();
+	return data->patrolPoints;
 }
 
 Element Element::operator=(const Element & value) const

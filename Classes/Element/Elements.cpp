@@ -49,16 +49,16 @@ Element Elements::Create(ElementNameType name, SideType side, int x, int y)
 		return Elements::CreateFinish(side, x, y);
 	case ElementNameType::Floor:
 		return Elements::CreateFloor(side, x, y);
-	case ElementNameType::Wall:
-		return Elements::CreateWall(side, x, y);
 	case ElementNameType::Patrol:
 		return Elements::CreatePatrol(side, x, y);
 	case ElementNameType::Gun:
 		return Elements::CreateGun(side, x, y);
 	case ElementNameType::Fireball:
 		return Elements::CreateFireball(side, x, y);
+	case ElementNameType::Wall:
+		// Значение по умолчанию
 	default:
-		throw "Имя элемента не найдено";
+		return Elements::CreateWall(side, x, y);
 	}
 }
 
@@ -92,14 +92,11 @@ Element Elements::CreatePatrol(SideType side, int x, int y)
 {
 	Element & newElement = Elements::Create("Patrol.csb", ElementNameType::Patrol, ClassType::Enemy, side, x, y);
 
-	//OptionForPatrol * patrolOption = new OptionForPatrol();
-	//patrolOption->SetParent(&newElement);
-	//patrolOption->SetRotateSpeed(Settings::ROTATESPEED);
-	//patrolOption->SetMoveSpeed(Settings::MOVESPEED);
-	//patrolOption->SetMoveType(MoveType::ToByPass);
-	//patrolOption->SetRotate(true);
-	//patrolOption->SetPatrol(true);
-	////patrolOption->SetCircle(true);
+	auto & moveOption = Options::Create<OptionForPatrol>(newElement);
+	moveOption.SetMoveSpeed(Settings::MOVESPEED);
+	moveOption.SetRotateSpeed(Settings::ROTATESPEED);
+	moveOption.SetMoveType(MoveType::ToByPass);
+	moveOption.SetPatrolType(PatrolType::Circle);
 
 	return newElement;
 }
@@ -107,13 +104,12 @@ Element Elements::CreateGun(SideType side, int x, int y)
 {
 	Element & newElement = Elements::Create("Gun.csb", ElementNameType::Gun, ClassType::Block, side, x, y);
 
-	//OptionForIntervalCreate * createOption = new OptionForIntervalCreate();
-	//createOption->SetParent(&newElement);
-	//createOption->SetName(ElementNameType::Fireball);
-	//createOption->SetActive(true);
-	//createOption->SetRotate(true);
-	//createOption->SetOffsetY(1);
-	//createOption->SetInterval(Settings::CREATEFIREBALLINTERVAL);
+	auto & createOption = Options::Create<OptionForIntervalCreate>(newElement);
+	createOption.SetName(ElementNameType::Fireball);
+	createOption.SetRotate(true);
+	createOption.SetOffsetY(1);
+	createOption.SetInterval(Settings::CREATEFIREBALLINTERVAL);
+	createOption.SetActive(true);
 
 	return newElement;
 }
@@ -138,12 +134,10 @@ Element Elements::CreateFireball(SideType side, int x, int y)
 		break;
 	}
 
-	//OptionForPatrol * patrolOption = new OptionForPatrol();
-	//patrolOption->SetParent(&newElement);
-	//patrolOption->SetMoveSpeed(Settings::FIREBALLSPEED);
-	//patrolOption->SetMoveType(MoveType::ToLine);
-	//patrolOption->SetPatrol(true);
-	//patrolOption->SetDestroyInEnd(true);
+	auto & moveOption = Options::Create<OptionForPatrol>(newElement);
+	moveOption.SetMoveSpeed(Settings::FIREBALLSPEED);
+	moveOption.SetMoveType(MoveType::ToLine);
+	moveOption.SetPatrolType(PatrolType::DestroyWay);
 
 	return newElement;
 }

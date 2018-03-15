@@ -12,18 +12,20 @@ class OptionForMove : public OptionForOneStep
 {
 public:
 	// Инициализация переменных
-	OptionForMove(const Element & parent) : OptionForOneStep(parent) {}
+	OptionForMove(const Element & parent);
 
 	// Получить переключатель вида движения
-	MoveType GetMoveType() { return moveType; };
+	MoveType GetMoveType() const { return moveType; };
 	// Задать переключатель типа движения
-	void SetMoveType(MoveType value) { moveType = value; };
+	void SetMoveType(const MoveType & value) { moveType = value; };
 
 	// Передвинуть элемент
 	virtual void MoveTo(const int & x, const int & y) override { MoveTo(moveType, x, y); };
 protected:
 	// Элемент остановился
 	virtual void Standed() override;
+	// Элемент закончил движение
+	virtual void MoveFinished() {}
 private:
 	// Очередь из точек для движения
 	std::queue<Axes> points;

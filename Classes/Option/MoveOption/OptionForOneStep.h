@@ -34,7 +34,7 @@ private:
 		// Стоит на месте
 		Stand = 0,
 		// Состояние после поворота
-		AfterRotate,
+		AfterRotate = 1,
 		// Перемещается
 		MoveLeft = 2,
 		// Перемещается

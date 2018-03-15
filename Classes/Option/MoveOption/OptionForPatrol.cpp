@@ -1,60 +1,39 @@
-//#include "OptionForPatrol.h"
-//
-//void OptionForPatrol::Update()
-//{
-//	OptionForMove::Update();
-//
-//	if (this->isPatrol == true && parent->GetPointLength() > 0)
-//	{
-//		if (parent->GetLeft() == FieldPoint::ConvertToLeft(parent->GetPoint(currentIndex).GetX()) &&
-//			parent->GetTop() == FieldPoint::ConvertToTop(parent->GetPoint(currentIndex).GetY()))
-//		{
-//			CalcNewIndex();
-//		}
-//		else
-//		{
-//			if (isFreeze == true)
-//			{
-//				if (this->MoveTo(parent->GetPoint(currentIndex).GetX(), parent->GetPoint(currentIndex).GetY()) == false)
-//				{
-//					CalcNewIndex();
-//				}
-//			}
-//		}
-//	}
-//}
-//
-//void OptionForPatrol::CalcNewIndex()
-//{
-//	if (this->isReturn == false)
-//	{
-//		this->currentIndex++;
-//	}
-//	// Патруль идет в обратную сторону
-//	else
-//	{
-//		this->currentIndex--;
-//	}
-//	// При isCircle = true патруль ходит по кругу, иначе туда-обратно
-//	if (this->currentIndex >= parent->GetPointLength())
-//	{
-//		if (isDestroyInEnd == true)
-//		{
-//			parent->Destroy();
-//		}
-//		if (isCircle == true)
-//		{
-//			currentIndex = 0;
-//		}
-//		else
-//		{
-//			currentIndex--;
-//			isReturn = true;
-//		}
-//	}
-//	if (this->currentIndex < 0)
-//	{
-//		currentIndex++;
-//		isReturn = false;
-//	}
-//}
+#include "Field\Field.h"
+#include "OptionForPatrol.h"
+
+OptionForPatrol::OptionForPatrol(const Element & parent) : OptionForMove(parent) , patrolPoints(this->parent.GetPoints())
+{
+	patrolType = PatrolType::None;
+}
+
+void OptionForPatrol::MoveFinished()
+{
+	switch (patrolType)
+	{
+		case PatrolType::DestroyWay:
+			if (patrolPoints.size() > 0)
+			{
+				OptionForMove::MoveTo(patrolPoints.front().GetX(), patrolPoints.front().GetY());
+				patrolPoints.pop();
+			}
+			else
+			{
+				Field::RemoveElement(parent);
+			}
+			break;
+		//case PatrolType::RoundTrip:
+		//	break;
+		case PatrolType::Circle:
+			// Значение по умолчанию
+		default:
+			if (patrolPoints.size() > 0)
+			{
+				int nextX = patrolPoints.front().GetX();
+				int nextY = patrolPoints.front().GetY();
+				OptionForMove::MoveTo(nextX, nextY);
+				patrolPoints.pop();
+				patrolPoints.push(Axes(nextX, nextY));
+			}
+			break;
+	}
+}

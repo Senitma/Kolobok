@@ -1,38 +1,37 @@
-//#pragma once
-//
-//#include "OptionForMove.h"
-//
-//// Интерфейс опции для патрулирования
-//class OptionForPatrol : public OptionForMove
-//{
-//public:
-//	// Получить переключатель патруля
-//	bool GetPatrol() { return isPatrol; };
-//	// Задать переключатель патруля
-//	void SetPatrol(bool value) { isPatrol = value; };
-//	// Получить переключатель значения по кругу
-//	bool GetCircle() { return isCircle; };
-//	// Задать переключатель значения по кругу
-//	void SetCircle(bool value) { isCircle = value; };
-//	// Получить переключатель самоуничтожения в конце пути
-//	bool GetDestroyInEnd() { return isDestroyInEnd; };
-//	// Задать переключатель самоуничтожения в конце пути
-//	void SetDestroyInEnd(bool value) { isDestroyInEnd = value; };
-//
-//	// Обновление данных
-//	void Update() override;
-//protected:
-//	// Переключатель патрулирования
-//	bool isPatrol;
-//	// Патрулирование по кругу
-//	bool isCircle;
-//	// Самоуничтожение в конце пути
-//	bool isDestroyInEnd;
-//private:
-//	// Индекс текущей основной точки
-//	int currentIndex;
-//	// Переключатель возвращения (патруль идет в обратную сторону)
-//	bool isReturn;
-//	// Расчитать новый индекс
-//	void CalcNewIndex();
-//};
+#pragma once
+
+#include "OptionForMove.h"
+
+// Перечисление возможных типов патрулей
+enum class PatrolType
+{
+	// Не задан
+	None = 0,
+	// По кругу
+	Circle,
+	// По маршруту
+	RoundTrip,
+	// Уничтожение в конце маршрута
+	DestroyWay
+};
+
+// Интерфейс опции для патрулирования
+class OptionForPatrol : public OptionForMove
+{
+public:
+	// Инициализация переменных
+	OptionForPatrol(const Element & parent);
+
+	// Получить тип патруля
+	PatrolType GetPatrolType() const { return patrolType; };
+	// Задать тип патруля
+	void SetPatrolType(const PatrolType & value) { patrolType = value; };
+
+	// Элемент остановился
+	virtual void MoveFinished() override;
+private:
+	// Тип патруля
+	PatrolType patrolType;
+	// Ссылка на список точек для патруля в элементе
+	std::queue<Axes> & patrolPoints;
+};

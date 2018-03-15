@@ -1,5 +1,6 @@
 #pragma once
 
+#include "queue"
 #include "memory"
 
 namespace cocos2d
@@ -65,9 +66,7 @@ public:
 	// Добавить точку для патрулирования
 	void AddPoint(const int & x, const int & y);
 	// Получить точку для патрулирования
-	Axes GetPoint(const int & index) const;
-	// Получить количество точек для патрулирования
-	int GetPointLength() const;
+	std::queue<Axes> & GetPoints();
 
 	// Копирование элемента
 	Element operator= (const Element & value) const;
@@ -75,16 +74,16 @@ public:
 	bool operator== (const Element & value) const;
 	// Сравнение двух координат
 	bool operator!= (const Element & value) const;
-private:
-	// Данные элемента
-	std::shared_ptr<ElementData> data;
-
+protected:
 	// Изменить положение по оси X
 	void SetX(const int & value);
 	// Изменить положение по оси Y
 	void SetY(const int & value);
 	// Изменить порядок отображения прорисовки
 	void SetOrder(const int & value);
+private:
+	// Данные элемента
+	std::shared_ptr<ElementData> data;
 
 	// Изменить положение элемента
 	friend void SetAxes(Element & element, const int & x, const int & y);

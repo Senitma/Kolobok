@@ -117,6 +117,7 @@ void Cell::Destroy(const bool & allItem)
 	{
 		if ((allItem == true) || (Relations::CanDestroy(item.GetType()) == true))
 		{
+			item.SetDestroyStatus(true);
 			items.remove(item);
 		}
 	});

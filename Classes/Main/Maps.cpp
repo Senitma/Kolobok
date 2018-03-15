@@ -26,7 +26,7 @@ namespace Maps
 
 void Maps::Load()
 {
-	Load(MapIndexType::Empty);
+	Load(Settings::DEFAULTMAP);
 }
 void Maps::Load(MapIndexType index)
 {

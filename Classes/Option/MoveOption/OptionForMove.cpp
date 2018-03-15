@@ -4,6 +4,15 @@
 
 #include "OptionForMove.h"
 
+OptionForMove::OptionForMove(const Element & parent) : OptionForOneStep(parent)
+{
+	int nextX = 0;
+	int nextY = 0;
+
+	MoveType moveType = MoveType::None;
+	std::queue<Axes> points = std::queue<Axes>();
+}
+
 void OptionForMove::Standed()
 {
 	if (moveType != MoveType::ToOneStep && points.size() > 1)
@@ -24,7 +33,12 @@ void OptionForMove::Standed()
 		else
 		{
 			OptionForOneStep::MoveTo(points.front().GetX(), points.front().GetY());
+			MoveFinished();
 		}
+	}
+	else
+	{
+		MoveFinished();
 	}
 }
 
@@ -44,7 +58,7 @@ void OptionForMove::MoveTo(const MoveType & type, const int & x, const int & y)
 		{
 			OptionForOneStep::MoveTo(x, y);
 		}
-		else
+		else if ((parent.GetX() != x) || (parent.GetY() != y))
 		{
 			nextX = x;
 			nextY = y;

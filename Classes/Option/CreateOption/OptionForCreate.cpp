@@ -15,10 +15,13 @@ void OptionForCreate::Create()
 {
 	int calcX;
 	int calcY;
+	SideType side;
 
-	if ((isRotate == true) && (parent.GetSide() != SideType::None))
+	if (isRotate == true)
 	{
-		switch (parent.GetSide())
+		side = parent.GetSide();
+
+		switch (side)
 		{
 			case SideType::Left:
 				calcX = parent.GetX() - offsetX;
@@ -43,9 +46,10 @@ void OptionForCreate::Create()
 	else
 	{
 		// Без учитывания поворота смещение происходит по SideType::Down методу
+		side = SideType::Down;
 		calcX = parent.GetX() + offsetX;
 		calcY = parent.GetY() + offsetY;
 	}
 
-	Elements::Create(nodeName, parent.GetSide(), calcX, calcY);
+	Elements::Create(nodeName, side, calcX, calcY);
 }
