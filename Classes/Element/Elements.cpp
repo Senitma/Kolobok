@@ -6,6 +6,7 @@
 #include "Field\Field.h"
 #include "Field\AxesInfo.h"
 #include "Option\Options.h"
+#include "Option\MoveType.h"
 #include "Settings.h"
 
 #include "cocos2d.h"
@@ -66,6 +67,7 @@ Element Elements::CreateMain(SideType side, int x, int y)
 	Element newElement = Elements::Create("Ninja.csb", ElementNameType::Main, ClassType::Character, side, x, y);
 
 	auto & moveOption = Options::Create<OptionForMouseMove>(newElement);
+	moveOption.SetMoveType(MoveType::ToByPass);
 	moveOption.SetMoveSpeed(Settings::MOVESPEED);
 	moveOption.SetRotateSpeed(Settings::ROTATESPEED);
 

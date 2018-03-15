@@ -105,7 +105,7 @@ std::vector<TagAxes> Field::CreateBlockMap()
 
 	std::for_each(cells.begin(), cells.end(), [&](const Cell & item) 
 	{
-		TagAxes newPoint = AxesInfo::ConvertToAxes(item.GetX(), item.GetY());
+		TagAxes newPoint = TagAxes(item.GetX(), item.GetY());
 
 		if (item.ContainType(ClassType::Block) == true)
 		{
@@ -123,6 +123,6 @@ std::vector<TagAxes> Field::CreateBlockMap()
 }
 bool Field::CheckPath()
 {
-	//return PathFinder::CanMoveTo(Field::CreateBlockMap(), Axes(ninja.GetX(), ninja.GetY()), Axes(finish.GetX(), finish.GetY()));
+	//return MoveByPass::CanMoveTo(Field::CreateBlockMap(), Axes(ninja.GetX(), ninja.GetY()), Axes(finish.GetX(), finish.GetY()));
 	return true;
 }

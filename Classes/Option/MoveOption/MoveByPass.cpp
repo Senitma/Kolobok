@@ -1,30 +1,37 @@
 #include "algorithm"
 
-#include "TagAxes.h"
-#include "AxesInfo.h"
+#include "Field\TagAxes.h"
+#include "Field\AxesInfo.h"
+#include "Field\Field.h"
 #include "Settings.h"
 
-#include "PathFinder.h"
+#include "MoveByPass.h"
 
-PathFinder::PathFinder(std::vector<TagAxes> & map)
+MoveByPass::MoveByPass()
+{
+	map = Field::CreateBlockMap();
+}
+MoveByPass::MoveByPass(const std::vector<TagAxes> & map)
 {
 	this->map = map;
+	// Удаление старых маршрутов
+	Clear();
 }
 
-bool PathFinder::CanMoveTo(std::vector<TagAxes> & map, const Axes & start, const Axes & finish)
+bool MoveByPass::CanMoveTo(const Axes & start, const Axes & finish)
 {
-	PathFinder newPath = PathFinder(map);
+	MoveByPass newPath = MoveByPass();
 	newPath.SetStart(start);
 	newPath.SetFinish(finish);
 
 	return newPath.FindFinish(false);
 }
-std::vector<Axes> PathFinder::MoveTo(std::vector<TagAxes> & map, const Axes & start, const Axes & finish, const bool & extendedCheck)
+std::queue<Axes> MoveByPass::MoveTo(const Axes & start, const Axes & finish, const bool & extendedCheck)
 {
 	// Функция создания карты для перемещения
-	auto CreateMapAxes = [&](PathFinder path)
+	auto CreateMapAxes = [&](MoveByPass path)
 	{
-		std::vector<Axes> axesPath;
+		std::deque<Axes> axesPath;
 
 		if (extendedCheck == true)
 		{
@@ -38,31 +45,30 @@ std::vector<Axes> PathFinder::MoveTo(std::vector<TagAxes> & map, const Axes & st
 
 		if (extendedCheck == true)
 		{
-			std::vector<Axes> reverseAxesPath;
-			PathFinder reversePath = PathFinder(map);
+			MoveByPass reversePath = MoveByPass(path.GetMap());
 			reversePath.SetStart(path.GetFinish());
 			reversePath.SetFinish(path.GetStart());
-			reversePath.Clear();
 
 			reversePath.FindFinish(true);
+			std::deque<Axes> reverseAxesPath;
 			reverseAxesPath = reversePath.CreateMoveMap();
 
 			if (path.GetStep() > reversePath.GetStep())
 			{
-				return reverseAxesPath;
+				return std::queue<Axes>(reverseAxesPath);
 			}
 			else
 			{
-				return axesPath;
+				return std::queue<Axes>(axesPath);
 			}
 		}
 		else
 		{
-			return axesPath;
+			return std::queue<Axes>(axesPath);
 		}
 	};
 
-	PathFinder newPath = PathFinder(map);
+	MoveByPass newPath = MoveByPass();
 	newPath.SetStart(start);
 	newPath.SetFinish(finish);
 
@@ -80,36 +86,38 @@ std::vector<Axes> PathFinder::MoveTo(std::vector<TagAxes> & map, const Axes & st
 		else
 		{
 			// Достигнута самая ближайшая точка к финишу
-			return std::vector<Axes>{ start };
+			auto nullResult = std::queue<Axes>();
+			nullResult.push(start);
+			return nullResult;
 		}
 	}
 }
 
-Axes PathFinder::GetStart() const
+Axes MoveByPass::GetStart() const
 {
 	return Axes(startX, startY);
 }
 
-Axes PathFinder::GetFinish() const
+Axes MoveByPass::GetFinish() const
 {
 	return Axes(finishX, finishY);
 }
 
-void PathFinder::SetStart(const Axes & value)
+void MoveByPass::SetStart(const Axes & value)
 {
 	this->map.at(AxesInfo::ConvertToIndex(value)).SetTag(0);
 	startX = value.GetX();
 	startY = value.GetY();
 }
 
-void PathFinder::SetFinish(const Axes & value)
+void MoveByPass::SetFinish(const Axes & value)
 {
 	this->map.at(AxesInfo::ConvertToIndex(value)).SetTag(-2);
 	finishX = value.GetX();
 	finishY = value.GetY();
 }
 
-bool PathFinder::FindFinish(const bool & rotateCheck)
+bool MoveByPass::FindFinish(const bool & rotateCheck)
 {
 	// Функция для добавления новой точки на карте с учетом поворота
 	auto AddStep = [&](const TagAxes & parent, const int & offsetX, const int & offsetY, const int & offsetStep)
@@ -185,7 +193,7 @@ bool PathFinder::FindFinish(const bool & rotateCheck)
 
 	return isFinished;
 }
-bool PathFinder::FindNewFinish()
+bool MoveByPass::FindNewFinish()
 {
 	if (step > 1)
 	{
@@ -225,9 +233,9 @@ bool PathFinder::FindNewFinish()
 		return false;
 	}
 }
-std::vector<Axes> PathFinder::CreateMoveMap()
+std::deque<Axes> MoveByPass::CreateMoveMap()
 {
-	std::vector<Axes> path;
+	std::deque<Axes> path;
 	TagAxes prevAxes = TagAxes(finishX, finishY, step);
 	Axes prevPrevAxes = prevAxes;
 	step = 0;
@@ -278,7 +286,7 @@ std::vector<Axes> PathFinder::CreateMoveMap()
 	return path;
 }
 
-TagAxes & PathFinder::GetChild(const TagAxes & parent, const int & offsetX, const int & offsetY)
+TagAxes & MoveByPass::GetChild(const TagAxes & parent, const int & offsetX, const int & offsetY)
 {
 	if ((offsetX == 1) && (parent.GetX() < Settings::HORIZONTALCELLCOUNT - 1))
 	{
@@ -301,7 +309,7 @@ TagAxes & PathFinder::GetChild(const TagAxes & parent, const int & offsetX, cons
 		return map.at(AxesInfo::ConvertToIndex(parent.GetX(), parent.GetY()));
 	}
 }
-void PathFinder::Clear()
+void MoveByPass::Clear()
 {
 	std::for_each(map.begin(), map.end(), [&](TagAxes & item)
 	{

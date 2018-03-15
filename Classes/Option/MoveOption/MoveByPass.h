@@ -1,22 +1,30 @@
 #pragma once
 
 #include "vector"
+#include "deque"
+#include "queue"
 
 //Базовый класс всех координат
 class Axes;
 // Класс координат с идентификатором
 class TagAxes;
+
 // Класс поиска оптимального пути
-class PathFinder
+class MoveByPass
 {
 public:
 	// Инициализация переменных
-	PathFinder(std::vector<TagAxes> & map);
+	MoveByPass();
+	// Инициализация переменных
+	MoveByPass(const std::vector<TagAxes> & map);
+
+	// Получить карту для прохождения
+	const std::vector<TagAxes> & GetMap() const { return map; };
 
 	// Проверка возможности дойти до финиша
-	static bool CanMoveTo(std::vector<TagAxes> & map, const Axes & start, const Axes & finish);
+	static bool CanMoveTo(const Axes & start, const Axes & finish);
 	// Получить маршрут точек до финиша
-	static std::vector<Axes> MoveTo(std::vector<TagAxes> & map, const Axes & start, const Axes & finish, const bool & extendedCheck);
+	static std::queue<Axes> MoveTo(const Axes & start, const Axes & finish, const bool & extendedCheck);
 private:
 	// Количество пройденных шагов
 	int step;
@@ -47,7 +55,7 @@ private:
 	// Найти ближайшую точку к финишу 
 	bool FindNewFinish();
 	// Сформировать набор точек для перемещения
-	std::vector<Axes> CreateMoveMap();
+	std::deque<Axes> CreateMoveMap();
 
 	// Получить ссылку на соседнюю клетку
 	TagAxes & GetChild(const TagAxes & parent, const int & offsetX, const int & offsetY);

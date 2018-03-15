@@ -7,7 +7,7 @@ class OptionForOneStep : public ISInterval
 {
 public:
 	// Инициализация переменных
-	OptionForOneStep(const Element & parent) : ISInterval(parent) {}
+	OptionForOneStep(const Element & parent);
 
 	// Получить скорость перемещения
 	int GetMoveSpeed() const { return moveSpeed; };
@@ -23,23 +23,18 @@ public:
 	// Передвинуть элемент
 	virtual void MoveTo(const int & x, const int & y);
 protected:
-	// Краткое перечисление возможных состояний
+	// Элемент остановился
+	virtual void Standed() {};
+	// Проверить координаты на соответствие соседним
+	bool CheckAxesForNear(const int & x, const int & y) const;
+private:
+	// Полное перечисление возможных состояний
 	enum StatusType
 	{
 		// Стоит на месте
 		Stand = 0,
-		// Перемещается
-		Move = 30,
-		// Поворачивается
-		Rotate = 510
-	};
-
-	// Получить текущий статус
-	StatusType GetCurrentStatus() const;
-private:
-	// Полное перечисление возможных состояний
-	enum FullStatusType
-	{
+		// Состояние после поворота
+		AfterRotate,
 		// Перемещается
 		MoveLeft = 2,
 		// Перемещается
@@ -48,6 +43,8 @@ private:
 		MoveRight = 8,
 		// Перемещается
 		MoveDown = 16,
+		// Перемещается
+		Move = 30,
 		// Поворачивается 
 		RotateUpToLeft = 36,
 		// Поворачивается
@@ -64,6 +61,8 @@ private:
 		RotateLeftToDown = 258,
 		// Поворачивается
 		RotateRightToDown = 264,
+		// Поворачивается
+		Rotate = 510
 	};
 
 	// Скорость перемещения
@@ -72,7 +71,7 @@ private:
 	int rotateSpeed;
 
 	// Текущее состояние опции
-	FullStatusType currentStatus;
+	StatusType currentStatus;
 	// Новое положение по оси X
 	int nextX;
 	// Новое положение по оси Y

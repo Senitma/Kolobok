@@ -10,6 +10,19 @@ const int CLOCKWIZEROTATION = 16;
 // „етверть круга
 const int QUADRANTOFCIRCLE = 90;
 
+OptionForOneStep::OptionForOneStep(const Element & parent) : ISInterval(parent)
+{
+	moveSpeed = 0;
+	rotateSpeed = 0;
+
+	nextX = 0;
+	nextY = 0;
+	currentInterval = 0;
+	maxInterval = 0;
+
+	currentStatus = StatusType::Stand;
+}
+
 void OptionForOneStep::Update()
 {
 	// ћетод дл€ перемещени€ элемента
@@ -23,7 +36,8 @@ void OptionForOneStep::Update()
 		else
 		{
 			parent.SetPosition(AxesInfo::ConvertToLeft(parent.GetX()), AxesInfo::ConvertToTop(parent.GetY()));
-			currentStatus = (FullStatusType)StatusType::Stand;
+			currentStatus = StatusType::Stand;
+			Standed();
 		}
 	};
 	// ћетод дл€ вращени€ элемента
@@ -37,7 +51,7 @@ void OptionForOneStep::Update()
 		else
 		{
 			parent.SetSide(finishSide);
-			currentStatus = (FullStatusType)StatusType::Stand;
+			currentStatus = StatusType::AfterRotate;
 			MoveTo(nextX, nextY);
 		}
 	};
@@ -83,7 +97,7 @@ void OptionForOneStep::Update()
 			RotateElement(rotateSpeed, SideType::Down);
 			break;
 		default:
-			// Ќичего не делает
+			Standed();
 			break;
 	}
 }
@@ -91,13 +105,13 @@ void OptionForOneStep::MoveTo(const int & x, const int & y)
 {
 	// Ёлемент с нулевой скоростью не будет обрабатывать координаты перемещени€
 	// Ёлемент не может помен€ть траекторию во врем€ движени€
-	if ((moveSpeed > 0 ) && (GetCurrentStatus() == StatusType::Stand))
+	if ((moveSpeed > 0 ) && ((currentStatus == StatusType::Stand) || (currentStatus == StatusType::AfterRotate)))
 	{
 		int calcX = parent.GetX() - x;
 		int calcY = parent.GetY() - y;
 
 		// ќпци€ предназначена только дл€ соседних клеток
-		if ((calcX * calcY == 0) && (calcX + calcY == -1 || calcX + calcY == 1))
+		if (CheckAxesForNear(calcX, calcY) == true)
 		{
 			SideType calcSide;
 			if (calcX == 1) { calcSide = SideType::Left; }
@@ -116,7 +130,12 @@ void OptionForOneStep::MoveTo(const int & x, const int & y)
 					maxInterval = Settings::NODEHEIGHT - moveSpeed - 1;
 
 					// «начение SideType совпадают с перемещением в FullStatusType
-					currentStatus = (FullStatusType)parent.GetSide();
+					currentStatus = (StatusType)parent.GetSide();
+				}
+				else if (currentStatus == StatusType::AfterRotate)
+				{
+					currentStatus = StatusType::Stand;
+					Standed();
 				}
 			}
 			else
@@ -124,62 +143,44 @@ void OptionForOneStep::MoveTo(const int & x, const int & y)
 				nextX = x;
 				nextY = y;
 
-				// Ќаправление поворота можно изменить только между четверт€ми
-				if (GetCurrentStatus() != StatusType::Rotate)
-				{
-					currentInterval = 0;
-					maxInterval = QUADRANTOFCIRCLE - rotateSpeed - 1;
+				currentInterval = 0;
+				maxInterval = QUADRANTOFCIRCLE - rotateSpeed - 1;
 
-					switch (parent.GetSide())
-					{
-						// ≈сли сторона против часовой стрелки р€дом, то поворачиваем к ней, иначе поворачиваем по часовой
-					case SideType::Left:
-						if (calcSide == SideType::Down) { currentStatus = (FullStatusType)(SideType::Left + SideType::Down * CLOCKWIZEROTATION); }
-						else { currentStatus = (FullStatusType)(SideType::Left + SideType::Up * CLOCKWIZEROTATION); }
-						break;
-					case SideType::Up:
-						if (calcSide == SideType::Left) { currentStatus = (FullStatusType)(SideType::Up + SideType::Left * CLOCKWIZEROTATION); }
-						else { currentStatus = (FullStatusType)(SideType::Up + SideType::Right * CLOCKWIZEROTATION); }
-						break;
-					case SideType::Right:
-						if (calcSide == SideType::Up) { currentStatus = (FullStatusType)(SideType::Right + SideType::Up * CLOCKWIZEROTATION); }
-						else { currentStatus = (FullStatusType)(SideType::Right + SideType::Down * CLOCKWIZEROTATION); }
-						break;
-					case SideType::Down:
-						// «начение по умолчанию
-					default:
-						if (calcSide == SideType::Right) { currentStatus = (FullStatusType)(SideType::Down + SideType::Right * CLOCKWIZEROTATION); }
-						else { currentStatus = (FullStatusType)(SideType::Down + SideType::Left * CLOCKWIZEROTATION); }
-						break;
-					}
+				switch (parent.GetSide())
+				{
+					// ≈сли сторона против часовой стрелки р€дом, то поворачиваем к ней, иначе поворачиваем по часовой
+				case SideType::Left:
+					if (calcSide == SideType::Down) { currentStatus = (StatusType)(SideType::Left + SideType::Down * CLOCKWIZEROTATION); }
+					else { currentStatus = (StatusType)(SideType::Left + SideType::Up * CLOCKWIZEROTATION); }
+					break;
+				case SideType::Up:
+					if (calcSide == SideType::Left) { currentStatus = (StatusType)(SideType::Up + SideType::Left * CLOCKWIZEROTATION); }
+					else { currentStatus = (StatusType)(SideType::Up + SideType::Right * CLOCKWIZEROTATION); }
+					break;
+				case SideType::Right:
+					if (calcSide == SideType::Up) { currentStatus = (StatusType)(SideType::Right + SideType::Up * CLOCKWIZEROTATION); }
+					else { currentStatus = (StatusType)(SideType::Right + SideType::Down * CLOCKWIZEROTATION); }
+					break;
+				case SideType::Down:
+					// «начение по умолчанию
+				default:
+					if (calcSide == SideType::Right) { currentStatus = (StatusType)(SideType::Down + SideType::Right * CLOCKWIZEROTATION); }
+					else { currentStatus = (StatusType)(SideType::Down + SideType::Left * CLOCKWIZEROTATION); }
+					break;
 				}
 			}
 		}
 	}
 	// ¬ процессе поворота можно мен€ть координаты
-	else if ((moveSpeed > 0) && (GetCurrentStatus() == StatusType::Rotate))
+	else if ((moveSpeed > 0) && ((currentStatus | StatusType::Rotate) == StatusType::Rotate))
 	{
 		nextX = x;
 		nextY = y;
 	}
 }
 
-OptionForOneStep::StatusType OptionForOneStep::GetCurrentStatus() const
+bool OptionForOneStep::CheckAxesForNear(const int & x, const int & y) const
 {
-	if (currentStatus == StatusType::Stand)
-	{
-		return StatusType::Stand;
-	}
-	else if ((currentStatus | StatusType::Move) == StatusType::Move)
-	{
-		return StatusType::Move;
-	}
-	else if ((currentStatus | StatusType::Rotate) == StatusType::Rotate)
-	{
-		return StatusType::Rotate;
-	}
-	else
-	{
-		return StatusType::Stand;
-	}
+	int sum = x + y;
+	return ((x == 0) || (y == 0)) && (sum == -1 || sum == 1);
 }
