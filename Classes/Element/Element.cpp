@@ -6,11 +6,15 @@ bool AutoDrawDeleteStatus = true;
 
 Element::Element(cocos2d::Node * node, ElementNameType name, ClassType type)
 {
+	static int id = 0;
 	data = std::make_shared<ElementData>();
 
+	data->id = id;
 	data->node = node;
 	data->name = name;
 	data->type = type;
+
+	id++;
 }
 Element::Element(const Element & value)
 {
@@ -120,13 +124,17 @@ Element Element::operator=(const Element & value) const
 }
 bool Element::operator==(const Element & value) const
 {
-	return data->node == value.data->node;
+	return data->id == value.data->id;
 }
 bool Element::operator!=(const Element & value) const
 {
-	return data->node != value.data->node;
+	return data->id != value.data->id;
 }
 
+int Element::GetID() const
+{
+	return data->id;
+}
 void Element::SetX(const int & value)
 {
 	data->position.SetX(value);

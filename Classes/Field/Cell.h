@@ -35,12 +35,27 @@ public:
 	// Удалить все элементы
 	void RemoveElements() { Destroy(true); };
 private:
+	// Класс изменения положения элемента
+	class MoveElement : public Element
+	{
+	public:
+		// Инициализация переменных
+		MoveElement(const Element & value) : Element(value) {}
+		// Изменение положения элемента
+		void SetPosition(const int & x, const int & y, const int & order) { SetX(x); SetY(y); SetOrder(order); }
+
+		// Сравнение двух координат
+		bool operator== (const Element & value) const { return GetID() == value.GetID(); }
+		// Сравнение двух координат
+		bool operator!= (const Element & value) const { return GetID() != value.GetID(); }
+	};
+
 	// Положение ячейки по оси X
 	int x;
 	// Положение ячейки по оси Y
 	int y;
 	// Набор элементов
-	std::list<Element> items;
+	std::list<MoveElement> items;
 
 	// Проверить наличие повторяющихся элементов
 	ClassType GetDoubleElements() const;

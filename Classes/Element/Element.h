@@ -26,12 +26,14 @@ public:
 	// Инициализация переменных
 	Element(cocos2d::Node * node, ElementNameType name, ClassType type);
 	// Копирование элемента
-	Element(const Element&);
+	Element(const Element & value);
 	// Удаление данных
 	~Element();
 	// Выключить автоматическое удаление прорисовок
 	static void OffAutoDrawDelete();
 
+	// Получить персональный идентификатор
+	int GetID() const;
 	// Получить имя
 	ElementNameType GetName() const;
 	// Получить тип
@@ -84,9 +86,6 @@ protected:
 private:
 	// Данные элемента
 	std::shared_ptr<ElementData> data;
-
-	// Изменить положение элемента
-	friend void SetAxes(Element & element, const int & x, const int & y);
 
 	// Удаление конструктора по умолчанию
 	Element() = delete;

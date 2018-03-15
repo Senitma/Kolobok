@@ -9,8 +9,8 @@
 #include "Option\MoveType.h"
 #include "Settings.h"
 
-#include "cocos2d.h"
-#include "cocostudio\CocoStudio.h"
+#include "2d\CCNode.h"
+#include "cocostudio\ActionTimeline\CSLoader.h"
 
 #include "Elements.h"
 

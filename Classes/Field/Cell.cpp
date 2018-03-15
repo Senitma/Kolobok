@@ -9,7 +9,7 @@
 
 Cell::Cell()
 {
-	items = std::list<Element>();
+	items = std::list<MoveElement>();
 }
 
 void Cell::SetIndex(const int & index)
@@ -25,7 +25,7 @@ bool Cell::CanAddElement(const ClassType & type) const
 }
 bool Cell::ContainName(const ElementNameType & name) const
 {
-	auto result = std::find_if(items.begin(), items.end(), [=](const Element & item)
+	auto result = std::find_if(items.begin(), items.end(), [=](const MoveElement & item)
 	{
 		return name == item.GetName();
 	});
@@ -34,7 +34,7 @@ bool Cell::ContainName(const ElementNameType & name) const
 }
 bool Cell::ContainType(const ClassType & type) const
 {
-	auto result = std::find_if(items.begin(), items.end(), [=](const Element & item)
+	auto result = std::find_if(items.begin(), items.end(), [=](const MoveElement & item)
 	{
 		return type == item.GetType();
 	});
@@ -49,8 +49,10 @@ ResultType Cell::AddElement(Element & item)
 {
 	if (ContainElement(item) == false)
 	{
-		SetAxes(item, x, y);
+		int order = AxesInfo::ConvertToIndex(x, y) * Relations::GetOrderDelta(item.GetType());
+
 		items.push_back(item);
+		items.back().SetPosition(x, y, order);
 		return CheckRelations();
 	}
 
@@ -68,7 +70,7 @@ ClassType Cell::GetDoubleElements() const
 	int result = 0;
 	int types = 0;
 
-	std::any_of(items.begin(), items.end(), [&](const Element & item)
+	std::any_of(items.begin(), items.end(), [&](const MoveElement & item)
 	{
 		int type = item.GetType();
 		if ((types & type) == type)
@@ -89,7 +91,7 @@ int Cell::GetAllTypes() const
 {
 	int result = 0;
 
-	std::for_each(items.begin(), items.end(), [&](const Element & item)
+	std::for_each(items.begin(), items.end(), [&](const MoveElement & item)
 	{
 		result |= (int)item.GetType();
 	});
@@ -121,12 +123,4 @@ void Cell::Destroy(const bool & allItem)
 			items.remove(item);
 		}
 	});
-}
-
-// Friend функция класса Element
-void SetAxes(Element & element, const int & x, const int & y)
-{
-	element.SetX(x);
-	element.SetY(y);
-	element.SetOrder(AxesInfo::ConvertToIndex(x, y) * Relations::GetOrderDelta(element.GetType()));
 }

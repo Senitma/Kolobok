@@ -1,19 +1,18 @@
-#include "MainScene.h"
-#include "Field\Field.h"
-#include "Maps.h"
-#include "Settings.h"
-#include "cocostudio/CocoStudio.h"
-#include "ui/CocosGUI.h"
 #include "Element\Element.h"
-
+#include "Field\Field.h"
 #include "Option\ISMouse.h"
 #include "Option\ISInterval.h"
+#include "Maps.h"
+#include "Settings.h"
 
-USING_NS_CC;
+#include "ui\CocosGUI.h"
+#include "cocostudio\ActionTimeline\CSLoader.h"
 
-Scene* MainScene::createScene()
+#include "MainScene.h"
+
+cocos2d::Scene* MainScene::createScene()
 {
-	auto scene = Scene::create();
+	auto scene = cocos2d::Scene::create();
 	auto layer = MainScene::create();
 	scene->addChild(layer);
 
@@ -27,10 +26,10 @@ bool MainScene::init()
 		return false;
 	}
 
-	auto rootNode = CSLoader::createNode("MainScene.csb");
-	Size size = Director::getInstance()->getVisibleSize();
+	auto rootNode = cocos2d::CSLoader::createNode("MainScene.csb");
+	cocos2d::Size size = cocos2d::Director::getInstance()->getVisibleSize();
 	rootNode->setContentSize(size);
-	ui::Helper::doLayout(rootNode);
+	cocos2d::ui::Helper::doLayout(rootNode);
 	this->addChild(rootNode);
 
 	Maps::Load();
@@ -45,13 +44,13 @@ void MainScene::onEnter()
 {
 	Layer::onEnter();
 
-	auto touchListener = EventListenerMouse::create();
+	auto touchListener = cocos2d::EventListenerMouse::create();
 
 	touchListener->onMouseDown = [](cocos2d::Event* event)
 	{
-		EventMouse* mouseEvent = dynamic_cast<EventMouse*>(event);
+		cocos2d::EventMouse* mouseEvent = dynamic_cast<cocos2d::EventMouse*>(event);
 
-		Vec2 currentLocation = mouseEvent->getLocation();
+		cocos2d::Vec2 currentLocation = mouseEvent->getLocation();
 		ISMouse::PassMouseClick((MouseType)mouseEvent->getMouseButton(), currentLocation.x, Settings::FIELDHEIGHTSIZE - currentLocation.y);
 
 		return true;

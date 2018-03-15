@@ -1,15 +1,19 @@
 #pragma once
 
+#include "queue"
+
 #include "ElementNameType.h"
 #include "SideType.h"
 #include "ClassType.h"
 #include "Field\Axes.h"
 
-#include "cocos2d.h"
+#include "2d\CCNode.h"
 
 // Данные элемента
 struct ElementData
 {
+	// Персональный идентификатор
+	int id;
 	// Имя элемента
 	ElementNameType name;
 	// Тип элемента
