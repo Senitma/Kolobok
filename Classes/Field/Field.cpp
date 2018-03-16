@@ -100,22 +100,22 @@ void Field::Destroy(const int & x, const int & y)
 	cells.at(AxesInfo::ConvertToIndex(x, y)).RemoveElements();
 }
 
-std::vector<TagAxes> Field::CreateBlockMap()
+std::vector<Vertex> Field::CreateBlockMap()
 {
-	std::vector<TagAxes> result;
+	std::vector<Vertex> result;
 
 	std::for_each(cells.begin(), cells.end(), [&](const Cell & item) 
 	{
-		TagAxes newPoint = TagAxes(item.GetX(), item.GetY());
+		Vertex newPoint = Vertex(item.GetX(), item.GetY());
 
 		if (item.ContainType(ClassType::Block) == true)
 		{
-			newPoint.SetTag(-3);
+			newPoint.SetPathCounter(Vertex::BLOCKINDEX);
 			result.push_back(newPoint);
 		}
 		else
 		{
-			newPoint.SetTag(-1);
+			newPoint.SetPathCounter(Vertex::EMPTYINDEX);
 			result.push_back(newPoint);
 		}
 	});

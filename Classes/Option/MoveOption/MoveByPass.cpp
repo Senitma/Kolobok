@@ -1,21 +1,22 @@
 #include "algorithm"
 
-#include "Field\TagAxes.h"
+#include "Field\Vertex.h"
 #include "Field\AxesInfo.h"
 #include "Field\Field.h"
 #include "Settings.h"
 
 #include "MoveByPass.h"
 
-MoveByPass::MoveByPass()
+MoveByPass::MoveByPass() : MoveByPass(Field::CreateBlockMap()) {}
+MoveByPass::MoveByPass(const std::vector<Vertex> & map)
 {
-	map = Field::CreateBlockMap();
-}
-MoveByPass::MoveByPass(const std::vector<TagAxes> & map)
-{
+	step = 0;
+	startX = 0;
+	startY = 0;
+	finishX = 0;
+	finishY = 0;
+
 	this->map = map;
-	// Удаление старых маршрутов
-	Clear();
 }
 
 bool MoveByPass::CanMoveTo(const Axes & start, const Axes & finish)
@@ -48,6 +49,7 @@ std::queue<Axes> MoveByPass::MoveTo(const Axes & start, const Axes & finish, con
 			MoveByPass reversePath = MoveByPass(path.GetMap());
 			reversePath.SetStart(path.GetFinish());
 			reversePath.SetFinish(path.GetStart());
+			reversePath.Clear();
 
 			reversePath.FindFinish(true);
 			std::deque<Axes> reverseAxesPath;
@@ -97,22 +99,20 @@ Axes MoveByPass::GetStart() const
 {
 	return Axes(startX, startY);
 }
-
 Axes MoveByPass::GetFinish() const
 {
 	return Axes(finishX, finishY);
 }
-
 void MoveByPass::SetStart(const Axes & value)
 {
-	this->map.at(AxesInfo::ConvertToIndex(value)).SetTag(0);
+	map.at(AxesInfo::ConvertToIndex(value)).SetPathCounter(0);
+	//map.at(AxesInfo::ConvertToIndex(value)).SetEmpty(true);
 	startX = value.GetX();
 	startY = value.GetY();
 }
-
 void MoveByPass::SetFinish(const Axes & value)
 {
-	this->map.at(AxesInfo::ConvertToIndex(value)).SetTag(-2);
+	map.at(AxesInfo::ConvertToIndex(value)).SetPathCounter(-2);
 	finishX = value.GetX();
 	finishY = value.GetY();
 }
@@ -120,14 +120,20 @@ void MoveByPass::SetFinish(const Axes & value)
 bool MoveByPass::FindFinish(const bool & rotateCheck)
 {
 	// Функция для добавления новой точки на карте с учетом поворота
-	auto AddStep = [&](const TagAxes & parent, const int & offsetX, const int & offsetY, const int & offsetStep)
+	auto AddStep = [&](const Vertex & parent, const int & offsetX, const int & offsetY, const int & offsetStep, const bool & empty)
 	{
-		TagAxes & child = GetChild(GetChild(parent, offsetX, 0), 0, offsetY);
+		Vertex & child = GetChild(GetChild(parent, offsetX, 0), 0, offsetY);
 
-		if (child.GetTag() == -1)
+		if (child.GetPathCounter() == -1)
 		{
-			child.SetTag(step + offsetStep);
+			child.SetPathCounter(step + offsetStep);
+			//child.SetEmpty(child.GetEmpty() | empty);
 			return true;
+		}
+		else if (child.GetPathCounter() > step)
+		{
+			//child.SetEmpty(child.GetEmpty() | empty);
+			return false;
 		}
 		else
 		{
@@ -135,11 +141,11 @@ bool MoveByPass::FindFinish(const bool & rotateCheck)
 		}
 	};
 	// Функция для поиска клетки финиша в соседних клетках
-	auto CheckFinish = [&](TagAxes & parent, const int & offsetX, const int & offsetY)
+	auto CheckFinish = [&](Vertex & parent, const int & offsetX, const int & offsetY)
 	{
-		TagAxes & child = GetChild(parent, offsetX, offsetY);
+		Vertex & child = GetChild(parent, offsetX, offsetY);
 
-		if (child.GetTag() == -2)
+		if (child.GetPathCounter() == -2)
 		{
 			return true;
 		}
@@ -151,37 +157,44 @@ bool MoveByPass::FindFinish(const bool & rotateCheck)
 
 	step = 0;
 	int currentEmptyMove = 0;
-	const int MAXEMPTYMOVE = 4;
+	const int MAXEMPTYMOVE = 3;
 	bool isFinished = false;
 
 	do
 	{
-		std::all_of(map.begin(), map.end(), [&](TagAxes & item)
+		std::all_of(map.begin(), map.end(), [&](Vertex & item)
 		{
 			// Найти опорную точку для следующего шага
-			if (item.GetTag() == step)
+			if (item.GetPathCounter() == step)
 			{
-				// Отметить все соседние свободные ячейки Неймана
-				if ((AddStep(item, 1, 0, 1) | AddStep(item, 0, 1, 1) | AddStep(item, -1, 0, 1) | AddStep(item, 0, -1, 1)) == true)
+				//if (item.GetEmpty() == false)
+				//{
+				//	item.SetPathCounter(-1);
+				//}
+				//else
 				{
-					currentEmptyMove = MAXEMPTYMOVE;
-				}
-				if (rotateCheck == true)
-				{
-					// Отметить все соседние свободные ячейки Мура
-					if ((AddStep(item, 1, 1, 3) | AddStep(item, -1, 1, 3) | AddStep(item, 1, -1, 3) | AddStep(item, -1, -1, 3)) == true)
+					// Отметить все соседние свободные ячейки Неймана
+					if ((AddStep(item, 1, 0, 1, true) | AddStep(item, 0, 1, 1, true) | AddStep(item, -1, 0, 1, true) | AddStep(item, 0, -1, 1, true)) == true)
 					{
 						currentEmptyMove = MAXEMPTYMOVE;
 					}
-				}
+					if (rotateCheck == true)
+					{
+						// Отметить все соседние свободные ячейки Мура
+						if ((AddStep(item, 1, 1, 3, false) | AddStep(item, -1, 1, 3, false) | AddStep(item, 1, -1, 3, false) | AddStep(item, -1, -1, 3, false)) == true)
+						{
+							currentEmptyMove = MAXEMPTYMOVE;
+						}
+					}
 
-				// Проверить наличие финиша рядом
-				if ((CheckFinish(item, 1, 0) == true) ||
-					((CheckFinish(item, 0, 1) == true) ||
-					(CheckFinish(item, -1, 0) == true) ||
-						(CheckFinish(item, 0, -1) == true)))
-				{
-					isFinished = true;
+					// Проверить наличие финиша рядом
+					if ((CheckFinish(item, 1, 0) == true) ||
+						((CheckFinish(item, 0, 1) == true) ||
+						(CheckFinish(item, -1, 0) == true) ||
+							(CheckFinish(item, 0, -1) == true)))
+					{
+						isFinished = true;
+					}
 				}
 			}
 
@@ -209,12 +222,12 @@ bool MoveByPass::FindNewFinish()
 			{
 				for (int y = minY; y < maxY; y++)
 				{
-					TagAxes point = map.at(AxesInfo::ConvertToIndex(x, y));
-					if (point.GetTag() > 0)
+					Vertex point = map.at(AxesInfo::ConvertToIndex(x, y));
+					if (point.GetPathCounter() > 0)
 					{
 						finishX = point.GetX();;
 						finishY = point.GetY();
-						step = point.GetTag();
+						step = point.GetPathCounter();
 
 						return true;
 					}
@@ -224,7 +237,7 @@ bool MoveByPass::FindNewFinish()
 			if (minY > 0) { minY--; }
 			if (maxX < Settings::HORIZONTALCELLCOUNT) { maxX++; }
 			if (maxY < Settings::VERTICALCELLCOUNT) { maxY++; }
-		} while ((minX > 0) || (minY >0) || (maxX < Settings::HORIZONTALCELLCOUNT) || (maxY < Settings::VERTICALCELLCOUNT));
+		} while ((minX > 0) || (minY > 0) || (maxX < Settings::HORIZONTALCELLCOUNT) || (maxY < Settings::VERTICALCELLCOUNT));
 
 		return false;
 	}
@@ -236,14 +249,14 @@ bool MoveByPass::FindNewFinish()
 std::deque<Axes> MoveByPass::CreateMoveMap()
 {
 	std::deque<Axes> path;
-	TagAxes prevAxes = TagAxes(finishX, finishY, step);
+	Vertex prevAxes = Vertex(finishX, finishY, step);
 	Axes prevPrevAxes = prevAxes;
 	step = 0;
 
 	// Формирование набора точек от финиша до цели
-	while (prevAxes.GetTag() != 0)
+	while (prevAxes.GetPathCounter() != 0)
 	{
-		TagAxes newAxes = TagAxes(0, 0, 0);
+		Vertex newAxes = Vertex(0, 0, 0);
 		int newStep = 0;
 
 		// Добавление новой координаты в очередь
@@ -252,17 +265,17 @@ std::deque<Axes> MoveByPass::CreateMoveMap()
 		// Функция поиска нового шага рядом с клеткой
 		auto FindMinStep = [&](const int & offsetX, const int & offsetY)
 		{
-			TagAxes & child = GetChild(prevAxes, offsetX, offsetY);
+			Vertex & child = GetChild(prevAxes, offsetX, offsetY);
 
 			// Пути по прямой в приоритете
-			if ((child.GetTag() >= 0) && (child.GetTag() < prevAxes.GetTag()))
+			if ((child.GetPathCounter() >= 0) && (child.GetPathCounter() < prevAxes.GetPathCounter()))
 			{
 				if ((child.GetX() == prevPrevAxes.GetX()) || (child.GetY() == prevPrevAxes.GetY()))
 				{
 					newAxes = child;
 					newStep = 1;
 				}
-				else if (newAxes.GetTag() == 0)
+				else if (newAxes.GetPathCounter() == 0)
 				{
 					newAxes = child;
 					newStep = 2;
@@ -280,13 +293,11 @@ std::deque<Axes> MoveByPass::CreateMoveMap()
 		prevAxes = newAxes;
 		step += newStep;
 	}
-#pragma warning( default: "Убрать строку после переработки опций" )
-	path.push_back(Axes(prevAxes));
 
 	return path;
 }
 
-TagAxes & MoveByPass::GetChild(const TagAxes & parent, const int & offsetX, const int & offsetY)
+Vertex & MoveByPass::GetChild(const Vertex & parent, const int & offsetX, const int & offsetY)
 {
 	if ((offsetX == 1) && (parent.GetX() < Settings::HORIZONTALCELLCOUNT - 1))
 	{
@@ -311,11 +322,12 @@ TagAxes & MoveByPass::GetChild(const TagAxes & parent, const int & offsetX, cons
 }
 void MoveByPass::Clear()
 {
-	std::for_each(map.begin(), map.end(), [&](TagAxes & item)
+	std::for_each(map.begin(), map.end(), [&](Vertex & item)
 	{
-		if (item.GetTag() > 0)
+		if (item.GetPathCounter() > 0)
 		{
-			item.SetTag(-1);
+			item.SetPathCounter(-1);
+			//item.SetEmpty(false);
 		}
 	});
 }

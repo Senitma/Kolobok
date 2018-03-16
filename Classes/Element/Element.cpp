@@ -111,6 +111,8 @@ void Element::SetDestroyStatus(const bool & value)
 
 void Element::AddPoint(const int & x, const int & y)
 {
+	// Для повторной проверки маршрута координаты дублируются
+	data->patrolPoints.push(Axes(x, y));
 	data->patrolPoints.push(Axes(x, y));
 }
 std::queue<Axes> & Element::GetPoints()

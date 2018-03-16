@@ -2,7 +2,7 @@
 
 #include "vector"
 
-#include "TagAxes.h"
+#include "Vertex.h"
 #include "Element\Element.h"
 
 // Модуль управления полем
@@ -36,7 +36,7 @@ namespace Field
 	void Destroy(const int & x, const int & y);
 
 	// Создать карту с блоками
-	std::vector<TagAxes> CreateBlockMap();
+	std::vector<Vertex> CreateBlockMap();
 	// Проверить наличие пути от главного персонажа до финиша
 	bool CheckPath();
 };

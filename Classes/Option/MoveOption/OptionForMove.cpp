@@ -105,5 +105,5 @@ std::queue<Axes> OptionForMove::GenerateLinePath(const int & x, const int & y)
 }
 std::queue<Axes> OptionForMove::GenerateByPassPath(const int & x, const int & y)
 {
-	return MoveByPass::MoveTo(parent.GetAxes(), Axes(x, y), true);
+	return MoveByPass::MoveTo(parent.GetAxes(), Axes(x, y), false);
 }

@@ -7,7 +7,7 @@
 //Базовый класс всех координат
 class Axes;
 // Класс координат с идентификатором
-class TagAxes;
+class Vertex;
 
 // Класс поиска оптимального пути
 class MoveByPass
@@ -16,10 +16,10 @@ public:
 	// Инициализация переменных
 	MoveByPass();
 	// Инициализация переменных
-	MoveByPass(const std::vector<TagAxes> & map);
+	MoveByPass(const std::vector<Vertex> & map);
 
 	// Получить карту для прохождения
-	const std::vector<TagAxes> & GetMap() const { return map; };
+	const std::vector<Vertex> & GetMap() const { return map; };
 
 	// Проверка возможности дойти до финиша
 	static bool CanMoveTo(const Axes & start, const Axes & finish);
@@ -37,7 +37,7 @@ private:
 	// Координаты финиша по оси Y
 	int finishY;
 	// Карта для прохождения
-	std::vector<TagAxes> map;
+	std::vector<Vertex> map;
 
 	// Получить количество шагов
 	int GetStep() const { return step; };
@@ -45,9 +45,9 @@ private:
 	Axes GetStart() const;
 	// Получить координаты финиша
 	Axes GetFinish() const;
-	// Изменить координаты старта
+	//// Изменить координаты старта
 	void SetStart(const Axes & value);
-	// Изменить координаты финиша
+	//// Изменить координаты финиша
 	void SetFinish(const Axes & value);
 
 	// Проложить маршрут до финиша
@@ -58,7 +58,7 @@ private:
 	std::deque<Axes> CreateMoveMap();
 
 	// Получить ссылку на соседнюю клетку
-	TagAxes & GetChild(const TagAxes & parent, const int & offsetX, const int & offsetY);
+	Vertex & GetChild(const Vertex & parent, const int & offsetX, const int & offsetY);
 	// Удалить расчеты с карты
 	void Clear();
 };

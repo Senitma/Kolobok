@@ -181,9 +181,6 @@
     <ClInclude Include="Classes\Field\AxesInfo.h">
       <Filter>Field</Filter>
     </ClInclude>
-    <ClInclude Include="Classes\Field\TagAxes.h">
-      <Filter>Field</Filter>
-    </ClInclude>
     <ClInclude Include="Classes\Main\Maps.h">
       <Filter>Main</Filter>
     </ClInclude>
@@ -201,6 +198,9 @@
     </ClInclude>
     <ClInclude Include="Classes\Option\MoveType.h">
       <Filter>Option\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\Field\Vertex.h">
+      <Filter>Field</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

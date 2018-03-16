@@ -8,12 +8,14 @@ OptionForPatrol::OptionForPatrol(const Element & parent) : OptionForMove(parent)
 
 void OptionForPatrol::MoveFinished()
 {
+	// Для повторной проверки маршрута координаты дублируются
 	switch (patrolType)
 	{
 		case PatrolType::DestroyWay:
 			if (patrolPoints.size() > 0)
 			{
 				OptionForMove::MoveTo(patrolPoints.front().GetX(), patrolPoints.front().GetY());
+				patrolPoints.pop();
 				patrolPoints.pop();
 			}
 			else
