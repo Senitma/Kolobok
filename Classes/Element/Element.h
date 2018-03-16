@@ -17,7 +17,7 @@ enum ClassType;
 // Перечисление возможных направлений
 enum SideType;
 // Координаты элемента
-class Axes;
+struct Axes;
 
 // Класс управления данными элемента
 class Element

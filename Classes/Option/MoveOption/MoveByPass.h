@@ -5,7 +5,7 @@
 #include "queue"
 
 //Базовый класс всех координат
-class Axes;
+struct Axes;
 // Класс координат с идентификатором
 class Vertex;
 

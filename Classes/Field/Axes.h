@@ -1,10 +1,9 @@
 #pragma once
 
-// Класс координат
-class Axes
+// Координаты элемента
+struct Axes
 {
 public:
-
 	// Инициализация переменных
 	Axes() : Axes(0, 0) {};
 	// Инициализация переменных
@@ -18,12 +17,9 @@ public:
 	void SetX(const int & value) { x = value; };
 	// Изменить положение по оси Y
 	void SetY(const int & value) { y = value; };
-
 protected:
-
 	// Положение по оси X
 	int x;
 	// Положение по оси Y
 	int y;
-
 };

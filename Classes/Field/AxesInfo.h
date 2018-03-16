@@ -1,7 +1,7 @@
 #pragma once
 
 // Класс координат
-class Axes;
+struct Axes;
 
 // Класс информации для координат
 class AxesInfo
