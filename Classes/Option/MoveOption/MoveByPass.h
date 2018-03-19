@@ -61,4 +61,6 @@ private:
 	bool FindNewFinish();
 	// —формировать набор точек дл€ перемещени€
 	std::deque<Axes> CreateMoveMap();
+	// —формировать набор точек дл€ перемещени€
+	std::deque<Axes> CreateMoveMap(const int & finishX, const int & finishY, std::deque<Axes> path);
 };

@@ -184,6 +184,24 @@ bool MoveByPass::FindFinish()
 			{
 				queue.push(RefVertex(vertex.GetX(), vertex.GetY(), parentCounter + vertex.GetWeight()));
 				vertex.SetCounter(parentCounter + vertex.GetWeight());
+
+				if ((vertex.GetLeftNearEdge().GetSecondStatus() == true) && (vertex.GetLeftNearEdge().GetSecondVertex().GetCounter() == vertex.GetCounter()))
+				{
+					vertex.GetLeftNearEdge().GetSecondVertex().SetCounter(Vertex::EMPTYINDEX);
+				}
+				if ((vertex.GetUpNearEdge().GetSecondStatus() == true) && (vertex.GetUpNearEdge().GetSecondVertex().GetCounter() == vertex.GetCounter()))
+				{
+					vertex.GetUpNearEdge().GetSecondVertex().SetCounter(Vertex::EMPTYINDEX);
+				}
+				if ((vertex.GetRightNearEdge().GetSecondStatus() == true) && (vertex.GetRightNearEdge().GetSecondVertex().GetCounter() == vertex.GetCounter()))
+				{
+					vertex.GetRightNearEdge().GetSecondVertex().SetCounter(Vertex::EMPTYINDEX);
+				}
+				if ((vertex.GetDownNearEdge().GetSecondStatus() == true) && (vertex.GetDownNearEdge().GetSecondVertex().GetCounter() == vertex.GetCounter()))
+				{
+					vertex.GetDownNearEdge().GetSecondVertex().SetCounter(Vertex::EMPTYINDEX);
+				}
+
 				return true;
 			}
 			else if (vertex.GetCounter() == Vertex::EMPTYINDEX)
@@ -196,52 +214,13 @@ bool MoveByPass::FindFinish()
 		return false;
 	};
 
-	auto CheckFinish = [&](Edge & value)
-	{
-		if (value.GetSecondStatus() == true)
-		{
-			if (value.GetSecondVertex().GetCounter() == Vertex::FINISHINDEX)
-			{
-				return true;
-			}
-		}
-
-		return false;
-	};
-
 	while (queue.size() != 0)
 	{
 		// Получить опорную точку для изменения счетчиков
 		Vertex & item = vertexMap.at(AxesInfo::ConvertToIndex(queue.top().x, queue.top().y));
 		queue.pop();
 
-		if (item.GetCounter() != step) { step = item.GetCounter(); }
-
-		if (CheckFinish(item.GetLeftNearEdge()) == true |
-			CheckFinish(item.GetUpNearEdge()) == true |
-			CheckFinish(item.GetRightNearEdge()) == true |
-			CheckFinish(item.GetDownNearEdge()) == true)
-		{
-			if ((item.GetLeftNearEdge().GetSecondStatus() == true) && (item.GetLeftNearEdge().GetSecondVertex().GetCounter() == item.GetCounter()))
-			{
-				item.GetLeftNearEdge().GetSecondVertex().SetCounter(Vertex::EMPTYINDEX);
-			}
-			if ((item.GetUpNearEdge().GetSecondStatus() == true) && (item.GetUpNearEdge().GetSecondVertex().GetCounter() == item.GetCounter()))
-			{
-				item.GetUpNearEdge().GetSecondVertex().SetCounter(Vertex::EMPTYINDEX);
-			}
-			if ((item.GetRightNearEdge().GetSecondStatus() == true) && (item.GetRightNearEdge().GetSecondVertex().GetCounter() == item.GetCounter()))
-			{
-				item.GetRightNearEdge().GetSecondVertex().SetCounter(Vertex::EMPTYINDEX);
-			}
-			if ((item.GetDownNearEdge().GetSecondStatus() == true) && (item.GetDownNearEdge().GetSecondVertex().GetCounter() == item.GetCounter()))
-			{
-				item.GetDownNearEdge().GetSecondVertex().SetCounter(Vertex::EMPTYINDEX);
-			}
-
-			// В случае нахождения клетки финиша выходим из функции
-			return true;
-		}
+		if (step != item.GetCounter()) { step = item.GetCounter(); }
 
 		// Отметить все соседние свободные ячейки Неймана
 		if (AddCount(item.GetCounter(), item.GetLeftNearEdge()) |
@@ -250,6 +229,8 @@ bool MoveByPass::FindFinish()
 			AddCount(item.GetCounter(), item.GetDownNearEdge()) == true)
 		{
 
+			// В случае нахождения клетки финиша выходим из функции
+			return true;
 		}
 	}
 
@@ -264,11 +245,49 @@ void MoveByPass::AddLinePathPreoritety()
 	queue.push(RefVertex(startX, startY, step));
 
 	// Функция для изменения счетчика с двумя вершинами
-	auto AddCount = [&](Vertex & first, Edge & next, const int & offset, const SideType & side)
+	auto AddCount = [&](Vertex & first, Edge & next, const SideType & side)
 	{
 		if (next.GetSecondStatus() == true)
 		{
 			Vertex & second = next.GetSecondVertex();
+
+			int newSide = second.GetSide() | side;
+			int offset = 2;
+
+			if ((first.GetX() == startX) && (first.GetY() == startY))
+			{
+				offset = 0;
+			}
+			else
+			{
+				switch (first.GetSide())
+				{
+					case SideType::Left:
+						if (newSide & 2 == 2) { if (offset > 0) { offset = 0; } }
+						if (newSide & 4 == 4) { if (offset > 1) { offset = 1; } }
+						if (newSide & 16 == 16) { if (offset > 1) { offset = 1; } }
+						break;
+					case SideType::Up:
+						if (newSide & 2 == 2) { if (offset > 1) { offset = 1; } }
+						if (newSide & 4 == 4) { if (offset > 0) { offset = 0; } }
+						if (newSide & 8 == 8) { if (offset > 1) { offset = 1; } }
+						break;
+					case SideType::Right:
+						if (newSide & 4 == 4) { if (offset > 1) { offset = 1; } }
+						if (newSide & 8 == 8) { if (offset > 0) { offset = 0; } }
+						if (newSide & 16 == 16) { if (offset > 1) { offset = 1; } }
+						break;
+					case SideType::Down:
+						if (newSide & 2 == 2) { if (offset > 1) { offset = 1; } }
+						if (newSide & 8 == 8) { if (offset > 1) { offset = 1; } }
+						if (newSide & 16 == 16) { if (offset > 0) { offset = 0; } }
+						break;
+					default:
+						// Изменений не требуется
+						break;
+				}
+			}
+
 			// Расчет веса ребра
 			int weight = first.GetSideCounter() + offset;
 
@@ -330,37 +349,36 @@ void MoveByPass::AddLinePathPreoritety()
 			}
 			else if (second.GetSideCounter() == weight)
 			{
-				second.SetSide(SideType::None);
+				second.SetSide((SideType)(second.GetSide() | first.GetSide()));
 				second.GetAddPrevEdge().SetSecondVertex(first);
 
-				if (first.GetMainPrevEdge().GetSecondStatus() == true)
-				{
-					if (first.GetMainPrevEdge().GetSecondVertex().GetX() == second.GetX() ||
-						first.GetMainPrevEdge().GetSecondVertex().GetY() == second.GetY())
-					{
-						second.GetProgenitor().SetSecondVertex(first.GetMainPrevEdge().GetSecondVertex());
-					}
-				}
-				if (first.GetAddPrevEdge().GetSecondStatus() == true)
-				{
-					if (first.GetAddPrevEdge().GetSecondVertex().GetX() == second.GetX() ||
-						first.GetAddPrevEdge().GetSecondVertex().GetY() == second.GetY())
-					{
-						second.GetProgenitor().SetSecondVertex(first.GetAddPrevEdge().GetSecondVertex());
-					}
-				}
+				//if (first.GetMainPrevEdge().GetSecondStatus() == true)
+				//{
+				//	if (first.GetMainPrevEdge().GetSecondVertex().GetX() == second.GetX() ||
+				//		first.GetMainPrevEdge().GetSecondVertex().GetY() == second.GetY())
+				//	{
+				//		//if (second.GetX() != first.GetMainPrevEdge().GetSecondVertex().GetX() ||
+				//		//	second.GetY() != first.GetMainPrevEdge().GetSecondVertex().GetY())
+				//		//{
+				//			second.GetProgenitor().SetSecondVertex(first.GetMainPrevEdge().GetSecondVertex());
+				//		//}
+				//	}
+				//}
+				//if (first.GetAddPrevEdge().GetSecondStatus() == true)
+				//{
+				//	if (first.GetAddPrevEdge().GetSecondVertex().GetX() == second.GetX() ||
+				//		first.GetAddPrevEdge().GetSecondVertex().GetY() == second.GetY())
+				//	{
+				//		//if (second.GetX() != first.GetMainPrevEdge().GetSecondVertex().GetX() ||
+				//		//	second.GetY() != first.GetMainPrevEdge().GetSecondVertex().GetY())
+				//		//{
+				//			second.GetProgenitor().SetSecondVertex(first.GetMainPrevEdge().GetSecondVertex());
+				//		//}
+				//	}
+				//}
 			}
 		}
 	};
-
-	// Получить опорную точку для изменения счетчиков
-	Vertex & item = vertexMap.at(AxesInfo::ConvertToIndex(queue.top().x, queue.top().y));
-	queue.pop();
-
-	AddCount(item, item.GetLeftNearEdge(), 0, SideType::Left);
-	AddCount(item, item.GetUpNearEdge(), 0, SideType::Up);
-	AddCount(item, item.GetRightNearEdge(), 0, SideType::Right);
-	AddCount(item, item.GetDownNearEdge(), 0, SideType::Down);
 
 	while (queue.size() != 0)
 	{
@@ -368,42 +386,10 @@ void MoveByPass::AddLinePathPreoritety()
 		Vertex & item = vertexMap.at(AxesInfo::ConvertToIndex(queue.top().x, queue.top().y));
 		queue.pop();
 
-		int leftOffset = 0;
-		int upOffset = 0;
-		int rightOffset = 0;
-		int downOffset = 0;
-
-		switch (item.GetSide())
-		{
-			case SideType::Left:
-				upOffset = 2;
-				rightOffset = 4;
-				downOffset = 2;
-				break;
-			case SideType::Up:
-				leftOffset = 2;
-				rightOffset = 2;
-				downOffset = 4;
-				break;
-			case SideType::Right:
-				leftOffset = 4;
-				upOffset = 2;
-				downOffset = 2;
-				break;
-			case SideType::Down:
-				leftOffset = 2;
-				upOffset = 4;
-				rightOffset = 2;
-				break;
-			default:
-				// 0
-				break;
-		}
-
-		AddCount(item, item.GetLeftNearEdge(), leftOffset, SideType::Left);
-		AddCount(item, item.GetUpNearEdge(), upOffset, SideType::Up);
-		AddCount(item, item.GetRightNearEdge(), rightOffset, SideType::Right);
-		AddCount(item, item.GetDownNearEdge(), downOffset, SideType::Down);
+		AddCount(item, item.GetLeftNearEdge(), SideType::Left);
+		AddCount(item, item.GetUpNearEdge(), SideType::Up);
+		AddCount(item, item.GetRightNearEdge(), SideType::Right);
+		AddCount(item, item.GetDownNearEdge(), SideType::Down);
 	}
 }
 bool MoveByPass::FindNewFinish()
@@ -449,7 +435,59 @@ bool MoveByPass::FindNewFinish()
 }
 std::deque<Axes> MoveByPass::CreateMoveMap()
 {
-	std::deque<Axes> path;
+	return CreateMoveMap(finishX, finishY, std::deque<Axes>());
+}
+std::deque<Axes> MoveByPass::CreateMoveMap(const int & finishX, const int & finishY, std::deque<Axes> path)
+{
+	auto CalcPath = [&](std::deque<Axes> oldPath, std::deque<Axes> newPath)
+	{
+		int result = 0;
+		int prevX = oldPath.front().GetX();
+		int prevY = oldPath.front().GetY();
+		oldPath.pop_front();
+		Axes point;
+		int index = 0;
+
+		if (oldPath.size() > 1)
+		{
+			for (int i = 0; i < oldPath.size() - 1; i++)
+			{
+				Axes & item = oldPath.at(i + 1);
+				if ((item.GetX() != prevX) && (item.GetY() != prevY))
+				{
+					result++;
+				}
+				prevX = oldPath.at(i).GetX();
+				prevY = oldPath.at(i).GetY();
+			}
+		}
+		if (oldPath.size() > 0)
+		{
+			if ((newPath.front().GetX() != prevX) && (newPath.front().GetY() != prevY))
+			{
+				result++;
+			}
+			prevX = oldPath.back().GetX();
+			prevY = oldPath.back().GetY();
+		}
+
+		if (newPath.size() > 1)
+		{
+			for (int i = 0; i < newPath.size() - 1; i++)
+			{
+				Axes & item = newPath.at(i + 1);
+				if ((item.GetX() != prevX) && (item.GetY() != prevY))
+				{
+					result++;
+				}
+				prevX = newPath.at(i).GetX();
+				prevY = newPath.at(i).GetY();
+			}
+		}
+
+		return result;
+	};
+
 	Axes prevAxes = Axes(finishX, finishY);
 	Axes prev2Axes;
 
@@ -466,29 +504,58 @@ std::deque<Axes> MoveByPass::CreateMoveMap()
 		
 		Vertex & parent = vertexMap.at(AxesInfo::ConvertToIndex(prevAxes.GetX(), prevAxes.GetY()));
 
-		if (parent.GetMainPrevEdge().GetSecondVertex().GetAddPrevEdge().GetSecondStatus() == true)
+		if ((parent.GetAddPrevEdge().GetSecondStatus() == true) && (path.size() > 1))
 		{
-			path.push_back(Axes(parent.GetMainPrevEdge().GetSecondVertex().GetX(), parent.GetMainPrevEdge().GetSecondVertex().GetY()));
-			prevAxes = Axes(parent.GetProgenitor().GetSecondVertex().GetX(), parent.GetProgenitor().GetSecondVertex().GetY());
-		}
-		else
-		{
-			if ((parent.GetAddPrevEdge().GetSecondStatus() == true) && (path.size() > 0))
+			if (parent.GetAddPrevEdge().GetSecondVertex().GetX() == prev2Axes.GetX() ||
+				parent.GetAddPrevEdge().GetSecondVertex().GetY() == prev2Axes.GetY())
 			{
-				Vertex & parent2 = vertexMap.at(AxesInfo::ConvertToIndex(prev2Axes.GetX(), prev2Axes.GetY()));
-				if (parent2.GetProgenitor().GetSecondStatus() == true)
-				{
-					prevAxes = Axes(parent2.GetProgenitor().GetSecondVertex().GetX(), parent2.GetProgenitor().GetSecondVertex().GetY());
-				}
-				else
-				{
-					prevAxes = Axes(parent.GetMainPrevEdge().GetSecondVertex().GetX(), parent.GetMainPrevEdge().GetSecondVertex().GetY());
-				}
+				prevAxes = Axes(parent.GetAddPrevEdge().GetSecondVertex().GetX(), parent.GetAddPrevEdge().GetSecondVertex().GetY());
 			}
 			else
 			{
 				prevAxes = Axes(parent.GetMainPrevEdge().GetSecondVertex().GetX(), parent.GetMainPrevEdge().GetSecondVertex().GetY());
 			}
+		}
+		else if ((parent.GetAddPrevEdge().GetSecondStatus() == true) && (path.size() == 1))
+		{
+			std::deque<Axes> firstPath = CreateMoveMap(parent.GetMainPrevEdge().GetSecondVertex().GetX(), parent.GetMainPrevEdge().GetSecondVertex().GetY(), path);
+			std::deque<Axes> secondPath = CreateMoveMap(parent.GetAddPrevEdge().GetSecondVertex().GetX(), parent.GetAddPrevEdge().GetSecondVertex().GetY(), path);
+
+			firstPath.push_back(Axes(startX, startY));
+			secondPath.push_back(Axes(startX, startY));
+
+			int x1 = CalcPath(path, firstPath);
+			int x2 = CalcPath(path, secondPath);
+
+			if (x1 == x2)
+			{
+				x1 += vertexMap.at(AxesInfo::ConvertToIndex(firstPath.at(firstPath.size() - 2))).GetWeight();
+				x2 += vertexMap.at(AxesInfo::ConvertToIndex(secondPath.at(secondPath.size() - 2))).GetWeight();
+			}
+
+			if (x1 < x2)
+			{
+				while (firstPath.size() > 0)
+				{
+					path.push_back(firstPath.front());
+					firstPath.pop_front();
+				}
+			}
+			else
+			{
+				while (secondPath.size() > 0)
+				{
+					path.push_back(secondPath.front());
+					secondPath.pop_front();
+				}
+			}
+
+			path.pop_back();
+			prevAxes = Axes(startX, startY);
+		}
+		else
+		{
+			prevAxes = Axes(parent.GetMainPrevEdge().GetSecondVertex().GetX(), parent.GetMainPrevEdge().GetSecondVertex().GetY());
 		}
 	}
 
