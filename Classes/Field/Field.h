@@ -1,9 +1,10 @@
 #pragma once
 
 #include "vector"
-
-#include "Vertex.h"
 #include "Element\Element.h"
+
+// Класс вершин
+class Vertex;
 
 // Модуль управления полем
 namespace Field

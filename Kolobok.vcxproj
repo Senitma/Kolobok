@@ -173,6 +173,7 @@ xcopy /Y /Q "$(COCOS_X_ROOT)\cocos2d-x-3.10\prebuilt\win32\*.*" "$(OutDir)"
     <ClCompile Include="Classes\Option\MoveOption\OptionForOneStep.cpp" />
     <ClCompile Include="Classes\Option\MoveOption\OptionForPatrol.cpp" />
     <ClCompile Include="Classes\Option\MoveOption\MoveByPass.cpp" />
+    <ClCompile Include="Classes\Option\MoveOption\Vertex.cpp" />
     <ClCompile Include="Classes\Settings.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -189,7 +190,6 @@ xcopy /Y /Q "$(COCOS_X_ROOT)\cocos2d-x-3.10\prebuilt\win32\*.*" "$(OutDir)"
     <ClInclude Include="Classes\Field\Relations.h" />
     <ClInclude Include="Classes\Field\Field.h" />
     <ClInclude Include="Classes\Field\ResultType.h" />
-    <ClInclude Include="Classes\Field\Vertex.h" />
     <ClInclude Include="Classes\EditSettings.h" />
     <ClInclude Include="Classes\Main.h" />
     <ClInclude Include="Classes\Main\MainScene.h" />
@@ -197,7 +197,10 @@ xcopy /Y /Q "$(COCOS_X_ROOT)\cocos2d-x-3.10\prebuilt\win32\*.*" "$(OutDir)"
     <ClInclude Include="Classes\Option\CreateOption\OptionForCreate.h" />
     <ClInclude Include="Classes\Option\CreateOption\OptionForIntervalCreate.h" />
     <ClInclude Include="Classes\Option\CreateOption\OptionForMouseCreateDestroy.h" />
+    <ClInclude Include="Classes\Option\MoveOption\Edge.h" />
     <ClInclude Include="Classes\Option\MoveOption\MoveByPass.h" />
+    <ClInclude Include="Classes\Option\MoveOption\RefVertex.h" />
+    <ClInclude Include="Classes\Option\MoveOption\Vertex.h" />
     <ClInclude Include="Classes\Option\MoveType.h" />
     <ClInclude Include="Classes\Option\Options.h" />
     <ClInclude Include="Classes\Option\ISInterval.h" />

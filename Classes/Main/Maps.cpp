@@ -18,6 +18,8 @@ namespace Maps
 	void LoadExample();
 	// Загрузка карты лабиринта
 	void LoadLabyrinth();
+	// Загрузка карты для тестирования алгоритма
+	void LoadAlgorithmTesth();
 	// Загрузка пустой карты
 	void LoadEmpty();
 	// Создать пол
@@ -37,6 +39,9 @@ void Maps::Load(MapIndexType index)
 			break;
 		case MapIndexType::Labyrinth:
 			Maps::LoadLabyrinth();
+			break;
+		case MapIndexType::AlgorithmTest:
+			Maps::LoadAlgorithmTesth();
 			break;
 		case MapIndexType::Empty:
 			Maps::LoadEmpty();
@@ -243,6 +248,92 @@ void Maps::LoadLabyrinth()
 	Elements::Create(ElementNameType::Wall, SideType::Down, 18, 13);
 
 	Elements::Create(ElementNameType::Wall, SideType::Down, 19, 13);
+}
+void Maps::LoadAlgorithmTesth()
+{
+	EditSettings::HORIZONTALCELLCOUNT = 16;
+	EditSettings::VERTICALCELLCOUNT = 7;
+	GenerateFloor();
+
+	Elements::Create(ElementNameType::Main, SideType::Right, 1, 1);
+	Elements::Create(ElementNameType::Finish, 14, 5);
+
+	Elements::Create(ElementNameType::Wall, SideType::Down, 0, 0);
+	Elements::Create(ElementNameType::Wall, SideType::Down, 0, 1);
+	Elements::Create(ElementNameType::Wall, SideType::Down, 0, 2);
+	Elements::Create(ElementNameType::Wall, SideType::Down, 0, 3);
+	Elements::Create(ElementNameType::Wall, SideType::Down, 0, 4);
+	Elements::Create(ElementNameType::Wall, SideType::Down, 0, 5);
+	Elements::Create(ElementNameType::Wall, SideType::Down, 0, 6);
+
+	Elements::Create(ElementNameType::Wall, SideType::Down, 1, 0);
+	Elements::Create(ElementNameType::Wall, SideType::Down, 1, 6);
+
+	Elements::Create(ElementNameType::Wall, SideType::Down, 2, 0);
+	Elements::Create(ElementNameType::Wall, SideType::Down, 2, 4);
+	Elements::Create(ElementNameType::Wall, SideType::Down, 2, 5);
+	Elements::Create(ElementNameType::Wall, SideType::Down, 2, 6);
+
+	Elements::Create(ElementNameType::Wall, SideType::Down, 3, 0);
+	Elements::Create(ElementNameType::Wall, SideType::Down, 3, 1);
+	Elements::Create(ElementNameType::Wall, SideType::Down, 3, 4);
+	Elements::Create(ElementNameType::Wall, SideType::Down, 3, 5);
+	Elements::Create(ElementNameType::Wall, SideType::Down, 3, 6);
+
+	Elements::Create(ElementNameType::Wall, SideType::Down, 4, 0);
+	Elements::Create(ElementNameType::Wall, SideType::Down, 4, 6);
+
+	Elements::Create(ElementNameType::Wall, SideType::Down, 5, 0);
+	Elements::Create(ElementNameType::Wall, SideType::Down, 5, 5);
+	Elements::Create(ElementNameType::Wall, SideType::Down, 5, 6);
+
+	Elements::Create(ElementNameType::Wall, SideType::Down, 6, 0);
+	Elements::Create(ElementNameType::Wall, SideType::Down, 6, 6);
+
+	Elements::Create(ElementNameType::Wall, SideType::Down, 7, 0);
+	Elements::Create(ElementNameType::Wall, SideType::Down, 7, 6);
+
+	Elements::Create(ElementNameType::Wall, SideType::Down, 8, 0);
+	Elements::Create(ElementNameType::Wall, SideType::Down, 8, 1);
+	Elements::Create(ElementNameType::Wall, SideType::Down, 8, 2);
+	Elements::Create(ElementNameType::Wall, SideType::Down, 8, 3);
+	Elements::Create(ElementNameType::Wall, SideType::Down, 8, 4);
+	Elements::Create(ElementNameType::Wall, SideType::Down, 8, 6);
+
+	Elements::Create(ElementNameType::Wall, SideType::Down, 9, 0);
+	Elements::Create(ElementNameType::Wall, SideType::Down, 9, 6);
+
+	Elements::Create(ElementNameType::Wall, SideType::Down, 10, 0);
+	Elements::Create(ElementNameType::Wall, SideType::Down, 10, 3);
+	Elements::Create(ElementNameType::Wall, SideType::Down, 10, 6);
+
+	Elements::Create(ElementNameType::Wall, SideType::Down, 11, 0);
+	Elements::Create(ElementNameType::Wall, SideType::Down, 11, 2);
+	Elements::Create(ElementNameType::Wall, SideType::Down, 11, 3);
+	Elements::Create(ElementNameType::Wall, SideType::Down, 11, 4);
+	Elements::Create(ElementNameType::Wall, SideType::Down, 11, 6);
+
+	Elements::Create(ElementNameType::Wall, SideType::Down, 12, 0);
+	Elements::Create(ElementNameType::Wall, SideType::Down, 12, 3);
+	Elements::Create(ElementNameType::Wall, SideType::Down, 12, 6);
+
+	Elements::Create(ElementNameType::Wall, SideType::Down, 13, 0);
+	Elements::Create(ElementNameType::Wall, SideType::Down, 13, 6);
+
+	Elements::Create(ElementNameType::Wall, SideType::Down, 14, 0);
+	Elements::Create(ElementNameType::Wall, SideType::Down, 14, 1);
+	Elements::Create(ElementNameType::Wall, SideType::Down, 14, 2);
+	Elements::Create(ElementNameType::Wall, SideType::Down, 14, 3);
+	Elements::Create(ElementNameType::Wall, SideType::Down, 14, 4);
+	Elements::Create(ElementNameType::Wall, SideType::Down, 14, 6);
+
+	Elements::Create(ElementNameType::Wall, SideType::Down, 15, 0);
+	Elements::Create(ElementNameType::Wall, SideType::Down, 15, 1);
+	Elements::Create(ElementNameType::Wall, SideType::Down, 15, 2);
+	Elements::Create(ElementNameType::Wall, SideType::Down, 15, 3);
+	Elements::Create(ElementNameType::Wall, SideType::Down, 15, 4);
+	Elements::Create(ElementNameType::Wall, SideType::Down, 15, 5);
+	Elements::Create(ElementNameType::Wall, SideType::Down, 15, 6);
 }
 void Maps::LoadEmpty()
 {

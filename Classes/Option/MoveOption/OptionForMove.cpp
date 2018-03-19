@@ -18,8 +18,8 @@ void OptionForMove::Standed()
 	if (moveType != MoveType::ToOneStep && points.size() > 1)
 	{
 		// При точки переходит к следующей
-		if (parent.GetLeft() == AxesInfo::ConvertToLeft(this->points.front().GetX()) && 
-			parent.GetTop() == AxesInfo::ConvertToTop(this->points.front().GetY()))
+		if (parent.GetLeft() == AxesInfo::ConvertToLeft(points.front().GetX()) && 
+			parent.GetTop() == AxesInfo::ConvertToTop(points.front().GetY()))
 		{
 			points.pop();
 			OptionForOneStep::MoveTo(points.front().GetX(), points.front().GetY());
@@ -105,5 +105,5 @@ std::queue<Axes> OptionForMove::GenerateLinePath(const int & x, const int & y)
 }
 std::queue<Axes> OptionForMove::GenerateByPassPath(const int & x, const int & y)
 {
-	return MoveByPass::MoveTo(parent.GetAxes(), Axes(x, y), false);
+	return MoveByPass::MoveTo(parent.GetAxes(), parent.GetSide(), Axes(x, y));
 }

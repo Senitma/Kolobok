@@ -5,6 +5,7 @@ enum class MapIndexType
 {
 	Example,
 	Labyrinth,
+	AlgorithmTest,
 	Empty
 };
 

@@ -2,6 +2,7 @@
 #include "AxesInfo.h"
 #include "Element\ClassType.h"
 #include "Main\Maps.h"
+#include "Option\MoveOption\Vertex.h"
 #include "Settings.h"
 
 #include "cocostudio/CocoStudio.h"
@@ -104,18 +105,20 @@ std::vector<Vertex> Field::CreateBlockMap()
 {
 	std::vector<Vertex> result;
 
+	// Заполнение блоков
 	std::for_each(cells.begin(), cells.end(), [&](const Cell & item) 
 	{
 		Vertex newPoint = Vertex(item.GetX(), item.GetY());
 
 		if (item.ContainType(ClassType::Block) == true)
 		{
-			newPoint.SetPathCounter(Vertex::BLOCKINDEX);
+			newPoint.SetCounter(Vertex::BLOCKINDEX);
 			result.push_back(newPoint);
 		}
 		else
 		{
-			newPoint.SetPathCounter(Vertex::EMPTYINDEX);
+			newPoint.SetCounter(Vertex::EMPTYINDEX);
+			newPoint.SetWeight(1);
 			result.push_back(newPoint);
 		}
 	});

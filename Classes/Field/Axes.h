@@ -17,7 +17,7 @@ public:
 	void SetX(const int & value) { x = value; };
 	// Изменить положение по оси Y
 	void SetY(const int & value) { y = value; };
-protected:
+private:
 	// Положение по оси X
 	int x;
 	// Положение по оси Y

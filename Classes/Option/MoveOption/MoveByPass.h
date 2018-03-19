@@ -4,10 +4,16 @@
 #include "deque"
 #include "queue"
 
-//Базовый класс всех координат
+// Координаты элемента
 struct Axes;
-// Класс координат с идентификатором
+// Класс вершины
 class Vertex;
+// Структура ссылки на вершину
+struct RefVertex;
+// Обратная структура ссылки на вершину
+struct ReverseRefVertex;
+// Перечисление возможных направлений
+enum SideType;
 
 // Класс поиска оптимального пути
 class MoveByPass
@@ -18,13 +24,10 @@ public:
 	// Инициализация переменных
 	MoveByPass(const std::vector<Vertex> & map);
 
-	// Получить карту для прохождения
-	const std::vector<Vertex> & GetMap() const { return map; };
-
 	// Проверка возможности дойти до финиша
 	static bool CanMoveTo(const Axes & start, const Axes & finish);
 	// Получить маршрут точек до финиша
-	static std::queue<Axes> MoveTo(const Axes & start, const Axes & finish, const bool & extendedCheck);
+	static std::queue<Axes> MoveTo(const Axes & start, const SideType & side, const Axes & finish);
 private:
 	// Количество пройденных шагов
 	int step;
@@ -36,29 +39,26 @@ private:
 	int finishX;
 	// Координаты финиша по оси Y
 	int finishY;
+	// Направление старта
+	SideType side;
 	// Карта для прохождения
-	std::vector<Vertex> map;
+	std::vector<Vertex> vertexMap;
 
 	// Получить количество шагов
 	int GetStep() const { return step; };
-	// Получить координаты старта
-	Axes GetStart() const;
-	// Получить координаты финиша
-	Axes GetFinish() const;
+	//// Изменить координаты старта
+	void SetStart(const Axes & value, SideType side);
 	//// Изменить координаты старта
 	void SetStart(const Axes & value);
 	//// Изменить координаты финиша
 	void SetFinish(const Axes & value);
 
 	// Проложить маршрут до финиша
-	bool FindFinish(const bool & rotateCheck);
+	bool FindFinish();
+	// Добавить приоритет выбора прямого пути
+	void AddLinePathPreoritety();
 	// Найти ближайшую точку к финишу 
 	bool FindNewFinish();
 	// Сформировать набор точек для перемещения
 	std::deque<Axes> CreateMoveMap();
-
-	// Получить ссылку на соседнюю клетку
-	Vertex & GetChild(const Vertex & parent, const int & offsetX, const int & offsetY);
-	// Удалить расчеты с карты
-	void Clear();
 };

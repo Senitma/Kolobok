@@ -38,7 +38,7 @@ namespace Settings
 	extern const int & VERTICALCELLCOUNT;
 
 	// Карта для загрузки по умолчанию
-	const MapIndexType DEFAULTMAP = MapIndexType::Example;
+	const MapIndexType DEFAULTMAP = MapIndexType::AlgorithmTest;
 
 	// Скорость перемещения персонажа
 	const float MOVESPEED = 4;

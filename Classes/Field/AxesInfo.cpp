@@ -24,17 +24,17 @@ int AxesInfo::ConvertToIndex(const int & x, const int & y)
 }
 int AxesInfo::ConvertToX(const int &value)
 {
-	return value / (Settings::FIELDWIDTHSIZE / Settings::HORIZONTALCELLCOUNT);
+	return value / (Settings::NODEWIDTH);
 }
 int AxesInfo::ConvertToY(const int &value)
 {
-	return (Settings::FIELDHEIGHTSIZE - value) / (Settings::FIELDHEIGHTSIZE / Settings::VERTICALCELLCOUNT);
+	return (Settings::FIELDHEIGHTSIZE - value) / Settings::NODEHEIGHT;
 }
 int AxesInfo::ConvertToLeft(const int &value)
 {
-	return (Settings::FIELDWIDTHSIZE / Settings::HORIZONTALCELLCOUNT) / 2 + value * (Settings::FIELDWIDTHSIZE / Settings::HORIZONTALCELLCOUNT);
+	return Settings::NODEWIDTH / 2 + value * Settings::NODEWIDTH;
 }
 int AxesInfo::ConvertToTop(const int &value)
 {
-	return Settings::FIELDHEIGHTSIZE - ((Settings::FIELDHEIGHTSIZE / Settings::VERTICALCELLCOUNT) / 2 + value * (Settings::FIELDHEIGHTSIZE / Settings::VERTICALCELLCOUNT));
+	return Settings::FIELDHEIGHTSIZE - (Settings::NODEHEIGHT / 2 + value * Settings::NODEHEIGHT);
 }
