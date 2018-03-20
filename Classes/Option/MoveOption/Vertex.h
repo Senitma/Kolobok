@@ -1,14 +1,13 @@
 #pragma once
 
-#include "vector"
+#include "BaseVertex.h"
 #include "Edge.h"
-#include "Field\Axes.h"
 
 // Перечисление возможных направлений
 enum SideType;
 
 // Класс вершины
-class Vertex : public Axes
+class Vertex : public BaseVertex
 {
 public:
 	// Значение клетки с блоком
@@ -23,92 +22,55 @@ public:
 	// Инициализация переменных
 	Vertex() : Vertex(0, 0, Vertex::EMPTYINDEX) {}
 	// Инициализация переменных
-	Vertex(const Axes & value) : Vertex(value.GetX(), value.GetY(), Vertex::EMPTYINDEX) {}
-	// Инициализация переменных
 	Vertex(const int & x, const int & y) : Vertex(x, y, Vertex::EMPTYINDEX) {}
 	// Инициализация переменных
 	Vertex(const int & x, const int & y, const int & counter);
 
-	// Получить счетчик
-	int GetCounter() const { return counter; }
-	// Изменить счетчик
-	void SetCounter(const int & value) { counter = value; }
 	// Получить счетчик поворота
 	int GetSideCounter() const { return sideCounter; }
 	// Изменить счетчик поворота
 	void SetSideCounter(const int & value) { sideCounter = value; }
-	// Получить смещение счетчика
-	int GetOffsetCounter() const { return offsetCounter; }
-	// Изменить смещение счетчика
-	void SetOffsetCounter(const int & value) { offsetCounter = value; }
 	// Получить вес
 	int GetWeight() const { return weight; }
 	// Изменить вес
 	void SetWeight(const int & value) { weight = value; }
-
-	// Получить главное предыдущее ребро
-	Edge & GetMainPrevEdge() { return mainPrevEdge; }
-	// Получить главное предыдущее ребро
-	Edge & GetAddPrevEdge() { return addPrevEdge; }
-	// Получить правродителя
-	Edge & GetProgenitor() { return progenitor; }
-
-	// Получить направление вершины
+	// Получить направление
 	SideType GetSide() { return side; }
-	// Изменить направление вершины
+	// Изменить направление
 	void SetSide(const SideType & value) { side = value; }
 
-	// Получить левое ближнее ребро
-	Edge & GetLeftNearEdge() { return leftNearEdge; }
-	// Получить верхнее ближнее ребро
-	Edge & GetUpNearEdge() { return upNearEdge; }
-	// Получить правое ближнее ребро
-	Edge & GetRightNearEdge() { return rightNearEdge; }
-	// Получить нижнее ближнее ребро
-	Edge & GetDownNearEdge() { return downNearEdge; }
+	// Получить главное родительское ребро
+	Edge & GetMainPrevEdge() { return mainPrevEdge; }
+	// Получить главное родительское ребро
+	Edge & GetAddPrevEdge() { return addPrevEdge; }
 
-	// Получить левое дальнее ребро
-	Edge & GetLeftFarEdge() { return leftFarEdge; }
-	// Получить верхнее дальнее ребро
-	Edge & GetUpFarEdge() { return upFarEdge; }
-	// Получить правое дальнее ребро
-	Edge & GetRightFarEdge() { return rightFarEdge; }
-	// Получить нижнее дальнее ребро
-	Edge & GetDownFarEdge() { return downFarEdge; }
+	// Получить левое ребро
+	Edge & GetLeftEdge() { return leftEdge; }
+	// Получить верхнее ребро
+	Edge & GetUpEdge() { return upEdge; }
+	// Получить правое ребро
+	Edge & GetRightEdge() { return rightEdge; }
+	// Получить нижнее ребро
+	Edge & GetDownEdge() { return downEdge; }
 private:
-	// Счетчик
-	int counter;
 	// Счетчик поворота
 	int sideCounter;
-	// Смещение счетчика
-	int offsetCounter;
 	// Вес
 	int weight;
-
+	// Направление
 	SideType side;
 
-	// Главное предыдущее ребро
+	// Главное родительское ребро
 	Edge mainPrevEdge;
-	// Дополнительное предыдущее ребро
+	// Дополнительное родительское ребро
 	Edge addPrevEdge;
-	// Прародительское ребро
-	Edge progenitor;
 	
-	// Левое ближнее ребро
-	Edge leftNearEdge;
-	// Верхнее ближнее ребро
-	Edge upNearEdge;
-	// Правое ближнее ребро
-	Edge rightNearEdge;
-	// Нижнее ближнее ребро
-	Edge downNearEdge;
-
-	// Левое дальнее ребро
-	Edge leftFarEdge;
-	// Верхнее дальнее ребро
-	Edge upFarEdge;
-	// Правое дальнее ребро
-	Edge rightFarEdge;
-	// Нижнее дальнее ребро
-	Edge downFarEdge;
+	// Левое ребро
+	Edge leftEdge;
+	// Верхнее ребро
+	Edge upEdge;
+	// Правое ребро
+	Edge rightEdge;
+	// Нижнее ребро
+	Edge downEdge;
 };

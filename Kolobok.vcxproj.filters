@@ -104,6 +104,9 @@
     <ClCompile Include="Classes\Option\MoveOption\Vertex.cpp">
       <Filter>Option\MoveOption</Filter>
     </ClCompile>
+    <ClCompile Include="Classes\Option\MoveOption\Edge.cpp">
+      <Filter>Option\MoveOption</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Classes\Element\ElementNameType.h">
@@ -202,13 +205,13 @@
     <ClInclude Include="Classes\Option\MoveType.h">
       <Filter>Option\Other</Filter>
     </ClInclude>
-    <ClInclude Include="Classes\Option\MoveOption\RefVertex.h">
-      <Filter>Option\MoveOption</Filter>
-    </ClInclude>
     <ClInclude Include="Classes\Option\MoveOption\Vertex.h">
       <Filter>Option\MoveOption</Filter>
     </ClInclude>
     <ClInclude Include="Classes\Option\MoveOption\Edge.h">
+      <Filter>Option\MoveOption</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\Option\MoveOption\BaseVertex.h">
       <Filter>Option\MoveOption</Filter>
     </ClInclude>
   </ItemGroup>

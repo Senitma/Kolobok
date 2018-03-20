@@ -1,24 +1,18 @@
 #include "Vertex.h"
 
-Vertex::Vertex(const int & x, const int & y, const int & counter) : Axes(x, y)
+// Инициализация статической переменной
+int BaseVertex::maxX = 0;
+
+Vertex::Vertex(const int & x, const int & y, const int & counter) : BaseVertex(x, y, counter)
 {
 	sideCounter = Vertex::EMPTYINDEX;
-	offsetCounter = 0;
 	weight = 0;
 
 	mainPrevEdge = Edge();
 	addPrevEdge = Edge();
-	progenitor = Edge();
 
-	leftNearEdge = Edge();
-	upNearEdge = Edge();
-	rightNearEdge = Edge();
-	downNearEdge = Edge();
-
-	leftFarEdge = Edge();
-	upFarEdge = Edge();
-	rightFarEdge = Edge();
-	downFarEdge = Edge();
-
-	this->counter = counter;
+	leftEdge = Edge();
+	upEdge = Edge();
+	rightEdge = Edge();
+	downEdge = Edge();
 }

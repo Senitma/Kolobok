@@ -1,10 +1,9 @@
 #include "algorithm"
 
-#include "RefVertex.h"
+#include "BaseVertex.h"
 #include "Vertex.h"
 #include "Element\SideType.h"
 #include "Field\Axes.h"
-#include "Field\AxesInfo.h"
 #include "Field\Field.h"
 #include "Settings.h"
 
@@ -21,42 +20,28 @@ MoveByPass::MoveByPass(const std::vector<Vertex> & map)
 	side = SideType::None;
 
 	vertexMap = map;
+	BaseVertex::SetMaxX(Settings::HORIZONTALCELLCOUNT);
 
-	// Заполнение соседних вершин
+	// Функция для добавления дочерних ребер
+	auto AddChild = [&](const bool & Condition, Edge & edge, const int & childX, const int & childY) 
+	{
+		if (Condition == true)
+		{
+			Vertex &child = vertexMap.at(BaseVertex::GetIndex(childX, childY));
+			if (child.GetCounter() != Vertex::BLOCKINDEX)
+			{
+				edge.SetVertex(child);
+			}
+		}
+	};
+
+	// Заполнение дочерних ребер
 	std::for_each(vertexMap.begin(), vertexMap.end(), [&](Vertex & item)
 	{
-		if ((item.GetX() > 0) && (vertexMap.at(AxesInfo::ConvertToIndex(item.GetX() - 1, item.GetY())).GetCounter() != Vertex::BLOCKINDEX))
-		{
-			item.GetLeftNearEdge().SetSecondVertex(vertexMap.at(AxesInfo::ConvertToIndex(item.GetX() - 1, item.GetY())));
-			if ((item.GetX() > 1) && (vertexMap.at(AxesInfo::ConvertToIndex(item.GetX() - 2, item.GetY())).GetCounter() != Vertex::BLOCKINDEX))
-			{
-				item.GetLeftFarEdge().SetSecondVertex(vertexMap.at(AxesInfo::ConvertToIndex(item.GetX() - 2, item.GetY())));
-			}
-		}
-		if ((item.GetY() > 0) && (vertexMap.at(AxesInfo::ConvertToIndex(item.GetX(), item.GetY() - 1)).GetCounter() != Vertex::BLOCKINDEX))
-		{
-			item.GetUpNearEdge().SetSecondVertex(vertexMap.at(AxesInfo::ConvertToIndex(item.GetX(), item.GetY() - 1)));
-			if ((item.GetY() > 1) && (vertexMap.at(AxesInfo::ConvertToIndex(item.GetX(), item.GetY() - 2)).GetCounter() != Vertex::BLOCKINDEX))
-			{
-				item.GetUpFarEdge().SetSecondVertex(vertexMap.at(AxesInfo::ConvertToIndex(item.GetX(), item.GetY() - 2)));
-			}
-		}
-		if ((item.GetX() < Settings::HORIZONTALCELLCOUNT - 1) && (vertexMap.at(AxesInfo::ConvertToIndex(item.GetX() + 1, item.GetY())).GetCounter() != Vertex::BLOCKINDEX))
-		{
-			item.GetRightNearEdge().SetSecondVertex(vertexMap.at(AxesInfo::ConvertToIndex(item.GetX() + 1, item.GetY())));
-			if ((item.GetX() < Settings::HORIZONTALCELLCOUNT - 2) && (vertexMap.at(AxesInfo::ConvertToIndex(item.GetX() + 2, item.GetY())).GetCounter() != Vertex::BLOCKINDEX))
-			{
-				item.GetRightFarEdge().SetSecondVertex(vertexMap.at(AxesInfo::ConvertToIndex(item.GetX() + 2, item.GetY())));
-			}
-		}
-		if ((item.GetY() < Settings::VERTICALCELLCOUNT - 1) && (vertexMap.at(AxesInfo::ConvertToIndex(item.GetX(), item.GetY() + 1)).GetCounter() != Vertex::BLOCKINDEX))
-		{
-			item.GetDownNearEdge().SetSecondVertex(vertexMap.at(AxesInfo::ConvertToIndex(item.GetX(), item.GetY() + 1)));
-			if ((item.GetY() < Settings::VERTICALCELLCOUNT - 2) && (vertexMap.at(AxesInfo::ConvertToIndex(item.GetX(), item.GetY() + 2)).GetCounter() != Vertex::BLOCKINDEX))
-			{
-				item.GetDownFarEdge().SetSecondVertex(vertexMap.at(AxesInfo::ConvertToIndex(item.GetX(), item.GetY() + 2)));
-			}
-		}
+		AddChild(item.GetX() > 0, item.GetLeftEdge(), item.GetX() - 1, item.GetY());
+		AddChild(item.GetY() > 0, item.GetUpEdge(), item.GetX(), item.GetY() - 1);
+		AddChild(item.GetX() < Settings::HORIZONTALCELLCOUNT - 1, item.GetRightEdge(), item.GetX() + 1, item.GetY());
+		AddChild(item.GetY() < Settings::VERTICALCELLCOUNT - 1, item.GetDownEdge(), item.GetX(), item.GetY() + 1);
 	});
 }
 
@@ -112,9 +97,9 @@ void MoveByPass::SetStart(const Axes & value, SideType side)
 	// Функция для заполнения счетчика
 	auto MarkCount = [&](Edge & value, const int & offsetWeight)
 	{
-		if (value.GetSecondStatus() == true)
+		if (value.GetEnable() == true)
 		{
-			value.GetSecondVertex().SetWeight(value.GetSecondVertex().GetWeight() + offsetWeight);
+			value.SetWeight(value.GetWeight() + offsetWeight);
 		}
 	};
 
@@ -123,29 +108,29 @@ void MoveByPass::SetStart(const Axes & value, SideType side)
 
 	// Добавление веса каждой из сторон
 
-	Vertex & parent = vertexMap.at(AxesInfo::ConvertToIndex(startX, startY));
+	Vertex & parent = vertexMap.at(BaseVertex::GetIndex(startX, startY));
 	parent.SetSide(side);
 	switch (side)
 	{
 		case Left:
-			MarkCount(parent.GetUpNearEdge(), 1);
-			MarkCount(parent.GetRightNearEdge(), 2);
-			MarkCount(parent.GetDownNearEdge(), 1);
+			MarkCount(parent.GetUpEdge(), 1);
+			MarkCount(parent.GetRightEdge(), 2);
+			MarkCount(parent.GetDownEdge(), 1);
 			break;
 		case Up:
-			MarkCount(parent.GetLeftNearEdge(), 1);
-			MarkCount(parent.GetRightNearEdge(), 1);
-			MarkCount(parent.GetDownNearEdge(), 2);
+			MarkCount(parent.GetLeftEdge(), 1);
+			MarkCount(parent.GetRightEdge(), 1);
+			MarkCount(parent.GetDownEdge(), 2);
 			break;
 		case Right:
-			MarkCount(parent.GetLeftNearEdge(), 2);
-			MarkCount(parent.GetUpNearEdge(), 1);
-			MarkCount(parent.GetDownNearEdge(), 1);
+			MarkCount(parent.GetLeftEdge(), 2);
+			MarkCount(parent.GetUpEdge(), 1);
+			MarkCount(parent.GetDownEdge(), 1);
 			break;
 		case Down:
-			MarkCount(parent.GetLeftNearEdge(), 1);
-			MarkCount(parent.GetUpNearEdge(), 2);
-			MarkCount(parent.GetRightNearEdge(), 1);
+			MarkCount(parent.GetLeftEdge(), 1);
+			MarkCount(parent.GetUpEdge(), 2);
+			MarkCount(parent.GetRightEdge(), 1);
 			break;
 		default:
 			// Изменений не требуется
@@ -154,14 +139,14 @@ void MoveByPass::SetStart(const Axes & value, SideType side)
 }
 void MoveByPass::SetStart(const Axes & value)
 {
-	vertexMap.at(AxesInfo::ConvertToIndex(value)).SetCounter(Vertex::STARTINDEX);
-	vertexMap.at(AxesInfo::ConvertToIndex(value)).SetSideCounter(Vertex::STARTINDEX);
+	vertexMap.at(BaseVertex::GetIndex(value.GetX(), value.GetY())).SetCounter(Vertex::STARTINDEX);
+	vertexMap.at(BaseVertex::GetIndex(value.GetX(), value.GetY())).SetSideCounter(Vertex::STARTINDEX);
 	startX = value.GetX();
 	startY = value.GetY();
 }
 void MoveByPass::SetFinish(const Axes & value)
 {
-	vertexMap.at(AxesInfo::ConvertToIndex(value)).SetCounter(Vertex::FINISHINDEX);
+	vertexMap.at(BaseVertex::GetIndex(value.GetX(), value.GetY())).SetCounter(Vertex::FINISHINDEX);
 	finishX = value.GetX();
 	finishY = value.GetY();
 }
@@ -170,43 +155,25 @@ bool MoveByPass::FindFinish()
 {
 	// Инициализация переменных
 	step = Vertex::STARTINDEX;
-	std::priority_queue<RefVertex> queue;
-	queue.push(RefVertex(startX, startY, step));
+	std::priority_queue<BaseVertex> queue;
+	queue.push(BaseVertex(startX, startY, step));
 
 	// Функция для изменения счетчика
 	auto AddCount = [&](const int & parentCounter, Edge & value)
 	{
-		if (value.GetSecondStatus() == true)
+		if (value.GetEnable() == true)
 		{
-			Vertex & vertex = value.GetSecondVertex();
+			Vertex & vertex = value.GetVertex();
 
 			if (vertex.GetCounter() == Vertex::FINISHINDEX)
 			{
-				queue.push(RefVertex(vertex.GetX(), vertex.GetY(), parentCounter + vertex.GetWeight()));
+				queue.push(BaseVertex(vertex.GetX(), vertex.GetY(), parentCounter + vertex.GetWeight()));
 				vertex.SetCounter(parentCounter + vertex.GetWeight());
-
-				if ((vertex.GetLeftNearEdge().GetSecondStatus() == true) && (vertex.GetLeftNearEdge().GetSecondVertex().GetCounter() == vertex.GetCounter()))
-				{
-					vertex.GetLeftNearEdge().GetSecondVertex().SetCounter(Vertex::EMPTYINDEX);
-				}
-				if ((vertex.GetUpNearEdge().GetSecondStatus() == true) && (vertex.GetUpNearEdge().GetSecondVertex().GetCounter() == vertex.GetCounter()))
-				{
-					vertex.GetUpNearEdge().GetSecondVertex().SetCounter(Vertex::EMPTYINDEX);
-				}
-				if ((vertex.GetRightNearEdge().GetSecondStatus() == true) && (vertex.GetRightNearEdge().GetSecondVertex().GetCounter() == vertex.GetCounter()))
-				{
-					vertex.GetRightNearEdge().GetSecondVertex().SetCounter(Vertex::EMPTYINDEX);
-				}
-				if ((vertex.GetDownNearEdge().GetSecondStatus() == true) && (vertex.GetDownNearEdge().GetSecondVertex().GetCounter() == vertex.GetCounter()))
-				{
-					vertex.GetDownNearEdge().GetSecondVertex().SetCounter(Vertex::EMPTYINDEX);
-				}
-
 				return true;
 			}
 			else if (vertex.GetCounter() == Vertex::EMPTYINDEX)
 			{
-				queue.push(RefVertex(vertex.GetX(), vertex.GetY(), parentCounter + vertex.GetWeight())); 
+				queue.push(BaseVertex(vertex.GetX(), vertex.GetY(), parentCounter + vertex.GetWeight()));
 				vertex.SetCounter(parentCounter + vertex.GetWeight());
 			}
 		}
@@ -214,19 +181,19 @@ bool MoveByPass::FindFinish()
 		return false;
 	};
 
-	while (queue.size() != 0)
+	while (queue.empty() == false)
 	{
 		// Получить опорную точку для изменения счетчиков
-		Vertex & item = vertexMap.at(AxesInfo::ConvertToIndex(queue.top().x, queue.top().y));
+		Vertex & item = vertexMap.at(queue.top().GetIndex());
 		queue.pop();
 
 		if (step != item.GetCounter()) { step = item.GetCounter(); }
 
 		// Отметить все соседние свободные ячейки Неймана
-		if (AddCount(item.GetCounter(), item.GetLeftNearEdge()) |
-			AddCount(item.GetCounter(), item.GetUpNearEdge()) |
-			AddCount(item.GetCounter(), item.GetRightNearEdge()) |
-			AddCount(item.GetCounter(), item.GetDownNearEdge()) == true)
+		if (AddCount(item.GetCounter(), item.GetLeftEdge()) |
+			AddCount(item.GetCounter(), item.GetUpEdge()) |
+			AddCount(item.GetCounter(), item.GetRightEdge()) |
+			AddCount(item.GetCounter(), item.GetDownEdge()) == true)
 		{
 
 			// В случае нахождения клетки финиша выходим из функции
@@ -241,15 +208,15 @@ void MoveByPass::AddLinePathPreoritety()
 {
 	// Инициализация переменных
 	step = Vertex::STARTINDEX;
-	std::priority_queue<RefVertex> queue;
-	queue.push(RefVertex(startX, startY, step));
+	std::priority_queue<BaseVertex> queue;
+	queue.push(BaseVertex(startX, startY, step));
 
 	// Функция для изменения счетчика с двумя вершинами
 	auto AddCount = [&](Vertex & first, Edge & next, const SideType & side)
 	{
-		if (next.GetSecondStatus() == true)
+		if (next.GetEnable() == true)
 		{
-			Vertex & second = next.GetSecondVertex();
+			Vertex & second = next.GetVertex();
 
 			int newSide = second.GetSide() | side;
 			int offset = 2;
@@ -293,103 +260,36 @@ void MoveByPass::AddLinePathPreoritety()
 
 			if ((second.GetSideCounter() == Vertex::EMPTYINDEX) && (second.GetCounter() != Vertex::EMPTYINDEX))
 			{
-				queue.push(RefVertex(second.GetX(), second.GetY(), weight));
+				queue.push(BaseVertex(second.GetX(), second.GetY(), weight));
 				second.SetSideCounter(weight);
-				second.GetMainPrevEdge().SetSecondVertex(first);
-
-				if (first.GetAddPrevEdge().GetSecondStatus() == true)
-				{
-					if (first.GetAddPrevEdge().GetSecondVertex().GetX() == second.GetX() ||
-						first.GetAddPrevEdge().GetSecondVertex().GetY() == second.GetY())
-					{
-						second.GetProgenitor().SetSecondVertex(first.GetAddPrevEdge().GetSecondVertex());
-					}
-					else
-					{
-						second.GetProgenitor().SetSecondVertex(first.GetMainPrevEdge().GetSecondVertex());
-					}
-				}
-				else
-				{
-					if (first.GetMainPrevEdge().GetSecondStatus() == true)
-					{
-						second.GetProgenitor().SetSecondVertex(first.GetMainPrevEdge().GetSecondVertex());
-					}
-				}
-
+				second.GetMainPrevEdge().SetVertex(first);
 				second.SetSide(side);
 			}
 			else if (second.GetSideCounter() > weight)
 			{
-				queue.push(RefVertex(second.GetX(), second.GetY(), weight));
+				queue.push(BaseVertex(second.GetX(), second.GetY(), weight));
 				second.SetSideCounter(weight);
-				second.GetMainPrevEdge().SetSecondVertex(first);
-
-				if (first.GetAddPrevEdge().GetSecondStatus() == true)
-				{
-					if (first.GetAddPrevEdge().GetSecondVertex().GetX() == second.GetX() ||
-						first.GetAddPrevEdge().GetSecondVertex().GetY() == second.GetY())
-					{
-						second.GetProgenitor().SetSecondVertex(first.GetAddPrevEdge().GetSecondVertex());
-					}
-					else
-					{
-						second.GetProgenitor().SetSecondVertex(first.GetMainPrevEdge().GetSecondVertex());
-					}
-				}
-				else
-				{
-					if (first.GetMainPrevEdge().GetSecondStatus() == true)
-					{
-						second.GetProgenitor().SetSecondVertex(first.GetMainPrevEdge().GetSecondVertex());
-					}
-				}
-
+				second.GetMainPrevEdge().SetVertex(first);
 				second.SetSide(side);
 			}
 			else if (second.GetSideCounter() == weight)
 			{
 				second.SetSide((SideType)(second.GetSide() | first.GetSide()));
-				second.GetAddPrevEdge().SetSecondVertex(first);
-
-				//if (first.GetMainPrevEdge().GetSecondStatus() == true)
-				//{
-				//	if (first.GetMainPrevEdge().GetSecondVertex().GetX() == second.GetX() ||
-				//		first.GetMainPrevEdge().GetSecondVertex().GetY() == second.GetY())
-				//	{
-				//		//if (second.GetX() != first.GetMainPrevEdge().GetSecondVertex().GetX() ||
-				//		//	second.GetY() != first.GetMainPrevEdge().GetSecondVertex().GetY())
-				//		//{
-				//			second.GetProgenitor().SetSecondVertex(first.GetMainPrevEdge().GetSecondVertex());
-				//		//}
-				//	}
-				//}
-				//if (first.GetAddPrevEdge().GetSecondStatus() == true)
-				//{
-				//	if (first.GetAddPrevEdge().GetSecondVertex().GetX() == second.GetX() ||
-				//		first.GetAddPrevEdge().GetSecondVertex().GetY() == second.GetY())
-				//	{
-				//		//if (second.GetX() != first.GetMainPrevEdge().GetSecondVertex().GetX() ||
-				//		//	second.GetY() != first.GetMainPrevEdge().GetSecondVertex().GetY())
-				//		//{
-				//			second.GetProgenitor().SetSecondVertex(first.GetMainPrevEdge().GetSecondVertex());
-				//		//}
-				//	}
-				//}
+				second.GetAddPrevEdge().SetVertex(first);
 			}
 		}
 	};
 
-	while (queue.size() != 0)
+	while (queue.empty() == false)
 	{
 		// Получить опорную точку для изменения счетчиков
-		Vertex & item = vertexMap.at(AxesInfo::ConvertToIndex(queue.top().x, queue.top().y));
+		Vertex & item = vertexMap.at(queue.top().GetIndex());
 		queue.pop();
 
-		AddCount(item, item.GetLeftNearEdge(), SideType::Left);
-		AddCount(item, item.GetUpNearEdge(), SideType::Up);
-		AddCount(item, item.GetRightNearEdge(), SideType::Right);
-		AddCount(item, item.GetDownNearEdge(), SideType::Down);
+		AddCount(item, item.GetLeftEdge(), SideType::Left);
+		AddCount(item, item.GetUpEdge(), SideType::Up);
+		AddCount(item, item.GetRightEdge(), SideType::Right);
+		AddCount(item, item.GetDownEdge(), SideType::Down);
 	}
 }
 bool MoveByPass::FindNewFinish()
@@ -439,98 +339,78 @@ std::deque<Axes> MoveByPass::CreateMoveMap()
 }
 std::deque<Axes> MoveByPass::CreateMoveMap(const int & finishX, const int & finishY, std::deque<Axes> path)
 {
-	auto CalcPath = [&](std::deque<Axes> oldPath, std::deque<Axes> newPath)
+	// Функция для расчета стоимости пути
+	auto CalcPath = [&](std::deque<Axes> path)
 	{
 		int result = 0;
-		int prevX = oldPath.front().GetX();
-		int prevY = oldPath.front().GetY();
-		oldPath.pop_front();
+		int prevX = path.front().GetX();
+		int prevY = path.front().GetY();
+		path.pop_front();
 		Axes point;
 		int index = 0;
 
-		if (oldPath.size() > 1)
+		if (path.size() > 1)
 		{
-			for (int i = 0; i < oldPath.size() - 1; i++)
+			for (int i = 0; i < path.size() - 1; i++)
 			{
-				Axes & item = oldPath.at(i + 1);
+				Axes & item = path.at(i + 1);
 				if ((item.GetX() != prevX) && (item.GetY() != prevY))
 				{
 					result++;
 				}
-				prevX = oldPath.at(i).GetX();
-				prevY = oldPath.at(i).GetY();
-			}
-		}
-		if (oldPath.size() > 0)
-		{
-			if ((newPath.front().GetX() != prevX) && (newPath.front().GetY() != prevY))
-			{
-				result++;
-			}
-			prevX = oldPath.back().GetX();
-			prevY = oldPath.back().GetY();
-		}
-
-		if (newPath.size() > 1)
-		{
-			for (int i = 0; i < newPath.size() - 1; i++)
-			{
-				Axes & item = newPath.at(i + 1);
-				if ((item.GetX() != prevX) && (item.GetY() != prevY))
-				{
-					result++;
-				}
-				prevX = newPath.at(i).GetX();
-				prevY = newPath.at(i).GetY();
+				prevX = path.at(i).GetX();
+				prevY = path.at(i).GetY();
 			}
 		}
 
 		return result;
 	};
 
-	Axes prevAxes = Axes(finishX, finishY);
-	Axes prev2Axes;
+	Axes axes = Axes(finishX, finishY);
+	Axes prevAxes;
 
 	// Формирование набора точек от финиша до цели
-	while ((prevAxes.GetX() != startX) || (prevAxes.GetY() != startY))
+	while ((axes.GetX() != startX) || (axes.GetY() != startY))
 	{
 		if (path.size() > 0)
 		{
-			prev2Axes = Axes(path.back().GetX(), path.back().GetY());
+			prevAxes = Axes(path.back().GetX(), path.back().GetY());
 		}
 		
 		// Добавление новой координаты в очередь
-		path.push_back(prevAxes);
+		path.push_back(axes);
 		
-		Vertex & parent = vertexMap.at(AxesInfo::ConvertToIndex(prevAxes.GetX(), prevAxes.GetY()));
+		Vertex & parent = vertexMap.at(BaseVertex::GetIndex(axes.GetX(), axes.GetY()));
 
-		if ((parent.GetAddPrevEdge().GetSecondStatus() == true) && (path.size() > 1))
+		// Расчет оптимального маршрута на развилке
+		if ((parent.GetAddPrevEdge().GetEnable() == true) && (path.size() > 1))
 		{
-			if (parent.GetAddPrevEdge().GetSecondVertex().GetX() == prev2Axes.GetX() ||
-				parent.GetAddPrevEdge().GetSecondVertex().GetY() == prev2Axes.GetY())
+			if (parent.GetAddPrevEdge().GetX() == prevAxes.GetX() ||
+				parent.GetAddPrevEdge().GetY() == prevAxes.GetY())
 			{
-				prevAxes = Axes(parent.GetAddPrevEdge().GetSecondVertex().GetX(), parent.GetAddPrevEdge().GetSecondVertex().GetY());
+				axes = Axes(parent.GetAddPrevEdge().GetX(), parent.GetAddPrevEdge().GetY());
 			}
 			else
 			{
-				prevAxes = Axes(parent.GetMainPrevEdge().GetSecondVertex().GetX(), parent.GetMainPrevEdge().GetSecondVertex().GetY());
+				axes = Axes(parent.GetMainPrevEdge().GetX(), parent.GetMainPrevEdge().GetY());
 			}
 		}
-		else if ((parent.GetAddPrevEdge().GetSecondStatus() == true) && (path.size() == 1))
+		// Расчет оптимального маршрута невозможен, т.к. недостаточно данных. просчет каждого из маршрутов
+		else if ((parent.GetAddPrevEdge().GetEnable() == true) && (path.size() == 1))
 		{
-			std::deque<Axes> firstPath = CreateMoveMap(parent.GetMainPrevEdge().GetSecondVertex().GetX(), parent.GetMainPrevEdge().GetSecondVertex().GetY(), path);
-			std::deque<Axes> secondPath = CreateMoveMap(parent.GetAddPrevEdge().GetSecondVertex().GetX(), parent.GetAddPrevEdge().GetSecondVertex().GetY(), path);
+			std::deque<Axes> firstPath = CreateMoveMap(parent.GetMainPrevEdge().GetX(), parent.GetMainPrevEdge().GetY(), path);
+			std::deque<Axes> secondPath = CreateMoveMap(parent.GetAddPrevEdge().GetX(), parent.GetAddPrevEdge().GetY(), path);
 
 			firstPath.push_back(Axes(startX, startY));
 			secondPath.push_back(Axes(startX, startY));
 
-			int x1 = CalcPath(path, firstPath);
-			int x2 = CalcPath(path, secondPath);
+			int x1 = CalcPath(firstPath);
+			int x2 = CalcPath(secondPath);
 
 			if (x1 == x2)
 			{
-				x1 += vertexMap.at(AxesInfo::ConvertToIndex(firstPath.at(firstPath.size() - 2))).GetWeight();
-				x2 += vertexMap.at(AxesInfo::ConvertToIndex(secondPath.at(secondPath.size() - 2))).GetWeight();
+				x1 += vertexMap.at(BaseVertex::GetIndex(firstPath.at(firstPath.size() - 2).GetX(), firstPath.at(firstPath.size() - 2).GetY())).GetWeight();
+				x2 += vertexMap.at(BaseVertex::GetIndex(secondPath.at(secondPath.size() - 2).GetX(), secondPath.at(secondPath.size() - 2).GetY())).GetWeight();
 			}
 
 			if (x1 < x2)
@@ -551,13 +431,19 @@ std::deque<Axes> MoveByPass::CreateMoveMap(const int & finishX, const int & fini
 			}
 
 			path.pop_back();
-			prevAxes = Axes(startX, startY);
+			axes = Axes(startX, startY);
 		}
 		else
 		{
-			prevAxes = Axes(parent.GetMainPrevEdge().GetSecondVertex().GetX(), parent.GetMainPrevEdge().GetSecondVertex().GetY());
+			axes = Axes(parent.GetMainPrevEdge().GetX(), parent.GetMainPrevEdge().GetY());
 		}
 	}
 
 	return path;
+}
+
+// Сравнение двух базвых вершин
+bool operator<(const BaseVertex & left, const BaseVertex & right)
+{ 
+	return left.GetCounter() > right.GetCounter(); 
 }

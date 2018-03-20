@@ -1,4 +1,5 @@
 #include "Cell.h"
+#include "Axes.h"
 #include "AxesInfo.h"
 #include "Element\ClassType.h"
 #include "Main\Maps.h"
