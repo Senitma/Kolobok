@@ -8,6 +8,14 @@ namespace cocos2d
 	// Узел для прорисовки
 	class Node;
 }
+namespace cocostudio
+{
+	namespace timeline
+	{
+		// Анимация
+		class ActionTimeline;
+	}
+}
 // Данные элемента
 struct ElementData;
 // Перечисление возможных имен
@@ -16,6 +24,8 @@ enum class ElementNameType;
 enum ClassType;
 // Перечисление возможных направлений
 enum SideType;
+// Перечисление возможных типов анимации
+enum class AnimationType;
 // Координаты элемента
 struct Axes;
 
@@ -24,7 +34,7 @@ class Element
 {
 public:
 	// Инициализация переменных
-	Element(cocos2d::Node * node, ElementNameType name, ClassType type);
+	Element(cocos2d::Node * node, cocostudio::timeline::ActionTimeline * animation, ElementNameType name, ClassType type);
 	// Копирование элемента
 	Element(const Element & value);
 	// Удаление данных
@@ -64,6 +74,9 @@ public:
 	bool GetDestroyStatus() const;
 	// Изменить статус элемента
 	void SetDestroyStatus(const bool & value);
+
+	// Запуск анимации
+	void RunAnimation(AnimationType type);
 
 	// Добавить точку для патрулирования
 	void AddPoint(const int & x, const int & y);

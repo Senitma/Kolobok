@@ -72,29 +72,29 @@ void OptionForOneStep::Update()
 			MoveElement(0, -moveSpeed);
 			break;
 		// Операции поворота
-		case OptionForOneStep::RotateUpToLeft:
-			RotateElement(-rotateSpeed, SideType::Left);
-			break;
-		case OptionForOneStep::RotateDownToLeft:
-			RotateElement(rotateSpeed, SideType::Left);
-			break;
 		case OptionForOneStep::RotateLeftToUp:
 			RotateElement(rotateSpeed, SideType::Up);
 			break;
-		case OptionForOneStep::RotateRightToUp:
-			RotateElement(-rotateSpeed, SideType::Up);
+		case OptionForOneStep::RotateUpToLeft:
+			RotateElement(-rotateSpeed, SideType::Left);
 			break;
 		case OptionForOneStep::RotateUpToRight:
 			RotateElement(rotateSpeed, SideType::Right);
 			break;
-		case OptionForOneStep::RotateDownToRight:
-			RotateElement(-rotateSpeed, SideType::Right);
-			break;
-		case OptionForOneStep::RotateLeftToDown:
-			RotateElement(-rotateSpeed, SideType::Down);
+		case OptionForOneStep::RotateRightToUp:
+			RotateElement(-rotateSpeed, SideType::Up);
 			break;
 		case OptionForOneStep::RotateRightToDown:
 			RotateElement(rotateSpeed, SideType::Down);
+			break;
+		case OptionForOneStep::RotateDownToRight:
+			RotateElement(-rotateSpeed, SideType::Right);
+			break;
+		case OptionForOneStep::RotateDownToLeft:
+			RotateElement(rotateSpeed, SideType::Left);
+			break;
+		case OptionForOneStep::RotateLeftToDown:
+			RotateElement(-rotateSpeed, SideType::Down);
 			break;
 		default:
 			Standed();

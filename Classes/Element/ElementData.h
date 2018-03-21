@@ -8,6 +8,7 @@
 #include "Field\Axes.h"
 
 #include "2d\CCNode.h"
+#include "cocostudio\ActionTimeline\CCActionTimeline.h"
 
 // Данные элемента
 struct ElementData
@@ -22,6 +23,9 @@ struct ElementData
 	SideType side;
 	// Узел для прорисовки
 	cocos2d::Node * node;
+	// Анимация
+	cocostudio::timeline::ActionTimeline * animation;
+
 	// Положение элемента
 	Axes position;
 	// Точки для патрулирования

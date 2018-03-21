@@ -1,3 +1,5 @@
+#include "string"
+
 #include "ElementNameType.h"
 #include "ClassType.h"
 #include "SideType.h"
@@ -9,6 +11,7 @@
 #include "Option\MoveType.h"
 #include "Settings.h"
 
+#include "CCFileUtils.h"
 #include "2d\CCNode.h"
 #include "cocostudio\ActionTimeline\CSLoader.h"
 
@@ -32,7 +35,7 @@ namespace Elements
 	// Добавление снаряда
 	Element CreateFireball(SideType side, int x, int y);
 	// Создание элемента
-	Element Create(char * nodeName, ElementNameType name, ClassType type, SideType side, int x, int y);
+	Element Create(std::string nodeName, ElementNameType name, ClassType type, SideType side, int x, int y);
 }
 
 Element Elements::Create(ElementNameType name, int x, int y)
@@ -64,7 +67,7 @@ Element Elements::Create(ElementNameType name, SideType side, int x, int y)
 
 Element Elements::CreateMain(SideType side, int x, int y)
 {
-	Element newElement = Elements::Create("Ninja.csb", ElementNameType::Main, ClassType::Character, side, x, y);
+	Element newElement = Elements::Create("Main.csb", ElementNameType::Main, ClassType::Character, side, x, y);
 
 	auto & moveOption = Options::Create<OptionForMouseMove>(newElement);
 	moveOption.SetMoveType(MoveType::ToByPass);
@@ -142,24 +145,28 @@ Element Elements::CreateFireball(SideType side, int x, int y)
 	return newElement;
 }
 
-Element Elements::Create(char * nodeName, ElementNameType name, ClassType type, SideType side, int x, int y)
+Element Elements::Create(std::string nodeName, ElementNameType name, ClassType type, SideType side, int x, int y)
 {
-	// Создание прорисовка для отображения и прорисовки элемента
-	auto nodeDraw = cocos2d::CSLoader::createNode(nodeName);
+	// Загрузка информации из файла
+	auto data = cocos2d::FileUtils::getInstance()->getDataFromFile(nodeName);
+	// Создание узла для отображения и прорисовки элемента
+	auto node = cocos2d::CSLoader::createNode(data);
+	// Создание привязки к анимации
+	auto animation = cocos2d::CSLoader::createTimeline(data, nodeName);
 	// Масштабирование элемента под размеры клетки
-	cocos2d::Size size = nodeDraw->getChildren().at(0)->getContentSize();
+	cocos2d::Size size = node->getChildren().at(0)->getContentSize();
 	float width = size.width;
 	float height = size.height;
 	float scaleWidth = Settings::NODEWIDTH / width;
 	float scaleHeight = Settings::NODEHEIGHT / height;
 
-	nodeDraw->setScale(scaleWidth, scaleHeight);
+	node->setScale(scaleWidth, scaleHeight);
 	// Настройка элемента
-	Element newElement(nodeDraw, name, type);
+	Element newElement(node, animation, name, type);
 	newElement.SetPosition(AxesInfo::ConvertToLeft(x), AxesInfo::ConvertToTop(y));
 	newElement.SetSide(side);
 	// Регистрация компонента
-	Field::DrawElement(nodeDraw);
+	Field::DrawElement(node);
 	Field::AddElement(newElement, x, y);
 
 	return newElement;

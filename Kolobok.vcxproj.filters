@@ -217,5 +217,8 @@
     <ClInclude Include="Classes\Field\GameStatusType.h">
       <Filter>Field</Filter>
     </ClInclude>
+    <ClInclude Include="Classes\Element\AnimationType.h">
+      <Filter>Element</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
