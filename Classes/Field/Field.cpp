@@ -4,8 +4,10 @@
 #include "ResultType.h"
 #include "GameStatusType.h"
 #include "Element\ClassType.h"
+#include "Element\ElementNameType.h"
 #include "Main\Maps.h"
 #include "Option\MoveOption\Vertex.h"
+#include "Option\MoveOption\MoveByPass.h"
 #include "Settings.h"
 
 #include "cocostudio/CocoStudio.h"
@@ -21,6 +23,11 @@ cocos2d::Sprite * infoMessage;
 std::vector<Cell> cells;
 // Текущий статус игры
 GameStatusType gameStatus = GameStatusType::Gaming;
+
+// Положение главного персонажа
+Axes main;
+// Положение финиша
+Axes finish;
 
 void Field::WinGame()
 {
@@ -91,6 +98,15 @@ bool Field::ContainName(const ElementNameType & name, const int & x, const int &
 
 void Field::AddElement(Element & value, const int & x, const int & y)
 {
+	if (value.GetName() == ElementNameType::Main)
+	{
+		main = Axes(x, y);
+	}
+	else if (value.GetName() == ElementNameType::Finish)
+	{
+		finish = Axes(x, y);
+	}
+
 	switch (cells.at(AxesInfo::ConvertToIndex(x, y)).AddElement(value))
 	{
 	case ResultType::Win:
@@ -103,21 +119,23 @@ void Field::AddElement(Element & value, const int & x, const int & y)
 }
 void Field::MoveElement(Element & item, const int & x, const int & y)
 {
-	//if (Field::ContainElement(item) == true)
-	//{
-		int oldIndex = AxesInfo::ConvertToIndex(item.GetX(), item.GetY());
+	if (item.GetName() == ElementNameType::Main)
+	{
+		main = Axes(x, y);
+	}
 
-		switch (cells.at(AxesInfo::ConvertToIndex(x, y)).AddElement(item))
-		{
-		case ResultType::Win:
-			Field::WinGame();
-			break;
-		case ResultType::Lose:
-			Field::LoseGame();
-			break;
-		}
-		cells.at(oldIndex).RemoveElement(item);
-	//}
+	int oldIndex = AxesInfo::ConvertToIndex(item.GetX(), item.GetY());
+
+	switch (cells.at(AxesInfo::ConvertToIndex(x, y)).AddElement(item))
+	{
+	case ResultType::Win:
+		Field::WinGame();
+		break;
+	case ResultType::Lose:
+		Field::LoseGame();
+		break;
+	}
+	cells.at(oldIndex).RemoveElement(item);
 }
 void Field::RemoveElement(Element & item)
 {
@@ -155,6 +173,5 @@ std::vector<Vertex> Field::CreateBlockMap()
 }
 bool Field::CheckPath()
 {
-	//return MoveByPass::CanMoveTo(Field::CreateBlockMap(), Axes(ninja.GetX(), ninja.GetY()), Axes(finish.GetX(), finish.GetY()));
-	return true;
+	return MoveByPass::CanMoveTo(main, finish);
 }

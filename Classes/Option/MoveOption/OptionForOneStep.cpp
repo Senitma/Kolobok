@@ -135,7 +135,7 @@ void OptionForOneStep::MoveTo(const int & x, const int & y)
 					maxInterval = Settings::CELLHEIGHT - moveSpeed - 1;
 
 					// Значение SideType совпадают с перемещением в FullStatusType
-					currentStatus = (StatusType)parent.GetSide();
+					currentStatus = (StatusType)calcSide;
 				}
 				else if (currentStatus == StatusType::AfterRotate)
 				{

@@ -109,6 +109,7 @@ Element Elements::CreateGun(SideType side, int x, int y)
 
 	auto & createOption = Options::Create<OptionForIntervalCreate>(newElement);
 	createOption.SetName(ElementNameType::Fireball);
+	createOption.SetSide(side);
 	createOption.SetRotate(true);
 	createOption.SetOffsetY(1);
 	createOption.SetInterval(Settings::CREATEFIREBALLINTERVAL);
@@ -169,14 +170,26 @@ Element Elements::Create(std::string nodeName, ElementNameType name, ClassType t
 	{
 		case Left:
 			node->getChildByName<cocos2d::Sprite *>("left")->setVisible(true);
+			node->getChildByName<cocos2d::Sprite *>("up")->setVisible(false);
+			node->getChildByName<cocos2d::Sprite *>("right")->setVisible(false);
+			node->getChildByName<cocos2d::Sprite *>("down")->setVisible(false);
 			break;
 		case Up:
+			node->getChildByName<cocos2d::Sprite *>("left")->setVisible(false);
 			node->getChildByName<cocos2d::Sprite *>("up")->setVisible(true);
+			node->getChildByName<cocos2d::Sprite *>("right")->setVisible(false);
+			node->getChildByName<cocos2d::Sprite *>("down")->setVisible(false);
 			break;
 		case Right:
+			node->getChildByName<cocos2d::Sprite *>("left")->setVisible(false);
+			node->getChildByName<cocos2d::Sprite *>("up")->setVisible(false);
 			node->getChildByName<cocos2d::Sprite *>("right")->setVisible(true);
+			node->getChildByName<cocos2d::Sprite *>("down")->setVisible(false);
 			break;
 		case Down:
+			node->getChildByName<cocos2d::Sprite *>("left")->setVisible(false);
+			node->getChildByName<cocos2d::Sprite *>("up")->setVisible(false);
+			node->getChildByName<cocos2d::Sprite *>("right")->setVisible(false);
 			node->getChildByName<cocos2d::Sprite *>("down")->setVisible(true);
 			break;
 		default:

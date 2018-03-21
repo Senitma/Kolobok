@@ -75,12 +75,12 @@ void Maps::LoadExample()
 	patrol2.AddPoint(2, 0);
 	patrol2.AddPoint(2, Settings::VERTICALCELLCOUNT - 1);
 
-	//Elements::Create(ElementNameType::Gun, SideType::Down, 5, 0);
-	//Elements::Create(ElementNameType::Gun, SideType::Down, 9, 0);
-	//Elements::Create(ElementNameType::Gun, SideType::Down, 12, 0);
-	//Elements::Create(ElementNameType::Gun, SideType::Up, 6, 14);
-	//Elements::Create(ElementNameType::Gun, SideType::Up, 10, 14);
-	//Elements::Create(ElementNameType::Gun, SideType::Up, 13, 14);
+	Elements::Create(ElementNameType::Gun, SideType::Down, 5, 0);
+	Elements::Create(ElementNameType::Gun, SideType::Down, 9, 0);
+	Elements::Create(ElementNameType::Gun, SideType::Down, 12, 0);
+	Elements::Create(ElementNameType::Gun, SideType::Up, 6, 14);
+	Elements::Create(ElementNameType::Gun, SideType::Up, 10, 14);
+	Elements::Create(ElementNameType::Gun, SideType::Up, 13, 14);
 }
 void Maps::LoadLabyrinth()
 {
