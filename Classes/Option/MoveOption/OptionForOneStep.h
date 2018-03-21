@@ -10,13 +10,13 @@ public:
 	OptionForOneStep(const Element & parent);
 
 	// Получить скорость перемещения
-	int GetMoveSpeed() const { return moveSpeed; };
+	float GetMoveSpeed() const { return moveSpeed; };
 	// Задать скорость пермещения
-	void SetMoveSpeed(const int & value) { moveSpeed = value; };
+	void SetMoveSpeed(const float & value) { moveSpeed = value; };
 	// Получить скорость вращения
-	int GetRotateSpeed() const { return rotateSpeed; };
+	float GetRotateSpeed() const { return rotateSpeed; };
 	// Задать возможность вращения
-	void SetRotateSpeed(const int & value) { rotateSpeed = value; };
+	void SetRotateSpeed(const float & value) { rotateSpeed = value; };
 
 	// Обновление данных
 	virtual void Update() override;
@@ -66,9 +66,9 @@ private:
 	};
 
 	// Скорость перемещения
-	int moveSpeed;
+	float moveSpeed;
 	// Скорость поворота
-	int rotateSpeed;
+	float rotateSpeed;
 
 	// Текущее состояние опции
 	StatusType currentStatus;
@@ -78,7 +78,7 @@ private:
 	int nextY;
 
 	// Текущий интервал
-	int currentInterval;
+	float currentInterval;
 	// максимальный интервал
-	int maxInterval;
+	float maxInterval;
 };

@@ -38,7 +38,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	director->setDisplayStats(true);
 
 	// set FPS. the default value is 1.0/60 if you don't call this
-	director->setAnimationInterval(1.0f / 60);
+	director->setAnimationInterval(1.0f / Settings::FPS);
 
 	cocos2d::FileUtils::getInstance()->addSearchPath("res");
 	cocos2d::FileUtils::getInstance()->addSearchPath("res\\Assets\\Default");

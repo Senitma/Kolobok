@@ -40,7 +40,7 @@ namespace Elements
 
 Element Elements::Create(ElementNameType name, int x, int y)
 {
-	return Elements::Create(name, SideType::Down, x, y);
+	return Elements::Create(name, SideType::None, x, y);
 }
 Element Elements::Create(ElementNameType name, SideType side, int x, int y)
 {
@@ -105,7 +105,7 @@ Element Elements::CreatePatrol(SideType side, int x, int y)
 }
 Element Elements::CreateGun(SideType side, int x, int y)
 {
-	Element & newElement = Elements::Create("Gun.csb", ElementNameType::Gun, ClassType::Block, side, x, y);
+	Element & newElement = Elements::Create("Gun.csb", ElementNameType::Gun, ClassType::Block, SideType::None, x, y);
 
 	auto & createOption = Options::Create<OptionForIntervalCreate>(newElement);
 	createOption.SetName(ElementNameType::Fireball);
@@ -118,7 +118,7 @@ Element Elements::CreateGun(SideType side, int x, int y)
 }
 Element Elements::CreateFireball(SideType side, int x, int y)
 {
-	Element & newElement = Elements::Create("FireBall.csb", ElementNameType::Fireball, ClassType::Bullet, side, x, y);
+	Element & newElement = Elements::Create("FireBall.csb", ElementNameType::Fireball, ClassType::Bullet, SideType::None, x, y);
 
 	newElement.AddPoint(x, y);
 	switch (side)
@@ -165,6 +165,24 @@ Element Elements::Create(std::string nodeName, ElementNameType name, ClassType t
 	Element newElement(node, animation, name, type);
 	newElement.SetPosition(AxesInfo::ConvertToLeft(x), AxesInfo::ConvertToTop(y));
 	newElement.SetSide(side);
+	switch (side)
+	{
+		case Left:
+			node->getChildByName<cocos2d::Sprite *>("left")->setVisible(true);
+			break;
+		case Up:
+			node->getChildByName<cocos2d::Sprite *>("up")->setVisible(true);
+			break;
+		case Right:
+			node->getChildByName<cocos2d::Sprite *>("right")->setVisible(true);
+			break;
+		case Down:
+			node->getChildByName<cocos2d::Sprite *>("down")->setVisible(true);
+			break;
+		default:
+			// Действий не требуется
+			break;
+	}
 	// Регистрация компонента
 	Field::DrawElement(node);
 	Field::AddElement(newElement, x, y);

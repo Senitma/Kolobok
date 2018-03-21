@@ -46,7 +46,7 @@ void OptionForCreate::Create()
 	else
 	{
 		// Без учитывания поворота смещение происходит по SideType::Down методу
-		side = SideType::Down;
+		side = SideType::None;
 		calcX = parent.GetX() + offsetX;
 		calcY = parent.GetY() + offsetY;
 	}

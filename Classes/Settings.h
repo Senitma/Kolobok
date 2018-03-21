@@ -13,6 +13,8 @@ namespace Settings
 	const int FIELDHEIGHTSIZE = 960;
 	// Переключатель FPS
 	const bool SHOWFPS = true;
+	// FPS
+	const float FPS = 60;
 
 	// Ширина прорисовки
 	const int NODEWIDTH = 64;
@@ -42,7 +44,7 @@ namespace Settings
 	// Скорость перемещения персонажа
 	const float MOVESPEED = 4;
 	// Скорость вращения персонажа
-	const float ROTATESPEED = 4;
+	const float ROTATESPEED = 4.9;
 	// Период создания снаряда
 	const float CREATEFIREBALLINTERVAL = 120;
 	// Скорость снаряда

@@ -53,24 +53,6 @@ SideType Element::GetSide() const
 void Element::SetSide(const SideType & value)
 {
 	data->side = value;
-
-	switch (value)
-	{
-	case SideType::Left:
-		data->node->setRotation(90);
-		break;
-	case SideType::Right:
-		data->node->setRotation(270);
-		break;
-	case SideType::Up:
-		data->node->setRotation(180);
-		break;
-	case SideType::Down:
-		// Значение по умолчанию
-	default:
-		data->node->setRotation(0);
-		break;
-	}
 }
 
 int Element::GetX() const

@@ -1,4 +1,5 @@
 #include "Element\SideType.h"
+#include "Element\AnimationType.h"
 #include "Field\Field.h"
 #include "Field\AxesInfo.h"
 #include "Settings.h"
@@ -41,12 +42,16 @@ void OptionForOneStep::Update()
 		}
 	};
 	// Метод для вращения элемента
-	auto RotateElement = [&](const int & angle, const SideType & finishSide) 
+	auto RotateElement = [&](const int & angle, AnimationType type, const SideType & finishSide) 
 	{
-		if (currentInterval < maxInterval)
+		if (currentInterval == 0)
 		{
-			parent.SetRotation(parent.GetRotation() + angle);
-			currentInterval += abs(angle);
+			parent.RunAnimation(type);
+			currentInterval += rotateSpeed;
+		}
+		else if (currentInterval < maxInterval)
+		{
+			currentInterval += rotateSpeed;
 		}
 		else
 		{
@@ -73,28 +78,28 @@ void OptionForOneStep::Update()
 			break;
 		// Операции поворота
 		case OptionForOneStep::RotateLeftToUp:
-			RotateElement(rotateSpeed, SideType::Up);
+			RotateElement(rotateSpeed, AnimationType::RotateLeftToUp, SideType::Up);
 			break;
 		case OptionForOneStep::RotateUpToLeft:
-			RotateElement(-rotateSpeed, SideType::Left);
+			RotateElement(rotateSpeed, AnimationType::RotateUpToLeft, SideType::Left);
 			break;
 		case OptionForOneStep::RotateUpToRight:
-			RotateElement(rotateSpeed, SideType::Right);
+			RotateElement(rotateSpeed, AnimationType::RotateUpToRight, SideType::Right);
 			break;
 		case OptionForOneStep::RotateRightToUp:
-			RotateElement(-rotateSpeed, SideType::Up);
+			RotateElement(rotateSpeed, AnimationType::RotateRightToUp, SideType::Up);
 			break;
 		case OptionForOneStep::RotateRightToDown:
-			RotateElement(rotateSpeed, SideType::Down);
+			RotateElement(rotateSpeed, AnimationType::RotateRightToDown, SideType::Down);
 			break;
 		case OptionForOneStep::RotateDownToRight:
-			RotateElement(-rotateSpeed, SideType::Right);
+			RotateElement(rotateSpeed, AnimationType::RotateDownToRight, SideType::Right);
 			break;
 		case OptionForOneStep::RotateDownToLeft:
-			RotateElement(rotateSpeed, SideType::Left);
+			RotateElement(rotateSpeed, AnimationType::RotateDownToLeft, SideType::Left);
 			break;
 		case OptionForOneStep::RotateLeftToDown:
-			RotateElement(-rotateSpeed, SideType::Down);
+			RotateElement(rotateSpeed, AnimationType::RotateLeftToDown, SideType::Down);
 			break;
 		default:
 			Standed();
