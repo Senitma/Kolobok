@@ -1,5 +1,6 @@
 #include "Option\MouseType.h"
 #include "Field\AxesInfo.h"
+#include "Settings.h"
 
 #include "OptionForMouseMove.h"
 
@@ -10,6 +11,9 @@ void OptionForMouseMove::MouseClick(const MouseType & type, const int & x, const
 		int calcX = AxesInfo::ConvertToX(x);
 		int calcY = AxesInfo::ConvertToY(y);
 
-		this->MoveTo(calcX, calcY);
+		if ((calcX >= 0) && (calcY >= 0) && (calcX < Settings::HORIZONTALCELLCOUNT) && (calcY < Settings::VERTICALCELLCOUNT))
+		{
+			MoveTo(calcX, calcY);
+		}
 	}
 }

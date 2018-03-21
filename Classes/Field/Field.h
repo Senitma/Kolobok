@@ -3,6 +3,8 @@
 #include "vector"
 #include "Element\Element.h"
 
+// Перечисление возможных состояний игры
+enum class GameStatusType;
 // Класс вершин
 class Vertex;
 
@@ -15,6 +17,8 @@ namespace Field
 	void LoseGame();
 	// Перезагрузить поле
 	void Reload();
+	// Получить текущее состояние игры
+	GameStatusType GetCurrentGameStatus();
 
 	// Получить ссылку на прорисовку
 	cocos2d::Node * GetInstance();

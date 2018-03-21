@@ -19,18 +19,17 @@ namespace Settings
 	// Высота прорисовки
 	const int NODEHEIGHT = 64;
 	// Ширина ячейки
-	const int CELLWIDTHSIZE = 0;
+	const int CELLWIDTH = 64;
 	// Высота ячейки
-	const int CELLHEIGHTSIZE = 0;
-	// Глубина ячейки
-	const int CELLDEPTHSIZE = 0;
-	// Ширина зазора
-	const int GAPWIDTHSIZE = 0;
-	// Высота зазора
-	const int GAPHEIGHTSIZE = 0;
+	const int CELLHEIGHT = 64;
 
 #pragma endregion
 #pragma region Настройки игры
+
+	// Смещение изображения по оси X
+	extern const int & OFFSETX;
+	// Смещение изображения по оси Y
+	extern const int & OFFSETY;
 
 	// количество клеток по горизонтали
 	extern const int & HORIZONTALCELLCOUNT;

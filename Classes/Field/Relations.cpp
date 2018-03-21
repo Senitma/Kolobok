@@ -108,15 +108,15 @@ int Relations::GetOrderDelta(ClassType type)
 	switch (type)
 	{
 	case Character:
-		return 1;
+		return 2;
 	case Finish:
 		return 1;
 	case Block:
-		return 4;
+		return 5;
 	case Enemy:
-		return 1;
-	case Bullet:
 		return 3;
+	case Bullet:
+		return 4;
 	default:
 		return 0;
 	}

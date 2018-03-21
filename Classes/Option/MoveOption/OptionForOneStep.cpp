@@ -127,7 +127,7 @@ void OptionForOneStep::MoveTo(const int & x, const int & y)
 					Field::MoveElement(parent, x, y);
 
 					currentInterval = 0;
-					maxInterval = Settings::NODEHEIGHT - moveSpeed - 1;
+					maxInterval = Settings::CELLHEIGHT - moveSpeed - 1;
 
 					// Значение SideType совпадают с перемещением в FullStatusType
 					currentStatus = (StatusType)parent.GetSide();

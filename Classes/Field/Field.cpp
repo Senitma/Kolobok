@@ -1,6 +1,8 @@
 #include "Cell.h"
 #include "Axes.h"
 #include "AxesInfo.h"
+#include "ResultType.h"
+#include "GameStatusType.h"
 #include "Element\ClassType.h"
 #include "Main\Maps.h"
 #include "Option\MoveOption\Vertex.h"
@@ -17,21 +19,25 @@ cocos2d::Sprite * infoMessage;
 
 // Набор клеток
 std::vector<Cell> cells;
+// Текущий статус игры
+GameStatusType gameStatus = GameStatusType::Gaming;
 
 void Field::WinGame()
 {
+	gameStatus = GameStatusType::Win;
 	infoMessage = cocos2d::Sprite::create("Win.png", cocos2d::Rect(0, 0, 512, 256));
 	infoMessage->setAnchorPoint(cocos2d::Vec2(0.0f, 1.0f));
 	infoMessage->setPosition(Settings::FIELDWIDTHSIZE / 2 - 256, Settings::FIELDHEIGHTSIZE / 2 + 128);
-	infoMessage->setLocalZOrder(5);
+	infoMessage->setLocalZOrder(Settings::HORIZONTALCELLCOUNT * Settings::VERTICALCELLCOUNT * 5);
 	field->addChild(infoMessage);
 }
 void Field::LoseGame()
 {
+	gameStatus = GameStatusType::Lose;
 	infoMessage = cocos2d::Sprite::create("Lose.png", cocos2d::Rect(0, 0, 512, 256));
 	infoMessage->setAnchorPoint(cocos2d::Vec2(0.0f, 1.0f));
 	infoMessage->setPosition(Settings::FIELDWIDTHSIZE / 2 - 256, Settings::FIELDHEIGHTSIZE / 2 + 128);
-	infoMessage->setLocalZOrder(5);
+	infoMessage->setLocalZOrder(Settings::HORIZONTALCELLCOUNT * Settings::VERTICALCELLCOUNT * 5);
 	field->addChild(infoMessage);
 }
 void Field::Reload()
@@ -40,6 +46,11 @@ void Field::Reload()
 	Maps::ReloadMap();
 
 	field->removeChild(infoMessage);
+	gameStatus = GameStatusType::Gaming;
+}
+GameStatusType Field::GetCurrentGameStatus()
+{
+	return gameStatus;
 }
 
 cocos2d::Node * Field::GetInstance()
@@ -80,7 +91,15 @@ bool Field::ContainName(const ElementNameType & name, const int & x, const int &
 
 void Field::AddElement(Element & value, const int & x, const int & y)
 {
-	cells.at(AxesInfo::ConvertToIndex(x, y)).AddElement(value);
+	switch (cells.at(AxesInfo::ConvertToIndex(x, y)).AddElement(value))
+	{
+	case ResultType::Win:
+		Field::WinGame();
+		break;
+	case ResultType::Lose:
+		Field::LoseGame();
+		break;
+	}
 }
 void Field::MoveElement(Element & item, const int & x, const int & y)
 {
@@ -88,7 +107,15 @@ void Field::MoveElement(Element & item, const int & x, const int & y)
 	//{
 		int oldIndex = AxesInfo::ConvertToIndex(item.GetX(), item.GetY());
 
-		cells.at(AxesInfo::ConvertToIndex(x, y)).AddElement(item);
+		switch (cells.at(AxesInfo::ConvertToIndex(x, y)).AddElement(item))
+		{
+		case ResultType::Win:
+			Field::WinGame();
+			break;
+		case ResultType::Lose:
+			Field::LoseGame();
+			break;
+		}
 		cells.at(oldIndex).RemoveElement(item);
 	//}
 }

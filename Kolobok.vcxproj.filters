@@ -214,5 +214,8 @@
     <ClInclude Include="Classes\Option\MoveOption\BaseVertex.h">
       <Filter>Option\MoveOption</Filter>
     </ClInclude>
+    <ClInclude Include="Classes\Field\GameStatusType.h">
+      <Filter>Field</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -251,6 +251,9 @@ void Maps::LoadLabyrinth()
 }
 void Maps::LoadAlgorithmTesth()
 {
+	EditSettings::OFFSETX = 100;
+	EditSettings::OFFSETY = -300;
+
 	EditSettings::HORIZONTALCELLCOUNT = 16;
 	EditSettings::VERTICALCELLCOUNT = 7;
 	GenerateFloor();

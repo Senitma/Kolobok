@@ -22,19 +22,19 @@ int AxesInfo::ConvertToIndex(const int & x, const int & y)
 {
 	return y * Settings::HORIZONTALCELLCOUNT + x;
 }
-int AxesInfo::ConvertToX(const int &value)
+int AxesInfo::ConvertToX(const int & value)
 {
-	return value / (Settings::NODEWIDTH);
+	return (value - Settings::OFFSETX) / (Settings::CELLWIDTH);
 }
-int AxesInfo::ConvertToY(const int &value)
+int AxesInfo::ConvertToY(const int & value)
 {
-	return (Settings::FIELDHEIGHTSIZE - value) / Settings::NODEHEIGHT;
+	return (Settings::FIELDHEIGHTSIZE - (value - Settings::OFFSETY)) / Settings::CELLHEIGHT;
 }
 int AxesInfo::ConvertToLeft(const int &value)
 {
-	return Settings::NODEWIDTH / 2 + value * Settings::NODEWIDTH;
+	return (Settings::CELLWIDTH / 2 + value * Settings::CELLWIDTH) + Settings::OFFSETX;
 }
 int AxesInfo::ConvertToTop(const int &value)
 {
-	return Settings::FIELDHEIGHTSIZE - (Settings::NODEHEIGHT / 2 + value * Settings::NODEHEIGHT);
+	return (Settings::FIELDHEIGHTSIZE - (Settings::CELLHEIGHT / 2 + value * Settings::CELLHEIGHT)) + Settings::OFFSETY;
 }

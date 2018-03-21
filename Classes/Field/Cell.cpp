@@ -11,6 +11,14 @@ Cell::Cell()
 {
 	items = std::list<MoveElement>();
 }
+Cell::~Cell()
+{
+	std::for_each(++items.begin(), items.end(), [=](Element & item)
+	{
+		item.SetDestroyStatus(true);
+		items.remove(item);
+	});
+}
 
 void Cell::SetIndex(const int & index)
 {
@@ -106,7 +114,7 @@ ResultType Cell::CheckRelations()
 	}
 
 	ResultType result = Relations::Calc(GetAllTypes());
-	if (result == ResultType::Destroy)
+	if ((result == ResultType::Destroy) || (result == ResultType::Lose))
 	{
 		Destroy(false);
 	}

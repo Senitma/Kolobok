@@ -12,6 +12,8 @@ class Cell
 public:
 	// Инициализация переменных
 	Cell();
+	// Удаление данных
+	~Cell();
 
 	// Получить положение по оси X
 	int GetX() const { return x; };

@@ -1,8 +1,10 @@
-#include "OptionForMouseCreateDestroy.h"
 #include "Element\ClassType.h"
 #include "Field\Field.h"
 #include "Field\AxesInfo.h"
 #include "Option\MouseType.h"
+#include "Settings.h"
+
+#include "OptionForMouseCreateDestroy.h"
 
 void OptionForMouseCreateDestroy::MouseClick(const MouseType & type, const int & x, const int & y)
 {
@@ -11,23 +13,27 @@ void OptionForMouseCreateDestroy::MouseClick(const MouseType & type, const int &
 		int calcX = AxesInfo::ConvertToX(x);
 		int calcY = AxesInfo::ConvertToY(y);
 
-		this->SetOffsetX(calcX - ISOption::parent.GetX());
-		this->SetOffsetY(calcY - ISOption::parent.GetY());
+		if ((calcX >= 0) && (calcY >= 0) && (calcX < Settings::HORIZONTALCELLCOUNT) && (calcY < Settings::VERTICALCELLCOUNT))
+		{
 
-		if (Field::CanAddElement(ClassType::Block, calcX, calcY) == true)
-		{
-			this->Create();
-			// ”ничтожение блока если он мешает дойти до финиша
-			if (Field::CheckPath() == false)
+			SetOffsetX(calcX - ISOption::parent.GetX());
+			SetOffsetY(calcY - ISOption::parent.GetY());
+
+			if (Field::CanAddElement(ClassType::Block, calcX, calcY) == true)
 			{
-				Field::Destroy(calcX, calcY);
+				Create();
+				// ”ничтожение блока если он мешает дойти до финиша
+				if (Field::CheckPath() == false)
+				{
+					Field::Destroy(calcX, calcY);
+				}
 			}
-		}
-		else
-		{
-			if (Field::ContainName(nodeName, calcX, calcY) == true)
+			else
 			{
-				Field::Destroy(calcX, calcY);
+				if (Field::ContainName(nodeName, calcX, calcY) == true)
+				{
+					Field::Destroy(calcX, calcY);
+				}
 			}
 		}
 	}
