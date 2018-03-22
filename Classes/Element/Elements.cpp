@@ -148,54 +148,21 @@ Element Elements::CreateFireball(SideType side, int x, int y)
 
 Element Elements::Create(std::string nodeName, ElementNameType name, ClassType type, SideType side, int x, int y)
 {
-	// Загрузка информации из файла
-	auto data = cocos2d::FileUtils::getInstance()->getDataFromFile(nodeName);
 	// Создание узла для отображения и прорисовки элемента
-	auto node = cocos2d::CSLoader::createNode(data);
-	// Создание привязки к анимации
-	auto animation = cocos2d::CSLoader::createTimeline(data, nodeName);
+	auto node = cocos2d::CSLoader::createNode(nodeName);
+
 	// Масштабирование элемента под размеры клетки
 	cocos2d::Size size = node->getChildren().at(0)->getContentSize();
 	float width = size.width;
 	float height = size.height;
 	float scaleWidth = Settings::NODEWIDTH / width;
 	float scaleHeight = Settings::NODEHEIGHT / height;
-
 	node->setScale(scaleWidth, scaleHeight);
+
 	// Настройка элемента
-	Element newElement(node, animation, name, type);
+	Element newElement(node, side, name, type);
 	newElement.SetPosition(AxesInfo::ConvertToLeft(x), AxesInfo::ConvertToTop(y));
-	newElement.SetSide(side);
-	switch (side)
-	{
-		case Left:
-			node->getChildByName<cocos2d::Sprite *>("left")->setVisible(true);
-			node->getChildByName<cocos2d::Sprite *>("up")->setVisible(false);
-			node->getChildByName<cocos2d::Sprite *>("right")->setVisible(false);
-			node->getChildByName<cocos2d::Sprite *>("down")->setVisible(false);
-			break;
-		case Up:
-			node->getChildByName<cocos2d::Sprite *>("left")->setVisible(false);
-			node->getChildByName<cocos2d::Sprite *>("up")->setVisible(true);
-			node->getChildByName<cocos2d::Sprite *>("right")->setVisible(false);
-			node->getChildByName<cocos2d::Sprite *>("down")->setVisible(false);
-			break;
-		case Right:
-			node->getChildByName<cocos2d::Sprite *>("left")->setVisible(false);
-			node->getChildByName<cocos2d::Sprite *>("up")->setVisible(false);
-			node->getChildByName<cocos2d::Sprite *>("right")->setVisible(true);
-			node->getChildByName<cocos2d::Sprite *>("down")->setVisible(false);
-			break;
-		case Down:
-			node->getChildByName<cocos2d::Sprite *>("left")->setVisible(false);
-			node->getChildByName<cocos2d::Sprite *>("up")->setVisible(false);
-			node->getChildByName<cocos2d::Sprite *>("right")->setVisible(false);
-			node->getChildByName<cocos2d::Sprite *>("down")->setVisible(true);
-			break;
-		default:
-			// Действий не требуется
-			break;
-	}
+
 	// Регистрация компонента
 	Field::DrawElement(node);
 	Field::AddElement(newElement, x, y);

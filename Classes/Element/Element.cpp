@@ -1,5 +1,5 @@
-#include "AnimationType.h"
 #include "ElementData.h"
+#include "Settings.h"
 
 #include "cocos2d.h"
 #include "cocostudio\CocoStudio.h"
@@ -9,16 +9,21 @@
 // Статус автоматического удаления прорисовок
 bool AutoDrawDeleteStatus = true;
 
-Element::Element(cocos2d::Node * node, cocostudio::timeline::ActionTimeline * animation, ElementNameType name, ClassType type)
+Element::Element(cocos2d::Node * node, SideType side, ElementNameType name, ClassType type)
 {
 	static int id = 0;
 	data = std::make_shared<ElementData>();
 
 	data->id = id;
 	data->node = node;
-	data->animation = animation;
+	data->side = side;
 	data->name = name;
 	data->type = type;
+
+	if (side != SideType::None)
+	{
+		data->animation.LoadAnimation(data->node, Settings::ROTATESPEED, 5, Settings::NODEWIDTH, Settings::NODEHEIGHT, side);
+	}
 
 	id++;
 }
@@ -99,52 +104,7 @@ void Element::SetDestroyStatus(const bool & value)
 
 void Element::RunAnimation(AnimationType type)
 {
-	data->node->stopAllActions();
-	data->node->runAction(data->animation);
-	
-	switch (type)
-	{
-		case AnimationType::MoveToLeft:
-			data->animation->play("MoveToLeft", false);
-			break;
-		case AnimationType::MoveToUp:
-			data->animation->play("MoveToUp", false);
-			break;
-		case AnimationType::MoveToRight:
-			data->animation->play("MoveToRight", false);
-			break;
-		case AnimationType::MoveToDown:
-			data->animation->play("MoveToDown", false);
-			break;
-		case AnimationType::RotateLeftToUp:
-			data->animation->play("RotateLeftToUp", false);
-			break;
-		case AnimationType::RotateUpToLeft:
-			data->animation->play("RotateUpToLeft", false);
-			break;
-		case AnimationType::RotateUpToRight:
-			data->animation->play("RotateUpToRight", false);
-			break;
-		case AnimationType::RotateRightToUp:
-			data->animation->play("RotateRightToUp", false);
-			break;
-		case AnimationType::RotateRightToDown:
-			data->animation->play("RotateRightToDown", false);
-			break;
-		case AnimationType::RotateDownToRight:
-			data->animation->play("RotateDownToRight", false);
-			break;
-		case AnimationType::RotateDownToLeft:
-			data->animation->play("RotateDownToLeft", false);
-			break;
-		case AnimationType::RotateLeftToDown:
-			data->animation->play("RotateLeftToDown", false);
-			break;
-		default:
-			// Ничего не происходит
-			break;
-	}
-
+	data->animation.RunAnimation(type);
 }
 
 void Element::AddPoint(const int & x, const int & y)

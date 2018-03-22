@@ -107,6 +107,9 @@
     <ClCompile Include="Classes\Option\MoveOption\Edge.cpp">
       <Filter>Option\MoveOption</Filter>
     </ClCompile>
+    <ClCompile Include="Classes\Element\ElementAnimation.cpp">
+      <Filter>Element</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Classes\Element\ElementNameType.h">
@@ -218,6 +221,9 @@
       <Filter>Field</Filter>
     </ClInclude>
     <ClInclude Include="Classes\Element\AnimationType.h">
+      <Filter>Element</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\Element\ElementAnimation.h">
       <Filter>Element</Filter>
     </ClInclude>
   </ItemGroup>

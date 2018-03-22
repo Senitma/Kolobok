@@ -2,11 +2,13 @@
 
 #include "queue"
 
+#include "ElementAnimation.h"
 #include "ElementNameType.h"
 #include "SideType.h"
 #include "ClassType.h"
 #include "Field\Axes.h"
 
+#include "cocos2d.h"
 #include "2d\CCNode.h"
 #include "cocostudio\ActionTimeline\CCActionTimeline.h"
 
@@ -24,7 +26,7 @@ struct ElementData
 	// Узел для прорисовки
 	cocos2d::Node * node;
 	// Анимация
-	cocostudio::timeline::ActionTimeline * animation;
+	ElementAnimation animation;
 
 	// Положение элемента
 	Axes position;

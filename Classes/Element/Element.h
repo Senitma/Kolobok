@@ -16,6 +16,8 @@ namespace cocostudio
 		class ActionTimeline;
 	}
 }
+// Анимация элемента
+class ElementAnimation;
 // Данные элемента
 struct ElementData;
 // Перечисление возможных имен
@@ -34,7 +36,7 @@ class Element
 {
 public:
 	// Инициализация переменных
-	Element(cocos2d::Node * node, cocostudio::timeline::ActionTimeline * animation, ElementNameType name, ClassType type);
+	Element(cocos2d::Node * node, SideType side, ElementNameType name, ClassType type);
 	// Копирование элемента
 	Element(const Element & value);
 	// Удаление данных
