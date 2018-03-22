@@ -11,8 +11,8 @@ enum class ElementNameType
 	Main,
 	// Финиш
 	Finish,
-	// Стена
-	Wall,
+	// Блокировка пути
+	Block,
 	// Патруль
 	Patrol,
 	// Оружие

@@ -32,7 +32,7 @@ Axes finish;
 void Field::WinGame()
 {
 	gameStatus = GameStatusType::Win;
-	infoMessage = cocos2d::Sprite::create("Win.png", cocos2d::Rect(0, 0, 512, 256));
+	infoMessage = cocos2d::Sprite::create("win.png", cocos2d::Rect(0, 0, 512, 256));
 	infoMessage->setAnchorPoint(cocos2d::Vec2(0.0f, 1.0f));
 	infoMessage->setPosition(Settings::FIELDWIDTHSIZE / 2 - 256, Settings::FIELDHEIGHTSIZE / 2 + 128);
 	infoMessage->setLocalZOrder(Settings::HORIZONTALCELLCOUNT * Settings::VERTICALCELLCOUNT * 5);
@@ -41,7 +41,7 @@ void Field::WinGame()
 void Field::LoseGame()
 {
 	gameStatus = GameStatusType::Lose;
-	infoMessage = cocos2d::Sprite::create("Lose.png", cocos2d::Rect(0, 0, 512, 256));
+	infoMessage = cocos2d::Sprite::create("lose.png", cocos2d::Rect(0, 0, 512, 256));
 	infoMessage->setAnchorPoint(cocos2d::Vec2(0.0f, 1.0f));
 	infoMessage->setPosition(Settings::FIELDWIDTHSIZE / 2 - 256, Settings::FIELDHEIGHTSIZE / 2 + 128);
 	infoMessage->setLocalZOrder(Settings::HORIZONTALCELLCOUNT * Settings::VERTICALCELLCOUNT * 5);
@@ -63,7 +63,7 @@ GameStatusType Field::GetCurrentGameStatus()
 cocos2d::Node * Field::GetInstance()
 {
 	// Заливка фона
-	auto background = cocos2d::Sprite::create("Background.png", cocos2d::Rect(0, 0, Settings::FIELDWIDTHSIZE, Settings::FIELDHEIGHTSIZE));
+	auto background = cocos2d::Sprite::create("background.png", cocos2d::Rect(0, 0, Settings::FIELDWIDTHSIZE, Settings::FIELDHEIGHTSIZE));
 	background->setAnchorPoint(cocos2d::Vec2(0.0f, 0.0f));
 	background->setColor(cocos2d::Color3B(153, 205, 205));
 	background->setLocalZOrder(-1);

@@ -27,7 +27,7 @@ namespace Elements
 	// Добавление клетки пола
 	Element CreateFloor(SideType side, int x, int y);
 	// Добавление стены
-	Element CreateWall(SideType side, int x, int y);
+	Element CreateBlock(SideType side, int x, int y);
 	// Добавление патруля
 	Element CreatePatrol(SideType side, int x, int y);
 	// Добавления пушки
@@ -58,10 +58,10 @@ Element Elements::Create(ElementNameType name, SideType side, int x, int y)
 		return Elements::CreateGun(side, x, y);
 	case ElementNameType::Fireball:
 		return Elements::CreateFireball(side, x, y);
-	case ElementNameType::Wall:
+	case ElementNameType::Block:
 		// Значение по умолчанию
 	default:
-		return Elements::CreateWall(side, x, y);
+		return Elements::CreateBlock(side, x, y);
 	}
 }
 
@@ -75,7 +75,7 @@ Element Elements::CreateMain(SideType side, int x, int y)
 	moveOption.SetRotateSpeed(Settings::ROTATESPEED);
 
 	auto & createOption = Options::Create<OptionForMouseCreateDestroy>(newElement);
-	createOption.SetName(ElementNameType::Wall);
+	createOption.SetName(ElementNameType::Block);
 
 	return newElement;
 }
@@ -87,9 +87,9 @@ Element Elements::CreateFloor(SideType side, int x, int y)
 {
 	return Elements::Create("Floor.csb", ElementNameType::Floor, ClassType::Empty, side, x, y);
 }
-Element Elements::CreateWall(SideType side, int x, int y)
+Element Elements::CreateBlock(SideType side, int x, int y)
 {
-	return Elements::Create("Wall.csb", ElementNameType::Wall, ClassType::Block, side, x, y);
+	return Elements::Create("Block.csb", ElementNameType::Block, ClassType::Block, side, x, y);
 }
 Element Elements::CreatePatrol(SideType side, int x, int y)
 {

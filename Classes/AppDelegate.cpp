@@ -41,7 +41,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	director->setAnimationInterval(1.0f / Settings::FPS);
 
 	cocos2d::FileUtils::getInstance()->addSearchPath("res");
-	cocos2d::FileUtils::getInstance()->addSearchPath("res\\Assets\\Default");
+	cocos2d::FileUtils::getInstance()->addSearchPath("res\\Assets\\Other");
 
 
 	// create a scene. it's an autorelease object
