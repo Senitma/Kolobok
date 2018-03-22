@@ -105,13 +105,12 @@ Element Elements::CreatePatrol(SideType side, int x, int y)
 }
 Element Elements::CreateGun(SideType side, int x, int y)
 {
-	Element & newElement = Elements::Create("Gun.csb", ElementNameType::Gun, ClassType::Block, SideType::None, x, y);
+	Element & newElement = Elements::Create("Gun.csb", ElementNameType::Gun, ClassType::Empty, SideType::None, x, y);
 
 	auto & createOption = Options::Create<OptionForIntervalCreate>(newElement);
 	createOption.SetName(ElementNameType::Fireball);
 	createOption.SetSide(side);
 	createOption.SetRotate(true);
-	createOption.SetOffsetY(1);
 	createOption.SetInterval(Settings::CREATEFIREBALLINTERVAL);
 	createOption.SetActive(true);
 
