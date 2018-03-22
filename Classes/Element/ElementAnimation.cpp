@@ -62,13 +62,13 @@ void ElementAnimation::LoadAnimation(Node * node, const float & interval, const 
 	switch (startSide)
 	{
 		case SideType::Left:
-			mainSprite->setTexture(node->getChildByName<Sprite *>("left")->getTexture());
+			mainSprite->setTexture(node->getChildByName<Sprite *>("right")->getTexture());
 			break;
 		case SideType::Up:
 			mainSprite->setTexture(node->getChildByName<Sprite *>("up")->getTexture());
 			break;
 		case SideType::Right:
-			mainSprite->setTexture(node->getChildByName<Sprite *>("right")->getTexture());
+			mainSprite->setTexture(node->getChildByName<Sprite *>("left")->getTexture());
 			break;
 		case SideType::Down:
 			mainSprite->setTexture(node->getChildByName<Sprite *>("down")->getTexture());
@@ -86,28 +86,28 @@ void ElementAnimation::RunAnimation(AnimationType type)
 	switch (type)
 	{
 		case AnimationType::RotateLeftToUp:
-			animation = Animation::createWithSpriteFrames(leftupFrames, 0.05F);
-			break;
-		case AnimationType::RotateUpToLeft:
-			animation = Animation::createWithSpriteFrames(upleftFrames, 0.05F);
-			break;
-		case AnimationType::RotateUpToRight:
-			animation = Animation::createWithSpriteFrames(uprightFrames, 0.05F);
-			break;
-		case AnimationType::RotateRightToUp:
 			animation = Animation::createWithSpriteFrames(rightupFrames, 0.05F);
 			break;
+		case AnimationType::RotateUpToLeft:
+			animation = Animation::createWithSpriteFrames(uprightFrames, 0.05F);
+			break;
+		case AnimationType::RotateUpToRight:
+			animation = Animation::createWithSpriteFrames(upleftFrames, 0.05F);
+			break;
+		case AnimationType::RotateRightToUp:
+			animation = Animation::createWithSpriteFrames(leftupFrames, 0.05F);
+			break;
 		case AnimationType::RotateRightToDown:
-			animation = Animation::createWithSpriteFrames(rightdownFrames, 0.05F);
+			animation = Animation::createWithSpriteFrames(leftdownFrames, 0.05F);
 			break;
 		case AnimationType::RotateDownToRight:
-			animation = Animation::createWithSpriteFrames(downrightFrames, 0.05F);
-			break;
-		case AnimationType::RotateDownToLeft:
 			animation = Animation::createWithSpriteFrames(downleftFrames, 0.05F);
 			break;
+		case AnimationType::RotateDownToLeft:
+			animation = Animation::createWithSpriteFrames(downrightFrames, 0.05F);
+			break;
 		case AnimationType::RotateLeftToDown:
-			animation = Animation::createWithSpriteFrames(leftdownFrames, 0.05F);
+			animation = Animation::createWithSpriteFrames(rightdownFrames, 0.05F);
 			break;
 		default:
 			// Действий не требуется

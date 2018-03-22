@@ -24,7 +24,7 @@ int AxesInfo::ConvertToIndex(const int & x, const int & y)
 }
 int AxesInfo::ConvertToX(const int & value)
 {
-	return (value - Settings::OFFSETX) / (Settings::CELLWIDTH);
+	return (Settings::FIELDWIDTHSIZE - (value - Settings::OFFSETX)) / Settings::CELLWIDTH;
 }
 int AxesInfo::ConvertToY(const int & value)
 {
@@ -32,7 +32,7 @@ int AxesInfo::ConvertToY(const int & value)
 }
 int AxesInfo::ConvertToLeft(const int &value)
 {
-	return (Settings::CELLWIDTH / 2 + value * Settings::CELLWIDTH) + Settings::OFFSETX;
+	return (Settings::FIELDWIDTHSIZE - (Settings::CELLWIDTH / 2 + value * Settings::CELLWIDTH)) + Settings::OFFSETX;
 }
 int AxesInfo::ConvertToTop(const int &value)
 {
