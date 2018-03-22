@@ -26,53 +26,18 @@ private:
 
 	// Список кадров для анимации
 	Vector<SpriteFrame *> leftupFrames;
-	// Шаблон анимации
-	Animation * leftupAnimation;
-	// Анимация
-	Animate * leftupAnimate;
 	// Список кадров для анимации
 	Vector<SpriteFrame *> upleftFrames;
-	// Шаблон анимации
-	Animation * upleftAnimation;
-	// Анимация
-	Animate * upleftAnimate;
-
 	// Список кадров для анимации
 	Vector<SpriteFrame *> uprightFrames;
-	// Шаблон анимации
-	Animation * uprightAnimation;
-	// Анимация
-	Animate * uprightAnimate;
 	// Список кадров для анимации
 	Vector<SpriteFrame *> rightupFrames;
-	// Шаблон анимации
-	Animation * rightupAnimation;
-	// Анимация
-	Animate * rightupAnimate;
-
 	// Список кадров для анимации
 	Vector<SpriteFrame *> rightdownFrames;
-	// Шаблон анимации
-	Animation * rightdownAnimation;
-	// Анимация
-	Animate * rightdownAnimate;
 	// Список кадров для анимации
 	Vector<SpriteFrame *> downrightFrames;
-	// Шаблон анимации
-	Animation * downrightAnimation;
-	// Анимация
-	Animate * downrightAnimate;
-
 	// Список кадров для анимации
 	Vector<SpriteFrame *> downleftFrames;
-	// Шаблон анимации
-	Animation * downleftAnimation;
-	// Анимация
-	Animate * downleftAnimate;
 	// Список кадров для анимации
 	Vector<SpriteFrame *> leftdownFrames;
-	// Шаблон анимации
-	Animation * leftdownAnimation;
-	// Анимация
-	Animate * leftdownAnimate;
 };

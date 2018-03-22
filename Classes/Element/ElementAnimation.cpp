@@ -81,40 +81,39 @@ void ElementAnimation::LoadAnimation(Node * node, const float & interval, const 
 
 void ElementAnimation::RunAnimation(AnimationType type)
 {
-	Vector<SpriteFrame *> frames;
+	Animation * animation;
 
 	switch (type)
 	{
 		case AnimationType::RotateLeftToUp:
-			frames = leftupFrames;
+			animation = Animation::createWithSpriteFrames(leftupFrames, 0.05F);
 			break;
 		case AnimationType::RotateUpToLeft:
-			frames = upleftFrames;
+			animation = Animation::createWithSpriteFrames(upleftFrames, 0.05F);
 			break;
 		case AnimationType::RotateUpToRight:
-			frames = uprightFrames;
+			animation = Animation::createWithSpriteFrames(uprightFrames, 0.05F);
 			break;
 		case AnimationType::RotateRightToUp:
-			frames = rightupFrames;
+			animation = Animation::createWithSpriteFrames(rightupFrames, 0.05F);
 			break;
 		case AnimationType::RotateRightToDown:
-			frames = rightdownFrames;
+			animation = Animation::createWithSpriteFrames(rightdownFrames, 0.05F);
 			break;
 		case AnimationType::RotateDownToRight:
-			frames = downrightFrames;
+			animation = Animation::createWithSpriteFrames(downrightFrames, 0.05F);
 			break;
 		case AnimationType::RotateDownToLeft:
-			frames = downleftFrames;
+			animation = Animation::createWithSpriteFrames(downleftFrames, 0.05F);
 			break;
 		case AnimationType::RotateLeftToDown:
-			frames = leftdownFrames;
+			animation = Animation::createWithSpriteFrames(leftdownFrames, 0.05F);
 			break;
 		default:
 			// Действий не требуется
 			break;
 	}
 
-	auto animation = Animation::createWithSpriteFrames(frames, 0.05F);
 	auto animate = Animate::create(animation);
 
 	mainSprite->runAction(animate);

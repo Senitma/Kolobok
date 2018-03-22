@@ -5,6 +5,14 @@ enum class AnimationType
 {
 	// Тип не задан
 	None,
+	// Анимация перемещения
+	MoveToLeft,
+	// Анимация перемещения
+	MoveToUp,
+	// Анимация перемещения
+	MoveToRight,
+	// Анимация перемещения
+	MoveToDown,
 	// Анимация поворота
 	RotateLeftToUp,
 	// Анимация поворота

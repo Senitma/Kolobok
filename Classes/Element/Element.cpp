@@ -1,4 +1,6 @@
+#include "AnimationType.h"
 #include "ElementData.h"
+#include "Field\AxesInfo.h"
 #include "Settings.h"
 
 #include "cocos2d.h"
@@ -104,7 +106,25 @@ void Element::SetDestroyStatus(const bool & value)
 
 void Element::RunAnimation(AnimationType type)
 {
-	data->animation.RunAnimation(type);
+	switch (type)
+	{
+		case AnimationType::MoveToLeft:
+			// Анимация движения
+		case AnimationType::MoveToUp:
+			// Анимация движения
+		case AnimationType::MoveToRight:
+			// Анимация движения
+		case AnimationType::MoveToDown:
+		{
+			auto move = cocos2d::MoveTo::create(0.3F, cocos2d::Vec2(AxesInfo::ConvertToLeft(data->position.GetX()), AxesInfo::ConvertToTop(data->position.GetY())));
+			data->node->runAction(move);
+
+			break;
+		}
+		default:
+			data->animation.RunAnimation(type);
+			break;
+	}
 }
 
 void Element::AddPoint(const int & x, const int & y)

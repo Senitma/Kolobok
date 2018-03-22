@@ -27,12 +27,16 @@ OptionForOneStep::OptionForOneStep(const Element & parent) : ISInterval(parent)
 void OptionForOneStep::Update()
 {
 	// Метод для перемещения элемента
-	auto MoveElement = [&](const int & offsetX, const int & offsetY) 
+	auto MoveElement = [&](const float & speed, AnimationType type) 
 	{
-		if (currentInterval < maxInterval) 
+		if (currentInterval == 0)
+		{
+			parent.RunAnimation(type);
+			currentInterval += speed;
+		}
+		else if (currentInterval < maxInterval) 
 		{ 
-			parent.SetPosition(parent.GetLeft() + offsetX, parent.GetTop() + offsetY);
-			currentInterval += abs(offsetX + offsetY);
+			currentInterval += speed;
 		}
 		else
 		{
@@ -65,16 +69,16 @@ void OptionForOneStep::Update()
 	{
 		// Операции перемещения
 		case OptionForOneStep::MoveLeft:
-			MoveElement(-moveSpeed, 0);
+			MoveElement(moveSpeed, AnimationType::MoveToLeft);
 			break;
 		case OptionForOneStep::MoveUp:
-			MoveElement(0, moveSpeed);
+			MoveElement(moveSpeed, AnimationType::MoveToUp);
 			break;
 		case OptionForOneStep::MoveRight:
-			MoveElement(moveSpeed, 0);
+			MoveElement(moveSpeed, AnimationType::MoveToRight);
 			break;
 		case OptionForOneStep::MoveDown:
-			MoveElement(0, -moveSpeed);
+			MoveElement(moveSpeed, AnimationType::MoveToDown);
 			break;
 		// Операции поворота
 		case OptionForOneStep::RotateLeftToUp:

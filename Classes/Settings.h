@@ -42,13 +42,13 @@ namespace Settings
 	const MapIndexType DEFAULTMAP = MapIndexType::Example;
 
 	// Скорость перемещения персонажа
-	const float MOVESPEED = 4.0F;
+	const float MOVESPEED = 3.1F;
 	// Скорость вращения персонажа
 	const float ROTATESPEED = 4.5F;
 	// Период создания снаряда
 	const float CREATEFIREBALLINTERVAL = 120.0F;
 	// Скорость снаряда
-	const float FIREBALLSPEED = 8.0F;
+	const float FIREBALLSPEED = 5.0F;
 
 #pragma endregion
 };
