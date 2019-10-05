@@ -160,7 +160,8 @@ Element Elements::Create(std::string nodeName, ElementNameType name, ClassType t
 
 	// Настройка элемента
 	Element newElement(node, side, name, type);
-	newElement.SetPosition(AxesInfo::ConvertToLeft(x), AxesInfo::ConvertToTop(y));
+	Axes calcAxes = AxesInfo::ConvertToOffset(type, x, y);
+	newElement.SetPosition(calcAxes.GetX(), calcAxes.GetY());
 
 	// Регистрация компонента
 	Field::DrawElement(node);

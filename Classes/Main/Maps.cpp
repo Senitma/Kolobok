@@ -60,8 +60,11 @@ void Maps::ReloadMap()
 
 void Maps::LoadExample()
 {
-	EditSettings::HORIZONTALCELLCOUNT = 20;
-	EditSettings::VERTICALCELLCOUNT = 15;
+	EditSettings::OFFSETX = 300;
+	EditSettings::OFFSETY = 100;
+
+	EditSettings::HORIZONTALCELLCOUNT = 16;
+	EditSettings::VERTICALCELLCOUNT = 7;
 	GenerateFloor();
 
 	Elements::Create(ElementNameType::Main, SideType::Right, 0, 0);
@@ -78,9 +81,9 @@ void Maps::LoadExample()
 	Elements::Create(ElementNameType::Gun, SideType::Down, 5, 0);
 	Elements::Create(ElementNameType::Gun, SideType::Down, 9, 0);
 	Elements::Create(ElementNameType::Gun, SideType::Down, 12, 0);
-	Elements::Create(ElementNameType::Gun, SideType::Up, 6, 14);
-	Elements::Create(ElementNameType::Gun, SideType::Up, 10, 14);
-	Elements::Create(ElementNameType::Gun, SideType::Up, 13, 14);
+	Elements::Create(ElementNameType::Gun, SideType::Up, 6, Settings::VERTICALCELLCOUNT - 1);
+	Elements::Create(ElementNameType::Gun, SideType::Up, 10, Settings::VERTICALCELLCOUNT - 1);
+	Elements::Create(ElementNameType::Gun, SideType::Up, 13, Settings::VERTICALCELLCOUNT - 1);
 }
 void Maps::LoadLabyrinth()
 {
@@ -251,8 +254,8 @@ void Maps::LoadLabyrinth()
 }
 void Maps::LoadAlgorithmTesth()
 {
-	EditSettings::OFFSETX = 100;
-	EditSettings::OFFSETY = -300;
+	EditSettings::OFFSETX = 300;
+	EditSettings::OFFSETY = 0;
 
 	EditSettings::HORIZONTALCELLCOUNT = 16;
 	EditSettings::VERTICALCELLCOUNT = 7;

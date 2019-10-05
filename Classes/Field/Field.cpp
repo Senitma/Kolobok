@@ -49,6 +49,7 @@ void Field::LoseGame()
 }
 void Field::Reload()
 {
+	AxesInfo::ANGLE++;
 	cells.clear();
 	Maps::ReloadMap();
 

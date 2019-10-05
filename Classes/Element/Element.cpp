@@ -1,6 +1,7 @@
 #include "AnimationType.h"
 #include "ElementData.h"
 #include "Field\AxesInfo.h"
+#include "Field\Relations.h"
 #include "Settings.h"
 
 #include "cocos2d.h"
@@ -22,9 +23,17 @@ Element::Element(cocos2d::Node * node, SideType side, ElementNameType name, Clas
 	data->name = name;
 	data->type = type;
 
-	if (side != SideType::None)
+	switch (side)
 	{
-		data->animation.LoadAnimation(data->node, Settings::ROTATESPEED, 5, Settings::NODEWIDTH, Settings::NODEHEIGHT, side);
+		case Left:
+		case Up:
+		case Right:
+		case Down:
+			data->animation.LoadAnimation(data->node, Settings::ROTATESPEED, 5, Settings::NODEWIDTH, Settings::NODEHEIGHT, side);
+			break;
+		default:
+			// Действий не требуется
+			break;
 	}
 
 	id++;
@@ -85,7 +94,20 @@ int Element::GetTop() const
 }
 void Element::SetPosition(const int & x, const int & y)
 {
+	//int order;
+	//int orderDelta = Relations::GetOrderDelta(data->type);
+
+	//if (orderDelta == 1)
+	//{
+	//	order = x * Settings::VERTICALCELLCOUNT + y;
+	//}
+	//else
+	//{
+	//	order = Settings::VERTICALCELLCOUNT * Settings::HORIZONTALCELLCOUNT + (data->position.GetX() + data->position.GetY()) * 5 + Relations::GetOrderDelta(data->type);
+	//}
+
 	data->node->setPosition(cocos2d::Vec2(x, y));
+	//data->node->setLocalZOrder(order);
 }
 int Element::GetRotation() const
 {
@@ -104,7 +126,7 @@ void Element::SetDestroyStatus(const bool & value)
 	data->destroyStatus = value;
 }
 
-void Element::RunAnimation(AnimationType type)
+void Element::RunAnimation(const AnimationType & type)
 {
 	switch (type)
 	{
@@ -116,7 +138,8 @@ void Element::RunAnimation(AnimationType type)
 			// Анимация движения
 		case AnimationType::MoveToDown:
 		{
-			auto move = cocos2d::MoveTo::create(0.3F, cocos2d::Vec2(AxesInfo::ConvertToLeft(data->position.GetX()), AxesInfo::ConvertToTop(data->position.GetY())));
+			Axes calcAxes = AxesInfo::ConvertToOffset(data->type, data->position.GetX(), data->position.GetY());
+			auto move = cocos2d::MoveTo::create(0.3F, cocos2d::Vec2(calcAxes.GetX(), calcAxes.GetY()));
 			data->node->runAction(move);
 
 			break;

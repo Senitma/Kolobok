@@ -1,28 +1,23 @@
 #pragma once
 
+// Перечисление возможных типов
+enum ClassType;
 // Класс координат
 struct Axes;
 
-// Класс информации для координат
-class AxesInfo
+// Информация для координат
+namespace AxesInfo
 {
-public:
-
 	// Конвертирование координат в индекс
-	static int ConvertToIndex(const Axes & value);
+	int ConvertToIndex(const Axes & value);
 	// Конвертирование координат в индекс
-	static int ConvertToIndex(const int &x, const int &y);
-	// Конвертировать смещения в координаты
-	static int ConvertToX(const int &value);
-	// Конвертировать смещения в координаты
-	static int ConvertToY(const int &value);
+	int ConvertToIndex(const int &x, const int &y);
 	// Конвертирование индекса в координаты
-	static Axes ConvertToAxes(const int &value);
+	Axes ConvertToAxes(const int &value);
 	// Конвертировать смещения в координаты
-	static Axes ConvertToAxes(const int &left, const int &top);
-	// Конвертировать координаты X в смещение слева
-	static int ConvertToLeft(const int &value);
-	// Конвертировать координаты Y в смещение сверху
-	static int ConvertToTop(const int &value);
+	Axes ConvertToAxes(const int &left, const int &top);
+	// Конвертировать координаты в смещения
+	Axes ConvertToOffset(const ClassType & type, const int & x, const int & y);
 
+	extern int ANGLE;
 };

@@ -1,4 +1,5 @@
 #include "Element\ClassType.h"
+#include "Field\Axes.h"
 #include "Field\Field.h"
 #include "Field\AxesInfo.h"
 #include "Option\MouseType.h"
@@ -10,29 +11,28 @@ void OptionForMouseCreateDestroy::MouseClick(const MouseType & type, const int &
 {
 	if (type == MouseType::Right)
 	{
-		int calcX = AxesInfo::ConvertToX(x);
-		int calcY = AxesInfo::ConvertToY(y);
+		Axes calcAxes = AxesInfo::ConvertToAxes(x, y);
 
-		if ((calcX >= 0) && (calcY >= 0) && (calcX < Settings::HORIZONTALCELLCOUNT) && (calcY < Settings::VERTICALCELLCOUNT))
+		if ((calcAxes.GetX() >= 0) && (calcAxes.GetY() >= 0) && (calcAxes.GetX() < Settings::HORIZONTALCELLCOUNT) && (calcAxes.GetY() < Settings::VERTICALCELLCOUNT))
 		{
 
-			SetOffsetX(calcX - ISOption::parent.GetX());
-			SetOffsetY(calcY - ISOption::parent.GetY());
+			SetOffsetX(calcAxes.GetX() - ISOption::parent.GetX());
+			SetOffsetY(calcAxes.GetY() - ISOption::parent.GetY());
 
-			if (Field::CanAddElement(ClassType::Block, calcX, calcY) == true)
+			if (Field::CanAddElement(ClassType::Block, calcAxes.GetX(), calcAxes.GetY()) == true)
 			{
 				Create();
 				// ”ничтожение блока если он мешает дойти до финиша
 				if (Field::CheckPath() == false)
 				{
-					Field::Destroy(calcX, calcY);
+					Field::Destroy(calcAxes.GetX(), calcAxes.GetY());
 				}
 			}
 			else
 			{
-				if (Field::ContainName(nodeName, calcX, calcY) == true)
+				if (Field::ContainName(nodeName, calcAxes.GetX(), calcAxes.GetY()) == true)
 				{
-					Field::Destroy(calcX, calcY);
+					Field::Destroy(calcAxes.GetX(), calcAxes.GetY());
 				}
 			}
 		}

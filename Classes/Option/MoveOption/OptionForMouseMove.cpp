@@ -4,16 +4,15 @@
 
 #include "OptionForMouseMove.h"
 
-void OptionForMouseMove::MouseClick(const MouseType & type, const int & x, const int & y)
+void OptionForMouseMove::MouseClick(const MouseType & type, const int & left, const int & top)
 {
 	if (type == MouseType::Left)
 	{
-		int calcX = AxesInfo::ConvertToX(x);
-		int calcY = AxesInfo::ConvertToY(y);
+		Axes calcAxes = AxesInfo::ConvertToAxes(left, top);
 
-		if ((calcX >= 0) && (calcY >= 0) && (calcX < Settings::HORIZONTALCELLCOUNT) && (calcY < Settings::VERTICALCELLCOUNT))
+		if ((calcAxes.GetX() >= 0) && (calcAxes.GetY() >= 0) && (calcAxes.GetX() < Settings::HORIZONTALCELLCOUNT) && (calcAxes.GetY() < Settings::VERTICALCELLCOUNT))
 		{
-			MoveTo(calcX, calcY);
+			MoveTo(calcAxes.GetX(), calcAxes.GetY());
 		}
 	}
 }

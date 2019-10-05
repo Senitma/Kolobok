@@ -17,13 +17,13 @@ namespace Settings
 	const float FPS = 60;
 
 	// Ширина прорисовки
-	const int NODEWIDTH = 64;
+	const int NODEWIDTH = 128;
 	// Высота прорисовки
-	const int NODEHEIGHT = 64;
+	const int NODEHEIGHT = 128;
 	// Ширина ячейки
-	const int CELLWIDTH = 64;
+	const int CELLWIDTH = 128;
 	// Высота ячейки
-	const int CELLHEIGHT = 64;
+	const int CELLHEIGHT = 70;
 
 #pragma endregion
 #pragma region Настройки игры
@@ -46,7 +46,7 @@ namespace Settings
 	// Скорость вращения персонажа
 	const float ROTATESPEED = 4.5F;
 	// Период создания снаряда
-	const float CREATEFIREBALLINTERVAL = 120.0F;
+	const float CREATEFIREBALLINTERVAL = 240.0F;
 	// Скорость снаряда
 	const float FIREBALLSPEED = 5.0F;
 

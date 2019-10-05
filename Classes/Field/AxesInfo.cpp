@@ -1,7 +1,13 @@
+#include "cmath"
+
 #include "Axes.h"
+#include "Element\ClassType.h"
+#include "Relations.h"
 #include "Settings.h"
 
 #include "AxesInfo.h"
+
+int AxesInfo::ANGLE = 120;
 
 Axes AxesInfo::ConvertToAxes(const int & value)
 {
@@ -12,7 +18,27 @@ Axes AxesInfo::ConvertToAxes(const int & value)
 }
 Axes AxesInfo::ConvertToAxes(const int & left, const int & top)
 {
-	return Axes(ConvertToX(left), ConvertToY(top));
+	//int x = (Settings::FIELDWIDTHSIZE - (left - Settings::OFFSETX)) / Settings::CELLWIDTH;
+	//int y = (Settings::FIELDHEIGHTSIZE - (top - Settings::OFFSETY)) / Settings::CELLHEIGHT;
+
+	int x = round((double)Settings::HORIZONTALCELLCOUNT - (left - Settings::OFFSETX) / (double)Settings::CELLWIDTH - (top - Settings::OFFSETY) / (double)Settings::CELLHEIGHT);
+	int y = round((left - Settings::OFFSETX) / (double)Settings::CELLWIDTH + (double)Settings::VERTICALCELLCOUNT - (top - Settings::OFFSETY) / (double)Settings::CELLHEIGHT);
+
+	Axes a = Axes(x, y);
+	
+	return a;
+}
+Axes AxesInfo::ConvertToOffset(const ClassType & side, const int & x, const int & y)
+{
+	//int left = (Settings::FIELDWIDTHSIZE - (Settings::CELLWIDTH / 2 + x * Settings::CELLWIDTH)) + Settings::OFFSETX;
+	//int top = (Settings::FIELDHEIGHTSIZE - (Settings::CELLHEIGHT / 2 + y * Settings::CELLHEIGHT)) + Settings::OFFSETY;
+
+	int left = ((Settings::HORIZONTALCELLCOUNT - x - Settings::VERTICALCELLCOUNT + y) * Settings::CELLWIDTH - Settings::CELLWIDTH) / 2 + Settings::OFFSETX;
+	int top = ((Settings::HORIZONTALCELLCOUNT - x + Settings::VERTICALCELLCOUNT - y) * Settings::CELLHEIGHT + Settings::CELLHEIGHT) / 2 + Settings::OFFSETY;
+
+	if (Relations::GetOrderDelta(side) != 1) { top += 61; }
+
+	return Axes(left, top);
 }
 int AxesInfo::ConvertToIndex(const Axes & value)
 {
@@ -21,20 +47,4 @@ int AxesInfo::ConvertToIndex(const Axes & value)
 int AxesInfo::ConvertToIndex(const int & x, const int & y)
 {
 	return y * Settings::HORIZONTALCELLCOUNT + x;
-}
-int AxesInfo::ConvertToX(const int & value)
-{
-	return (Settings::FIELDWIDTHSIZE - (value - Settings::OFFSETX)) / Settings::CELLWIDTH;
-}
-int AxesInfo::ConvertToY(const int & value)
-{
-	return (Settings::FIELDHEIGHTSIZE - (value - Settings::OFFSETY)) / Settings::CELLHEIGHT;
-}
-int AxesInfo::ConvertToLeft(const int &value)
-{
-	return (Settings::FIELDWIDTHSIZE - (Settings::CELLWIDTH / 2 + value * Settings::CELLWIDTH)) + Settings::OFFSETX;
-}
-int AxesInfo::ConvertToTop(const int &value)
-{
-	return (Settings::FIELDHEIGHTSIZE - (Settings::CELLHEIGHT / 2 + value * Settings::CELLHEIGHT)) + Settings::OFFSETY;
 }

@@ -4,6 +4,7 @@
 #include "AxesInfo.h"
 #include "Relations.h"
 #include "ResultType.h"
+#include "Settings.h"
 
 #include "Cell.h"
 
@@ -57,7 +58,29 @@ ResultType Cell::AddElement(Element & item)
 {
 	if (ContainElement(item) == false)
 	{
-		int order = AxesInfo::ConvertToIndex(x, y) * Relations::GetOrderDelta(item.GetType());
+		int order;
+		int orderDelta = Relations::GetOrderDelta(item.GetType());
+
+		if (orderDelta == 1)
+		{
+			order = x * Settings::VERTICALCELLCOUNT + y;
+		}
+		else
+		{
+			int calcX = x;
+			int calcY = y;
+
+			if (x < item.GetX())
+			{
+				calcX = item.GetX();
+			}
+			if (y < item.GetY())
+			{
+				calcY = item.GetY();
+			}
+
+			order = Settings::VERTICALCELLCOUNT * Settings::HORIZONTALCELLCOUNT + (calcX + calcY) * 5 + Relations::GetOrderDelta(item.GetType());
+		}
 
 		items.push_back(item);
 		items.back().SetPosition(x, y, order);

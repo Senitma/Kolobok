@@ -18,8 +18,9 @@ void OptionForMove::Standed()
 	if (moveType != MoveType::ToOneStep && points.size() > 1)
 	{
 		// При точки переходит к следующей
-		if (parent.GetLeft() == AxesInfo::ConvertToLeft(points.front().GetX()) && 
-			parent.GetTop() == AxesInfo::ConvertToTop(points.front().GetY()))
+
+		Axes calcAxes = AxesInfo::ConvertToOffset(parent.GetType(), points.front().GetX(), points.front().GetY());
+		if ((parent.GetLeft() == calcAxes.GetX()) && (parent.GetTop() == calcAxes.GetY()))
 		{
 			points.pop();
 			OptionForOneStep::MoveTo(points.front().GetX(), points.front().GetY());

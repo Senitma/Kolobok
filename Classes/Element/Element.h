@@ -78,7 +78,7 @@ public:
 	void SetDestroyStatus(const bool & value);
 
 	// Запуск анимации
-	void RunAnimation(AnimationType type);
+	void RunAnimation(const AnimationType & type);
 
 	// Добавить точку для патрулирования
 	void AddPoint(const int & x, const int & y);

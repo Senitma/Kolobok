@@ -1,5 +1,6 @@
 #include "Element\SideType.h"
 #include "Element\AnimationType.h"
+#include "Field\Axes.h"
 #include "Field\Field.h"
 #include "Field\AxesInfo.h"
 #include "Settings.h"
@@ -40,7 +41,8 @@ void OptionForOneStep::Update()
 		}
 		else
 		{
-			parent.SetPosition(AxesInfo::ConvertToLeft(parent.GetX()), AxesInfo::ConvertToTop(parent.GetY()));
+			Axes calcAxes = AxesInfo::ConvertToOffset(parent.GetType(), parent.GetX(), parent.GetY());
+			parent.SetPosition(calcAxes.GetX(), calcAxes.GetY());
 			currentStatus = StatusType::Stand;
 			Standed();
 		}
