@@ -10,15 +10,15 @@
 
 Cell::Cell()
 {
-	items = std::list<MoveElement>();
 }
 Cell::~Cell()
 {
 	std::for_each(++items.begin(), items.end(), [=](Element & item)
 	{
 		item.SetDestroyStatus(true);
-		items.remove(item);
 	});
+
+    items.clear();
 }
 
 void Cell::SetIndex(const int & index)
@@ -91,7 +91,11 @@ ResultType Cell::AddElement(Element & item)
 }
 ResultType Cell::RemoveElement(Element & item)
 {
-	items.remove(item);
+    auto eraser = std::remove_if( items.begin(), items.end(), [item]( const Element& _item )
+    {
+        return ( _item == item );
+    } );
+    items.erase( eraser, items.end() );
 	
 	return CheckRelations();
 }
@@ -144,14 +148,19 @@ ResultType Cell::CheckRelations()
 
 	return result;
 }
-void Cell::Destroy(const bool & allItem)
+void Cell::Destroy(const bool& allItem)
 {
-	std::for_each(++items.begin(), items.end(), [=](Element & item)
-	{
-		if ((allItem == true) || (Relations::CanDestroy(item.GetType()) == true))
-		{
-			item.SetDestroyStatus(true);
-			items.remove(item);
-		}
-	});
+    auto eraser = std::remove_if( ++items.begin(), items.end(), [allItem]( Element& item )
+    {
+        if( ( allItem == true ) || ( Relations::CanDestroy( item.GetType() ) == true ) )
+        {
+            item.SetDestroyStatus( true );
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    } );
+    items.erase( eraser, items.end() );
 }

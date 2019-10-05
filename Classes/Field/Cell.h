@@ -57,7 +57,7 @@ private:
 	// Положение ячейки по оси Y
 	int y;
 	// Набор элементов
-	std::list<MoveElement> items;
+	std::vector<MoveElement> items;
 
 	// Проверить наличие повторяющихся элементов
 	ClassType GetDoubleElements() const;

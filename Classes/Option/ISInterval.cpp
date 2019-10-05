@@ -1,5 +1,4 @@
-#include "algorithm"
-#include "list"
+#include <algorithm>
 
 #include "Element\ElementNameType.h"
 #include "Field\Field.h"
@@ -8,44 +7,42 @@
 #include "ISInterval.h"
 
 // Набор опций
-static std::list<std::shared_ptr<ISInterval>> items;
+namespace
+{
+    std::vector<std::shared_ptr<ISInterval>> items;
+    std::vector<std::shared_ptr<ISInterval>> newItems;
+}
 
 void ISInterval::Register(std::shared_ptr<ISInterval> option)
 {
-	items.push_back(option);
+    newItems.push_back(option);
 }
+
 void ISInterval::PassUpdate()
 {
+    for( auto& item : newItems )
+        items.push_back( item );
+
+    newItems.clear();
+
+    auto eraser = std::remove_if( items.begin(), items.end(), []( std::shared_ptr<ISInterval> item )
+    {
+        return ( item->GetParent().GetDestroyStatus() );
+    } );
+    items.erase( eraser, items.end() );
+
 	if (Field::GetCurrentGameStatus() == GameStatusType::Gaming)
 	{
-		std::for_each(items.begin(), items.end(), [](std::shared_ptr<ISInterval> item)
-		{
-			if (item->GetParent().GetDestroyStatus() == false)
-			{
-				item->Update();
-			}
-			else
-			{
-				items.remove(item);
-			}
-		});
+        for( auto& item : items )
+            item->Update();
 	}
 	else
 	{
-		// Запуск анимации только для главного героя
-		std::for_each(items.begin(), items.end(), [](std::shared_ptr<ISInterval> item)
-		{
-			if (item->GetParent().GetDestroyStatus() == false)
-			{
-				if (item->GetParent().GetName() == ElementNameType::Main)
-				{
-					item->Update();
-				}
-			}
-			else
-			{
-				items.remove(item);
-			}
-		});
+        // Запуск анимации только для главного героя
+        for( auto& item : items )
+        {
+            if( item->GetParent().GetName() == ElementNameType::Main )
+                item->Update();
+        }
 	}
 }
