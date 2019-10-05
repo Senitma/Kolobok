@@ -259,3 +259,24 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
+build-cfg.json
+cocos2dx.props
+Debug.win32/game.res
+Debug.win32/Kolobok.exp
+Debug.win32/vc141.idb
+Debug.win32/vc142.idb
+Debug.win32/Kolobok.tlog/CL.command.1.tlog
+Debug.win32/Kolobok.tlog/CL.read.1.tlog
+Debug.win32/Kolobok.tlog/CL.write.1.tlog
+Debug.win32/Kolobok.tlog/CustomBuildStep.read.1u.tlog
+Debug.win32/Kolobok.tlog/CustomBuildStep.write.1u.tlog
+Debug.win32/Kolobok.tlog/Kolobok.lastbuildstate
+Debug.win32/Kolobok.tlog/Kolobok.write.1u.tlog
+Debug.win32/Kolobok.tlog/link.command.1.tlog
+Debug.win32/Kolobok.tlog/link.delete.1.tlog
+Debug.win32/Kolobok.tlog/link.read.1.tlog
+Debug.win32/Kolobok.tlog/link.write.1.tlog
+Debug.win32/Kolobok.tlog/rc.command.1.tlog
+Debug.win32/Kolobok.tlog/rc.read.1.tlog
+Debug.win32/Kolobok.tlog/rc.write.1.tlog
+Debug.win32/res/Assets/Patrol/rightdown1.png
